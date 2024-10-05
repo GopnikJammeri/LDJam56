@@ -17,8 +17,11 @@ position = Vector2(276, 194)
 
 [node name="HandRight" parent="." instance=ExtResource("3_ay8sv")]
 position = Vector2(882, 327)
+move_with_keys = true
 
 [node name="HandLeft" parent="." instance=ExtResource("3_ay8sv")]
 position = Vector2(154, 341)
+move_with_keys = true
+is_active = false
 
 [node name="Control" parent="." instance=ExtResource("4_cmb76")]

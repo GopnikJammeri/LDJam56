@@ -58,7 +58,12 @@ func handle_attack() -> void:
 			attach()
 		elif not is_on_cooldown:
 			detach()
-
+			
+	# Move to detach		
+	var moved = Input.is_action_just_pressed("mosquito_move_left") or Input.is_action_just_pressed("mosquito_move_right")
+	if(is_attached and moved):
+		detach()
+		
 func fetch_character() -> void:
 	var world = get_tree().current_scene
 	var human_local = world.get_node("Human")
