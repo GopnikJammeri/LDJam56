@@ -12,7 +12,8 @@
 script = ExtResource("1_lhxt3")
 
 [node name="Human" parent="." instance=ExtResource("2_xs0at")]
-position = Vector2(529, 483)
+position = Vector2(529, 350)
+scale = Vector2(1.5, 1.5)
 
 [node name="HandRight" parent="." instance=ExtResource("3_ay8sv")]
 position = Vector2(866, 395)

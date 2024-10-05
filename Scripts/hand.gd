@@ -96,7 +96,15 @@ func _on_collision_cooldown_timeout():
 func _on_hurt_box_area_entered(area: Area2D) -> void:
 	print("ENTERED ", side)
 	emit_signal("mosquito_overlapped_start", side)
+	if( area.is_in_group("Ears")):
+		print("Ear plucked")
+		area.add_to_group("Plucked")
+		area.remove_from_group("Ears")
 
 
 func _on_hurt_box_area_exited(area: Area2D) -> void:
 	emit_signal("mosquito_overlapped_end", side)
+	if( area.is_in_group("Plucked")):
+		print("Ear unplucked")
+		area.add_to_group("Ears")
+		area.remove_from_group("Plucked")
