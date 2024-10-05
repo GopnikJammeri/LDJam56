@@ -1,0 +1,7 @@
+[gd_scene load_steps=2 format=3 uid="uid://cixwu01ok35bm"]
+
+[ext_resource type="AudioStream" uid="uid://dwh27536gscqd" path="res://Assets/Music/MosquitoMusicAlt.mp3" id="1_b6klg"]
+
+[node name="BackgroundMusic" type="AudioStreamPlayer"]
+stream = ExtResource("1_b6klg")
+autoplay = true

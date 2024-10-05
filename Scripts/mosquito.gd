@@ -8,6 +8,7 @@ extends CharacterBody2D
 @onready var bite_mark_timer: Timer = $BiteMarkTimer
 
 const BITE_MARK = preload("res://Scenes/bite_mark.tscn")
+const TIME_REDUCTION: float = 30.0
 
 var screen_size: Vector2 = Vector2.ZERO
 var is_attached: bool = false
@@ -21,10 +22,12 @@ var attached_offset: Vector2 = Vector2.ZERO
 var bite_threshold: float = 20.0
 var attached_to: Globals.MosquitoPlace
 var position_of_human: Vector2 = Vector2.ZERO
+var spawn_point = null
 
 func _ready() -> void:
 	screen_size = get_viewport_rect().size
 	fetch_character()
+	position = spawn_point.position
 	
 func _physics_process(delta: float) -> void:
 	handle_human_position() 
@@ -79,9 +82,11 @@ func fetch_character() -> void:
 	var human_local = world.get_node("Human")
 	var hand_right_local = world.get_node("HandRight")
 	var hand_left_local = world.get_node("HandLeft")
+	spawn_point = world.get_node("MosquitoSpawnPoint")
 	hand_right = hand_right_local
 	hand_left = hand_left_local
 	human = human_local
+	
 	if human:
 		human.connect("mosquito_overlapped_start", set_is_on_human)
 		human.connect("mosquito_overlapped_end", deset_is_on_human)
@@ -107,7 +112,6 @@ func detach() -> void:
 	bite_mark_timer.stop()
 
 func set_is_on_human(side: Globals.MosquitoPlace):
-	
 	if attached_to != Globals.MosquitoPlace.NONE:
 		return
 	
@@ -147,7 +151,7 @@ func _on_cooldown_timer_timeout() -> void:
 
 func _on_hurt_box_area_entered(area: Area2D):
 	print("mosquito hit")
-			
+	handle_death()
 
 func is_bite_mark_overlapped() -> bool:
 	for child in human.get_children():
@@ -191,3 +195,11 @@ func _on_hit_box_area_entered(area: Area2D) -> void:
 				position = nodeLeftEar.get_global_position()
 			else:
 				position = nodeRightEar.get_global_position()
+				
+func handle_death():
+	cooldown_timer.stop()
+	bite_mark_timer.stop()
+	detach()
+	position = spawn_point.position
+	velocity = Vector2.ZERO
+	StatsManager.reduce_time(TIME_REDUCTION)

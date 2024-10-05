@@ -3,18 +3,25 @@ extends Node
 signal on_health_change()
 
 var health: float = 100
+@onready var timer = $Timer
 
 func GetHealth() -> int:
 	return health
 
 func ReduceHealth(damage:float) -> void:
 	health -= damage
+	
+	if health <= 0:
+		get_tree().set_deferred("paused", true)
+	
 	emit_signal("on_health_change")
 
-# Called when the node enters the scene tree for the first time.
-func _ready() -> void:
-	pass # Replace with function body.
+func _on_timer_timeout():
+	get_tree().set_deferred("paused", true)
 
-# Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(delta: float) -> void:
-	pass
+func reduce_time(time_to_reduce: float):
+	if timer.time_left > time_to_reduce:
+		var new_time_left = timer.time_left - time_to_reduce
+		timer.start(new_time_left)
+	else:
+		timer.start(0.1)
