@@ -55,7 +55,6 @@ func _physics_process(delta):
 		move_speed = move_speed_fast
 	else:
 		if (position + move_vector).distance_to(reach_area.position) < position.distance_to(reach_area.position):
-			print("fast")
 			move_speed = move_speed_fast
 		else:
 			move_speed = move_speed_slow
@@ -73,6 +72,7 @@ func _physics_process(delta):
 		move_vector = (pointer_position - position).normalized()
 		position += move_vector * delta * move_speed
 	
+	move_vector = direction.normalized()
 	direction = direction.normalized() * move_speed
 	velocity = direction
 	move_and_slide()
