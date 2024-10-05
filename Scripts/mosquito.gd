@@ -8,6 +8,7 @@ extends CharacterBody2D
 @onready var bite_mark_timer: Timer = $BiteMarkTimer
 
 const BITE_MARK = preload("res://Scenes/bite_mark.tscn")
+const TIME_REDUCTION: float = 30.0
 
 var screen_size: Vector2 = Vector2.ZERO
 var is_attached: bool = false
@@ -111,7 +112,6 @@ func detach() -> void:
 	bite_mark_timer.stop()
 
 func set_is_on_human(side: Globals.MosquitoPlace):
-	
 	if attached_to != Globals.MosquitoPlace.NONE:
 		return
 	
@@ -189,3 +189,4 @@ func handle_death():
 	detach()
 	position = spawn_point.position
 	velocity = Vector2.ZERO
+	StatsManager.reduce_time(TIME_REDUCTION)
