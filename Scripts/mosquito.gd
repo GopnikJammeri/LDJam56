@@ -21,7 +21,7 @@ var hand_left = null
 var hand_right = null
 var attached_offset: Vector2 = Vector2.ZERO
 var bite_threshold: float = 20.0
-var attached_to: Globals.MosquitoPlace
+var attached_to: Globals.MosquitoPlace = Globals.MosquitoPlace.NONE
 var position_of_human: Vector2 = Vector2.ZERO
 var spawn_point = null
 
@@ -96,8 +96,9 @@ func fetch_character() -> void:
 		hand_left.connect("mosquito_overlapped_start", set_is_on_human)
 		hand_left.connect("mosquito_overlapped_end", deset_is_on_human)
 	else:
-		assert(human != null, "mosquito.gd : fetch_character : -Human not found in a scene-")
-	
+		#assert(human != null, "mosquito.gd : fetch_character : -Human not found in a scene-")
+		pass
+		
 func attach() -> void:
 	animation_tree["parameters/conditions/succ"] = true
 	animation_tree["parameters/conditions/stopsucc"] = false
