@@ -1,0 +1,26 @@
+[gd_scene load_steps=4 format=3 uid="uid://dant37hgbwwmw"]
+
+[ext_resource type="Script" path="res://Scripts/human.gd" id="1_aqvcd"]
+[ext_resource type="Texture2D" uid="uid://f1jlkaukntpw" path="res://Assets/human.png" id="1_cril6"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_pajxq"]
+size = Vector2(662, 649)
+
+[node name="Human" type="Node2D"]
+script = ExtResource("1_aqvcd")
+
+[node name="Area2D" type="Area2D" parent="."]
+collision_layer = 4
+collision_mask = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+position = Vector2(-1, -2.5)
+scale = Vector2(0.5, 0.5)
+shape = SubResource("RectangleShape2D_pajxq")
+
+[node name="Sprite2D" type="Sprite2D" parent="Area2D"]
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("1_cril6")
+
+[connection signal="body_entered" from="Area2D" to="." method="_on_area_2d_body_entered"]
+[connection signal="body_exited" from="Area2D" to="." method="_on_area_2d_body_exited"]
