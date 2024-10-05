@@ -7,6 +7,7 @@ var current_hand: Hand = null
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
+	print("EJEJE")
 	set_active_hand(hand_right)
 
 func _input(event: InputEvent) -> void:
@@ -22,6 +23,7 @@ func set_active_hand(hand: Hand) -> void:
 	
 	print(hand_left.active)
 	print(hand_right.active)
+	print(current_hand.active)
 	
 func switch_hand() -> void:
 	if current_hand == hand_left:
