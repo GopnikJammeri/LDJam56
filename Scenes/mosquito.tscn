@@ -1,7 +1,7 @@
 [gd_scene load_steps=8 format=3 uid="uid://bosri6tikh45c"]
 
 [ext_resource type="Script" path="res://Scripts/mosquito.gd" id="1_s08aw"]
-[ext_resource type="Texture2D" uid="uid://xskxe203o54n" path="res://Assets/Proba/fly.png" id="2_kn36d"]
+[ext_resource type="PackedScene" uid="uid://cwyrudj5qw1e8" path="res://Animations/mosquito_flying.tscn" id="2_82np8"]
 [ext_resource type="PackedScene" uid="uid://c5qlwdli75cap" path="res://Scenes/HitBoxHurtBox/hurt_box.tscn" id="3_5ae6k"]
 [ext_resource type="PackedScene" uid="uid://bx2x4gyv3cq5s" path="res://Scenes/HitBoxHurtBox/hit_box.tscn" id="3_65nvn"]
 
@@ -19,9 +19,8 @@ collision_layer = 2
 collision_mask = 37
 script = ExtResource("1_s08aw")
 
-[node name="Sprite2D" type="Sprite2D" parent="."]
-scale = Vector2(0.2, 0.2)
-texture = ExtResource("2_kn36d")
+[node name="MosquitoSprite" parent="." instance=ExtResource("2_82np8")]
+scale = Vector2(0.15, 0.15)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("RectangleShape2D_eiqwn")
@@ -49,6 +48,7 @@ one_shot = true
 wait_time = 3.0
 one_shot = true
 
+[connection signal="area_entered" from="HitBox" to="." method="_on_hit_box_area_entered"]
 [connection signal="area_entered" from="HurtBox" to="." method="_on_hurt_box_area_entered"]
 [connection signal="timeout" from="CooldownTimer" to="." method="_on_cooldown_timer_timeout"]
 [connection signal="timeout" from="BiteMarkTimer" to="." method="_on_bite_mark_timer_timeout"]

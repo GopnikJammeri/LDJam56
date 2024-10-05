@@ -10,6 +10,10 @@ func GetHealth() -> int:
 
 func ReduceHealth(damage:float) -> void:
 	health -= damage
+	
+	if health <= 0:
+		get_tree().set_deferred("paused", true)
+	
 	emit_signal("on_health_change")
 
 func _on_timer_timeout():

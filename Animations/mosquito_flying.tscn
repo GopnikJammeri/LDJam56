@@ -1,0 +1,67 @@
+[gd_scene load_steps=8 format=3 uid="uid://cwyrudj5qw1e8"]
+
+[ext_resource type="Texture2D" uid="uid://xtipvotab3tl" path="res://Assets/Mosque_Fly_Loop.png" id="1_nv73u"]
+
+[sub_resource type="Animation" id="Animation_tdclc"]
+resource_name = "mosquito_moving"
+length = 1.5
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 1.35),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [1, 16]
+}
+
+[sub_resource type="Animation" id="Animation_danaq"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [1]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_m8xt2"]
+_data = {
+"RESET": SubResource("Animation_danaq"),
+"mosquito_moving": SubResource("Animation_tdclc")
+}
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_x2ydf"]
+animation = &"mosquito_moving"
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_bwcm0"]
+advance_mode = 2
+
+[sub_resource type="AnimationNodeStateMachine" id="AnimationNodeStateMachine_45n87"]
+reset_ends = true
+states/Start/position = Vector2(278, 100)
+states/mosquito_moving/node = SubResource("AnimationNodeAnimation_x2ydf")
+states/mosquito_moving/position = Vector2(506, 100)
+transitions = ["Start", "mosquito_moving", SubResource("AnimationNodeStateMachineTransition_bwcm0")]
+
+[node name="MosquitoSprite" type="Sprite2D"]
+texture_filter = 1
+texture = ExtResource("1_nv73u")
+hframes = 5
+vframes = 4
+frame = 1
+
+[node name="AnimationTree" type="AnimationTree" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_m8xt2")
+}
+tree_root = SubResource("AnimationNodeStateMachine_45n87")

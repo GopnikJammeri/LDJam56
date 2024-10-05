@@ -1,18 +1,23 @@
-[gd_scene load_steps=5 format=3 uid="uid://dant37hgbwwmw"]
+[gd_scene load_steps=7 format=3 uid="uid://dant37hgbwwmw"]
 
 [ext_resource type="Script" path="res://Scripts/human.gd" id="1_aqvcd"]
-[ext_resource type="Texture2D" uid="uid://f1jlkaukntpw" path="res://Assets/Proba/human.png" id="1_cril6"]
+[ext_resource type="Texture2D" uid="uid://co8uehnaeqi3l" path="res://Assets/Head_Static.png" id="2_p8ye1"]
 [ext_resource type="PackedScene" uid="uid://c5qlwdli75cap" path="res://Scenes/HitBoxHurtBox/hurt_box.tscn" id="3_5n7sl"]
+[ext_resource type="PackedScene" uid="uid://bx2x4gyv3cq5s" path="res://Scenes/HitBoxHurtBox/hit_box.tscn" id="4_wa1go"]
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_0ggwt"]
-size = Vector2(654, 642)
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_kj2lm"]
+radius = 143.98
+height = 651.62
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_1q5j8"]
+size = Vector2(20, 70)
 
 [node name="Human" type="StaticBody2D"]
 script = ExtResource("1_aqvcd")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
-scale = Vector2(0.5, 0.5)
-texture = ExtResource("1_cril6")
+scale = Vector2(0.2, 0.2)
+texture = ExtResource("2_p8ye1")
 
 [node name="HurtBox" parent="." instance=ExtResource("3_5n7sl")]
 position = Vector2(-1, -2.5)
@@ -22,7 +27,20 @@ collision_mask = 8
 collision_priority = 2.0
 
 [node name="CollisionShape2D" parent="HurtBox" index="0"]
-shape = SubResource("RectangleShape2D_0ggwt")
+position = Vector2(0, 10)
+shape = SubResource("CapsuleShape2D_kj2lm")
+
+[node name="HitBox" parent="." groups=["Ears"] instance=ExtResource("4_wa1go")]
+collision_layer = 8
+collision_mask = 8
+
+[node name="CollisionRightEar" type="CollisionShape2D" parent="HitBox" groups=["Ears"]]
+position = Vector2(90, 0)
+shape = SubResource("RectangleShape2D_1q5j8")
+
+[node name="CollisionLeftEar" type="CollisionShape2D" parent="HitBox" groups=["Ears"]]
+position = Vector2(-90, 0)
+shape = SubResource("RectangleShape2D_1q5j8")
 
 [connection signal="area_entered" from="HurtBox" to="." method="_on_hurt_box_area_entered"]
 [connection signal="area_exited" from="HurtBox" to="." method="_on_hurt_box_area_exited"]

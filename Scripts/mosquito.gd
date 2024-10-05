@@ -131,9 +131,8 @@ func _on_bite_mark_timer_timeout() -> void:
 	if is_bite_mark_overlapped():
 		return
 		
-	var bite_mark_position = position - position_of_human
 	var bite_mark = BITE_MARK.instantiate()
-	bite_mark.position = bite_mark_position
+	
 	bite_mark.set_meta("bite_mark", true)
 	
 	match attached_to:
@@ -143,16 +142,17 @@ func _on_bite_mark_timer_timeout() -> void:
 			hand_right.add_child(bite_mark)
 		Globals.MosquitoPlace.FACE:
 			human.add_child(bite_mark) 
-	
+	bite_mark.global_position = get_global_position()
 	print("Bite mark spawned!")
 
 func _on_cooldown_timer_timeout() -> void:
 	print("Cooldown finished")
 	is_on_cooldown = false
 
-func _on_hurt_box_area_entered(area):
-	print("mosquito hit")
-	handle_death()
+func _on_hurt_box_area_entered(area: Area2D):
+	if(area.is_in_group("Hands")):
+		print("mosquito hit")
+		handle_death()
 
 func is_bite_mark_overlapped() -> bool:
 	for child in human.get_children():
@@ -184,6 +184,19 @@ func handle_human_position() -> void:
 	elif attached_to == Globals.MosquitoPlace.FACE:
 		position_of_human = human.position
 
+
+func _on_hit_box_area_entered(area: Area2D) -> void:
+	if area.is_in_group("Ears"):
+		print("COLLIDED WITH EAR")
+		print(area)
+		var nodeLeftEar = get_node("/root/World/Human/HitBox/CollisionLeftEar")
+		var nodeRightEar = get_node("/root/World/Human/HitBox/CollisionRightEar")
+		if nodeLeftEar != null and nodeRightEar != null:
+			if(position.distance_to(nodeLeftEar.get_global_position()) > position.distance_to(nodeRightEar.get_global_position())):
+				position = nodeLeftEar.get_global_position()+Vector2(-40,0)
+			else:
+				position = nodeRightEar.get_global_position()+Vector2(40,0)
+				
 func handle_death():
 	cooldown_timer.stop()
 	bite_mark_timer.stop()
