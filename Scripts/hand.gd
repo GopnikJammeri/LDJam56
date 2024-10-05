@@ -2,10 +2,6 @@ extends CharacterBody2D
 
 class_name Hand
 
-@export var move_speed: float = 200.0
-@export var move_with_keys: bool = true
-@export var is_active: bool = true
-
 var pointer_position = Vector2.ZERO
 var move_vector = Vector2.ZERO
 var is_ready_to_attack = true
@@ -14,7 +10,8 @@ var active: bool = false
 var move_speed
 @export var move_speed_fast = 300
 @export var move_speed_slow = 30
-@export var move_with_keys = true
+@export var move_with_keys: bool = true
+@export var is_active: bool = true
 var Mosquito = preload("res://Scenes/mosquito.tscn")
 
 @onready var attack_cooldown = $AttackCooldown
