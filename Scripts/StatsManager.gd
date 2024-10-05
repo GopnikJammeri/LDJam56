@@ -1,5 +1,7 @@
 extends Node
 
+signal on_health_change()
+
 var health: int = 100
 
 func GetHealth() -> int:
@@ -7,6 +9,7 @@ func GetHealth() -> int:
 
 func ReduceHealth(damage:int) -> void:
 	health -= damage
+	emit_signal("on_health_change")
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
