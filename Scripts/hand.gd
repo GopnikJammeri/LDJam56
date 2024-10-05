@@ -9,7 +9,7 @@ var Mosquito = preload("res://Scenes/mosquito.tscn")
 
 @onready var attack_cooldown = $AttackCooldown
 @onready var collision_cooldown = $CollisionCooldown
-@onready var hit_collision = $CollisionShape2D
+@onready var hit_collision = $HitBox/CollisionShape2D
 
 func _ready():
 	if(!move_with_keys):

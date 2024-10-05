@@ -1,10 +1,11 @@
-[gd_scene load_steps=4 format=3 uid="uid://dmn26y7rvuuxg"]
+[gd_scene load_steps=5 format=3 uid="uid://dmn26y7rvuuxg"]
 
 [ext_resource type="Script" path="res://Scripts/hand.gd" id="1_50x2t"]
 [ext_resource type="Texture2D" uid="uid://dfoamq88myf4h" path="res://Assets/Proba/ruka.png" id="1_6052v"]
+[ext_resource type="PackedScene" uid="uid://bx2x4gyv3cq5s" path="res://Scenes/HitBoxHurtBox/hit_box.tscn" id="3_w7f20"]
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_ow37b"]
-size = Vector2(127, 126)
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_xhrkg"]
+size = Vector2(119.5, 118)
 
 [node name="CharacterBody2D" type="CharacterBody2D"]
 script = ExtResource("1_50x2t")
@@ -21,10 +22,14 @@ one_shot = true
 wait_time = 0.05
 one_shot = true
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+[node name="HitBox" parent="." instance=ExtResource("3_w7f20")]
+
+[node name="CollisionShape2D" parent="HitBox" index="0"]
 position = Vector2(0.5, 0)
-shape = SubResource("RectangleShape2D_ow37b")
+shape = SubResource("RectangleShape2D_xhrkg")
 disabled = true
 
 [connection signal="timeout" from="AttackCooldown" to="." method="_on_attack_cooldown_timeout"]
 [connection signal="timeout" from="CollisionCooldown" to="." method="_on_collision_cooldown_timeout"]
+
+[editable path="HitBox"]
