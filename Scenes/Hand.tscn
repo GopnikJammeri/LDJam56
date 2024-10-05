@@ -1,8 +1,12 @@
-[gd_scene load_steps=5 format=3 uid="uid://cijdnabxraonc"]
+[gd_scene load_steps=7 format=3 uid="uid://cijdnabxraonc"]
 
 [ext_resource type="Script" path="res://Scripts/hand.gd" id="1_50x2t"]
 [ext_resource type="Texture2D" uid="uid://dfoamq88myf4h" path="res://Assets/Proba/ruka.png" id="1_6052v"]
+[ext_resource type="PackedScene" uid="uid://c5qlwdli75cap" path="res://Scenes/HitBoxHurtBox/hurt_box.tscn" id="3_goagf"]
 [ext_resource type="PackedScene" uid="uid://bx2x4gyv3cq5s" path="res://Scenes/HitBoxHurtBox/hit_box.tscn" id="3_w7f20"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_t15pu"]
+size = Vector2(119, 118)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_xhrkg"]
 size = Vector2(119.5, 118)
@@ -23,7 +27,15 @@ one_shot = true
 wait_time = 0.05
 one_shot = true
 
-[node name="HitBox" parent="." groups=["Hands"] instance=ExtResource("3_w7f20")]
+[node name="HurtBox" parent="." instance=ExtResource("3_goagf")]
+collision_layer = 8
+collision_mask = 8
+
+[node name="CollisionShape2D" parent="HurtBox" index="0"]
+position = Vector2(0.5, 0)
+shape = SubResource("RectangleShape2D_t15pu")
+
+[node name="HitBox" parent="." instance=ExtResource("3_w7f20")]
 collision_layer = 16
 collision_mask = 16
 
@@ -38,5 +50,8 @@ disabled = true
 
 [connection signal="timeout" from="AttackCooldown" to="." method="_on_attack_cooldown_timeout"]
 [connection signal="timeout" from="CollisionCooldown" to="." method="_on_collision_cooldown_timeout"]
+[connection signal="area_entered" from="HurtBox" to="." method="_on_hurt_box_area_entered"]
+[connection signal="area_exited" from="HurtBox" to="." method="_on_hurt_box_area_exited"]
 
+[editable path="HurtBox"]
 [editable path="HitBox"]

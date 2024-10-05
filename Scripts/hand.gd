@@ -2,17 +2,20 @@ extends CharacterBody2D
 
 class_name Hand
 
+signal mosquito_overlapped_start
+signal mosquito_overlapped_end
+
 var pointer_position = Vector2.ZERO
 var move_vector = Vector2.ZERO
 var is_ready_to_attack = true
 var active: bool = false 
-
 var move_speed
+
 @export var move_speed_fast = 300
 @export var move_speed_slow = 30
 @export var move_with_keys: bool = true
 @export var is_active: bool = true
-var Mosquito = preload("res://Scenes/mosquito.tscn")
+const Mosquito = preload("res://Scenes/mosquito.tscn")
 
 @onready var attack_cooldown = $AttackCooldown
 @onready var collision_cooldown = $CollisionCooldown
@@ -46,6 +49,7 @@ func _physics_process(delta):
 	
 	var direction = Vector2()
 	if Input.is_action_just_pressed("left_click") && is_ready_to_attack:
+		print("SLAP")
 		is_ready_to_attack = false
 		attack_cooldown.start()
 		
@@ -84,3 +88,12 @@ func _on_attack_cooldown_timeout():
 
 func _on_collision_cooldown_timeout():
 	hit_collision.disabled = true
+
+
+func _on_hurt_box_area_entered(area: Area2D) -> void:
+	print("ENTERED")
+	emit_signal("mosquito_overlapped_start")
+
+
+func _on_hurt_box_area_exited(area: Area2D) -> void:
+	emit_signal("mosquito_overlapped_end")
