@@ -67,10 +67,13 @@ func handle_attack() -> void:
 func fetch_character() -> void:
 	var world = get_tree().current_scene
 	var human_local = world.get_node("Human")
+	var hand_right = world.get_node("HandRight")
 	human = human_local
 	if human:
 		human.connect("mosquito_overlapped_start", set_is_on_human)
 		human.connect("mosquito_overlapped_end", deset_is_on_human)
+		hand_right.connect("mosquito_overlapped_start", set_is_on_human)
+		hand_right.connect("mosquito_overlapped_end", deset_is_on_human)
 	else:
 		assert(human != null, "mosquito.gd : fetch_character : -Human not found in a scene-")
 	

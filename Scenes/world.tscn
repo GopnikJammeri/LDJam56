@@ -12,9 +12,6 @@ script = ExtResource("1_lhxt3")
 [node name="Human" parent="." instance=ExtResource("2_xs0at")]
 position = Vector2(529, 483)
 
-[node name="Mosquito" parent="." instance=ExtResource("1_aq7s8")]
-position = Vector2(276, 194)
-
 [node name="HandRight" parent="." instance=ExtResource("3_ay8sv")]
 position = Vector2(882, 327)
 move_with_keys = true
@@ -22,5 +19,8 @@ move_with_keys = true
 [node name="HandLeft" parent="." instance=ExtResource("3_ay8sv")]
 position = Vector2(154, 341)
 move_with_keys = true
+
+[node name="Mosquito" parent="." instance=ExtResource("1_aq7s8")]
+position = Vector2(276, 194)
 
 [node name="Control" parent="." instance=ExtResource("4_cmb76")]
