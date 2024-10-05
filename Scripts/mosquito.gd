@@ -3,10 +3,16 @@ extends CharacterBody2D
 @export var speed: float = 500.0     # The forward movement speed
 @export var rotation_speed: float = 10.0  # The speed of steering
 
+@onready var cooldown_timer: Timer = $CooldownTimer
+@onready var bite_mark_timer: Timer = $BiteMarkTimer
+
+const BITE_MARK = preload("res://Scenes/bite_mark.tscn")
+
 var screen_size: Vector2 = Vector2.ZERO
 var is_attached: bool = false
 var can_move: bool = true
 var is_on_human: bool = false
+var is_on_cooldown: bool = false
 var human = null
 var attached_offset: Vector2 = Vector2.ZERO
 var PlayerInput
@@ -48,10 +54,10 @@ func handle_screen_wrapping() -> void:
 		position.y = 0
 
 func handle_attack() -> void:
-	if Input.is_action_pressed("mosquito_attack"):
+	if Input.is_action_just_pressed("mosquito_attack"):
 		if not is_attached:
 			attach()
-		else:
+		elif not is_on_cooldown:
 			detach()
 
 func fetch_character() -> void:
@@ -69,13 +75,28 @@ func attach() -> void:
 	can_move = false
 	is_attached = true
 	attached_offset = position - human.position
+	is_on_cooldown = true
+	cooldown_timer.start()
+	bite_mark_timer.start()
 	
 func detach() -> void:
 	can_move = true
 	is_attached = false
+	bite_mark_timer.stop()
 
 func set_is_on_human():
 	is_on_human = true
 	
 func deset_is_on_human():
 	is_on_human = false
+
+func _on_bite_mark_timer_timeout() -> void:
+	var bite_mark = BITE_MARK.instantiate()
+	bite_mark.position = position - human.position 
+	human.add_child(bite_mark) 
+	print("Bite mark spawned!")
+
+
+func _on_cooldown_timer_timeout() -> void:
+	print("Cooldown finished")
+	is_on_cooldown = false
