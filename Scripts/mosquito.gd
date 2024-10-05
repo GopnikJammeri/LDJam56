@@ -9,10 +9,11 @@ var can_move: bool = true
 var is_on_human: bool = false
 var human = null
 var attached_offset: Vector2 = Vector2.ZERO
-
+var PlayerInput
 func _ready() -> void:
 	screen_size = get_viewport_rect().size
 	fetch_character()
+	PlayerInput = ControllerManager.PlayerMosquito
 	
 
 func _physics_process(delta: float) -> void:
@@ -28,9 +29,9 @@ func _physics_process(delta: float) -> void:
 	handle_screen_wrapping()
 	
 func handle_movement(delta: float) -> void:
-	if Input.is_action_pressed("ui_left"):
+	if PlayerInput.GetXAxis() < 0:
 		rotation -= rotation_speed * delta
-	elif Input.is_action_pressed("ui_right"):
+	elif PlayerInput.GetXAxis() > 0:
 		rotation += rotation_speed * delta
 	
 	var direction = Vector2(cos(rotation), sin(rotation))
