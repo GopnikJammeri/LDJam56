@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" path="res://Scenes/HealthBar.gd" id="1_in7ih"]
 
-[node name="Control" type="Control"]
+[node name="UI_Control" type="Control"]
 layout_mode = 3
 anchors_preset = 0
 offset_right = 1144.0

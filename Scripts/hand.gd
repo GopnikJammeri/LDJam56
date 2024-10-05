@@ -69,6 +69,5 @@ func _physics_process(delta):
 func _on_attack_cooldown_timeout():
 	is_ready_to_attack = true
 
-
 func _on_collision_cooldown_timeout():
 	hit_collision.disabled = true
