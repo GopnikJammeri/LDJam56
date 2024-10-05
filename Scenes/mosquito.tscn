@@ -1,21 +1,44 @@
-[gd_scene load_steps=4 format=3 uid="uid://bosri6tikh45c"]
+[gd_scene load_steps=8 format=3 uid="uid://bosri6tikh45c"]
 
 [ext_resource type="Script" path="res://Scripts/mosquito.gd" id="1_s08aw"]
 [ext_resource type="Texture2D" uid="uid://xskxe203o54n" path="res://Assets/Proba/fly.png" id="2_kn36d"]
+[ext_resource type="PackedScene" uid="uid://c5qlwdli75cap" path="res://Scenes/HitBoxHurtBox/hurt_box.tscn" id="3_5ae6k"]
+[ext_resource type="PackedScene" uid="uid://bx2x4gyv3cq5s" path="res://Scenes/HitBoxHurtBox/hit_box.tscn" id="3_65nvn"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_eiqwn"]
+size = Vector2(22, 12)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_7cpl7"]
+size = Vector2(20, 14)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_wseig"]
+size = Vector2(20, 12)
 
 [node name="Mosquito" type="CharacterBody2D"]
 collision_layer = 2
 collision_mask = 5
 script = ExtResource("1_s08aw")
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-shape = SubResource("RectangleShape2D_eiqwn")
-
 [node name="Sprite2D" type="Sprite2D" parent="."]
 scale = Vector2(0.2, 0.2)
 texture = ExtResource("2_kn36d")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_eiqwn")
+debug_color = Color(0, 0.6, 0.701961, 0)
+
+[node name="HitBox" parent="." instance=ExtResource("3_65nvn")]
+
+[node name="CollisionShape2D" parent="HitBox" index="0"]
+shape = SubResource("RectangleShape2D_7cpl7")
+
+[node name="HurtBox" parent="." instance=ExtResource("3_5ae6k")]
+
+[node name="CollisionShape2D" parent="HurtBox" index="0"]
+shape = SubResource("RectangleShape2D_wseig")
+
+[editable path="HitBox"]
+[editable path="HurtBox"]
 
 [node name="CooldownTimer" type="Timer" parent="."]
 wait_time = 1.5
