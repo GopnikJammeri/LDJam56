@@ -1,0 +1,17 @@
+[gd_scene load_steps=4 format=3 uid="uid://bosri6tikh45c"]
+
+[ext_resource type="Texture2D" uid="uid://bnnyn7rys0ebn" path="res://Assets/1.svg" id="1_cej10"]
+[ext_resource type="Script" path="res://Scripts/mosquito.gd" id="1_s08aw"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_eiqwn"]
+
+[node name="Mosquito" type="CharacterBody2D"]
+collision_layer = 2
+script = ExtResource("1_s08aw")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_eiqwn")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+scale = Vector2(0.2, 0.2)
+texture = ExtResource("1_cej10")
