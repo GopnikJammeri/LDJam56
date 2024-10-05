@@ -1,0 +1,23 @@
+[gd_scene load_steps=2 format=3 uid="uid://0q8dlkbaton3"]
+
+[ext_resource type="Script" path="res://Scenes/HealthBar.gd" id="1_in7ih"]
+
+[node name="Control" type="Control"]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 1144.0
+offset_bottom = 651.0
+
+[node name="ProgressBar" type="ProgressBar" parent="."]
+modulate = Color(0.92, 0, 0, 1)
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -500.0
+offset_right = 500.0
+offset_bottom = 27.0
+grow_horizontal = 2
+theme_override_colors/font_color = Color(0, 0, 0, 0.823529)
+value = 50.0
+script = ExtResource("1_in7ih")
