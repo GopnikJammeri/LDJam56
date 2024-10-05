@@ -1,0 +1,10 @@
+[gd_scene load_steps=2 format=3 uid="uid://cwyrudj5qw1e8"]
+
+[ext_resource type="Texture2D" uid="uid://xtipvotab3tl" path="res://Assets/Mosque_Fly_Loop.png" id="1_nv73u"]
+
+[node name="MosquitoSprite" type="Sprite2D"]
+texture_filter = 1
+texture = ExtResource("1_nv73u")
+hframes = 5
+vframes = 4
+frame = 1

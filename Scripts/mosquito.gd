@@ -145,8 +145,9 @@ func _on_cooldown_timer_timeout() -> void:
 	print("Cooldown finished")
 	is_on_cooldown = false
 
-func _on_hurt_box_area_entered(area):
+func _on_hurt_box_area_entered(area: Area2D):
 	print("mosquito hit")
+			
 
 func is_bite_mark_overlapped() -> bool:
 	for child in human.get_children():
@@ -177,3 +178,16 @@ func handle_human_position() -> void:
 		position_of_human = hand_right.position
 	elif attached_to == Globals.MosquitoPlace.FACE:
 		position_of_human = human.position
+
+
+func _on_hit_box_area_entered(area: Area2D) -> void:
+	if area.is_in_group("Ears"):
+		print("COLLIDED WITH EAR")
+		print(area)
+		var nodeLeftEar = get_node("/root/World/Human/HitBox/CollisionLeftEar")
+		var nodeRightEar = get_node("/root/World/Human/HitBox/CollisionRightEar")
+		if nodeLeftEar != null and nodeRightEar != null:
+			if(position.distance_to(nodeLeftEar.get_global_position()) < position.distance_to(nodeRightEar.get_global_position())):
+				position = nodeLeftEar.get_global_position()
+			else:
+				position = nodeRightEar.get_global_position()
