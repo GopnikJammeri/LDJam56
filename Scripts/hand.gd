@@ -4,7 +4,7 @@ var pointer_position = Vector2.ZERO
 var move_vector = Vector2.ZERO
 var is_ready_to_attack = true
 @export var move_speed = 200
-
+@export var move_with_keys = true
 var Mosquito = preload("res://Scenes/mosquito.tscn")
 
 @onready var attack_cooldown = $AttackCooldown
@@ -12,10 +12,13 @@ var Mosquito = preload("res://Scenes/mosquito.tscn")
 @onready var hit_collision = $CollisionShape2D
 
 func _ready():
-	Input.set_mouse_mode(Input.MOUSE_MODE_HIDDEN)
+	if(!move_with_keys):
+		Input.set_mouse_mode(Input.MOUSE_MODE_HIDDEN)
 
 
 func _input(event):
+	if(move_with_keys):
+		return
 	if event is InputEventMouseMotion:
 		pointer_position = event.position
 	
@@ -24,7 +27,7 @@ func _input(event):
 		get_viewport().warp_mouse(position + move_vector * 30)
 
 func _physics_process(delta):
-	
+	var direction = Vector2()
 	if Input.is_action_just_pressed("left_click") && is_ready_to_attack:
 		is_ready_to_attack = false
 		attack_cooldown.start()
@@ -33,11 +36,19 @@ func _physics_process(delta):
 		collision_cooldown.start()
 		
 		#print("click")
-	
-	move_vector = (pointer_position - position).normalized()
-	
-	position += move_vector * delta * move_speed
-	
+	if Input.is_action_pressed("human_move_left"):
+		direction.x = -1
+	if Input.is_action_pressed("human_move_right"):
+		direction.x = 1
+	if Input.is_action_pressed("human_move_down"):
+		direction.y = 1
+	if Input.is_action_pressed("human_move_up"):
+		direction.y = -1
+	if(!move_with_keys):
+		move_vector = (pointer_position - position).normalized()
+		position += move_vector * delta * move_speed
+	direction = direction.normalized() * move_speed
+	velocity = direction
 	move_and_slide()
 
 
