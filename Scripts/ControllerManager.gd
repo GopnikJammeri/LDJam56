@@ -41,7 +41,8 @@ func _ready() -> void:
 		print("Both players using keyboard & mouse")
 		PlayerMosquito = MosquitoKeyboardController.new()
 		PlayerHuman = HumanMouseController.new()
-		
+	#add_child(PlayerHuman)
+	#add_child(PlayerMosquito)
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
 	if(PlayerMosquito.GetActionA()):

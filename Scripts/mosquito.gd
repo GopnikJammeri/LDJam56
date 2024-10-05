@@ -6,18 +6,19 @@ extends CharacterBody2D
 
 var screen_size: Vector2 = Vector2.ZERO
 var sprite_size: Vector2 = Vector2.ZERO
-
+var PlayerInput
 func _ready() -> void:
 	screen_size = get_viewport_rect().size
 	var sprite: Sprite2D = $Sprite2D
 	if sprite:
 		sprite_size = sprite.texture.get_size()
 		
+	PlayerInput = ControllerManager.PlayerMosquito
 
 func _physics_process(delta: float) -> void:
-	if Input.is_action_pressed("ui_left"):
+	if PlayerInput.GetXAxis() < 0:
 		rotation -= rotation_speed * delta
-	elif Input.is_action_pressed("ui_right"):
+	elif PlayerInput.GetXAxis() > 0:
 		rotation += rotation_speed * delta
 	#position += Vector2(cos(rotation), sin(rotation)) * speed * delta
 	
