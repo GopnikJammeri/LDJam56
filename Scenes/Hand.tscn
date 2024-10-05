@@ -1,4 +1,4 @@
-[gd_scene load_steps=5 format=3 uid="uid://dmn26y7rvuuxg"]
+[gd_scene load_steps=5 format=3 uid="uid://cijdnabxraonc"]
 
 [ext_resource type="Script" path="res://Scripts/hand.gd" id="1_50x2t"]
 [ext_resource type="Texture2D" uid="uid://dfoamq88myf4h" path="res://Assets/Proba/ruka.png" id="1_6052v"]
@@ -23,6 +23,8 @@ wait_time = 0.05
 one_shot = true
 
 [node name="HitBox" parent="." instance=ExtResource("3_w7f20")]
+collision_layer = 8
+collision_mask = 16
 
 [node name="CollisionShape2D" parent="HitBox" index="0"]
 position = Vector2(0.5, 0)

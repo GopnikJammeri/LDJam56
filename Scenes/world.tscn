@@ -2,7 +2,7 @@
 
 [ext_resource type="PackedScene" uid="uid://bosri6tikh45c" path="res://Scenes/mosquito.tscn" id="1_aq7s8"]
 [ext_resource type="PackedScene" uid="uid://dant37hgbwwmw" path="res://Scenes/human.tscn" id="2_xs0at"]
-[ext_resource type="PackedScene" uid="uid://dmn26y7rvuuxg" path="res://Scenes/Hand.tscn" id="3_ay8sv"]
+[ext_resource type="PackedScene" uid="uid://cijdnabxraonc" path="res://Scenes/Hand.tscn" id="3_ay8sv"]
 
 [node name="World" type="Node2D"]
 
