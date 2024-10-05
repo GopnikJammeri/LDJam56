@@ -1,6 +1,6 @@
 extends CharacterBody2D
 
-@export var speed: float = 100.0     # The forward movement speed
+@export var speed: float = 500.0     # The forward movement speed
 @export var rotation_speed: float = 10.0  # The speed of steering
 
 @onready var cooldown_timer: Timer = $CooldownTimer

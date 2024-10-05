@@ -1,12 +1,17 @@
 extends CharacterBody2D
 
+class_name Hand
+
+@export var move_speed: float = 200.0
+@export var move_with_keys: bool = true
+@export var is_active: bool = true
+
 var pointer_position = Vector2.ZERO
 var move_vector = Vector2.ZERO
 var is_ready_to_attack = true
+var active: bool = false 
 
-@export var move_speed = 200
-@export var move_with_keys = true
-var Mosquito = preload("res://Scenes/mosquito.tscn")
+const Mosquito = preload("res://Scenes/mosquito.tscn")
 
 @onready var attack_cooldown = $AttackCooldown
 @onready var collision_cooldown = $CollisionCooldown
@@ -16,12 +21,13 @@ var Mosquito = preload("res://Scenes/mosquito.tscn")
 func _ready():
 	reach_area.top_level = true
 	reach_area.position = position
-	if(!move_with_keys):
+	if !move_with_keys:
 		Input.set_mouse_mode(Input.MOUSE_MODE_HIDDEN)
+	print(active)
 
 
 func _input(event):
-	if(move_with_keys):
+	if move_with_keys:
 		return
 	if event is InputEventMouseMotion:
 		pointer_position = event.position
@@ -31,6 +37,10 @@ func _input(event):
 		get_viewport().warp_mouse(position + move_vector * 50)
 
 func _physics_process(delta):
+	
+	if not active:
+		return
+	
 	var direction = Vector2()
 	if Input.is_action_just_pressed("left_click") && is_ready_to_attack:
 		is_ready_to_attack = false

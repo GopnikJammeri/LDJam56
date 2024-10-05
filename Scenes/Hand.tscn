@@ -34,6 +34,7 @@ disabled = true
 
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="."]
 polygon = PackedVector2Array(-260, -37, -248, 272, 194, 291, 444, 253, 444, -189, 118, -322, -198, -282)
+disabled = true
 
 [connection signal="timeout" from="AttackCooldown" to="." method="_on_attack_cooldown_timeout"]
 [connection signal="timeout" from="CollisionCooldown" to="." method="_on_collision_cooldown_timeout"]
