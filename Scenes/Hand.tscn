@@ -1,4 +1,4 @@
-[gd_scene load_steps=5 format=3 uid="uid://dmn26y7rvuuxg"]
+[gd_scene load_steps=5 format=3 uid="uid://cijdnabxraonc"]
 
 [ext_resource type="Script" path="res://Scripts/hand.gd" id="1_50x2t"]
 [ext_resource type="Texture2D" uid="uid://dfoamq88myf4h" path="res://Assets/Proba/ruka.png" id="1_6052v"]
@@ -7,8 +7,9 @@
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_xhrkg"]
 size = Vector2(119.5, 118)
 
-[node name="CharacterBody2D" type="CharacterBody2D"]
+[node name="Hand" type="CharacterBody2D"]
 script = ExtResource("1_50x2t")
+move_with_keys = false
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 scale = Vector2(0.247554, 0.209949)
@@ -23,11 +24,16 @@ wait_time = 0.05
 one_shot = true
 
 [node name="HitBox" parent="." instance=ExtResource("3_w7f20")]
+collision_layer = 16
+collision_mask = 16
 
 [node name="CollisionShape2D" parent="HitBox" index="0"]
 position = Vector2(0.5, 0)
 shape = SubResource("RectangleShape2D_xhrkg")
 disabled = true
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="."]
+polygon = PackedVector2Array(-260, -37, -248, 272, 194, 291, 444, 253, 444, -189, 118, -322, -198, -282)
 
 [connection signal="timeout" from="AttackCooldown" to="." method="_on_attack_cooldown_timeout"]
 [connection signal="timeout" from="CollisionCooldown" to="." method="_on_collision_cooldown_timeout"]

@@ -28,11 +28,15 @@ shape = SubResource("RectangleShape2D_eiqwn")
 debug_color = Color(0, 0.6, 0.701961, 0)
 
 [node name="HitBox" parent="." instance=ExtResource("3_65nvn")]
+collision_layer = 8
+collision_mask = 8
 
 [node name="CollisionShape2D" parent="HitBox" index="0"]
 shape = SubResource("RectangleShape2D_7cpl7")
 
 [node name="HurtBox" parent="." instance=ExtResource("3_5ae6k")]
+collision_layer = 16
+collision_mask = 16
 
 [node name="CollisionShape2D" parent="HurtBox" index="0"]
 shape = SubResource("RectangleShape2D_wseig")
@@ -45,6 +49,7 @@ one_shot = true
 wait_time = 3.0
 one_shot = true
 
+[connection signal="area_entered" from="HurtBox" to="." method="_on_hurt_box_area_entered"]
 [connection signal="timeout" from="CooldownTimer" to="." method="_on_cooldown_timer_timeout"]
 [connection signal="timeout" from="BiteMarkTimer" to="." method="_on_bite_mark_timer_timeout"]
 

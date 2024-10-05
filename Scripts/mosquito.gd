@@ -1,6 +1,6 @@
 extends CharacterBody2D
 
-@export var speed: float = 500.0     # The forward movement speed
+@export var speed: float = 100.0     # The forward movement speed
 @export var rotation_speed: float = 10.0  # The speed of steering
 
 @onready var cooldown_timer: Timer = $CooldownTimer
@@ -15,6 +15,7 @@ var is_on_human: bool = false
 var is_on_cooldown: bool = false
 var human = null
 var attached_offset: Vector2 = Vector2.ZERO
+var bite_threshold: float = 20.0
 
 func _ready() -> void:
 	screen_size = get_viewport_rect().size
@@ -89,12 +90,28 @@ func deset_is_on_human():
 	is_on_human = false
 
 func _on_bite_mark_timer_timeout() -> void:
+	if is_bite_mark_overlapped():
+		return
+	
+	var bite_mark_position = position - human.position 
 	var bite_mark = BITE_MARK.instantiate()
-	bite_mark.position = position - human.position 
+	bite_mark.position = bite_mark_position
+	bite_mark.set_meta("bite_mark", true)
 	human.add_child(bite_mark) 
 	print("Bite mark spawned!")
-
 
 func _on_cooldown_timer_timeout() -> void:
 	print("Cooldown finished")
 	is_on_cooldown = false
+
+func _on_hurt_box_area_entered(area):
+	print("mosquito hit")
+
+func is_bite_mark_overlapped() -> bool:
+	for child in human.get_children():
+		if child.has_meta("bite_mark"):
+			var distance = child.position.distance_to(position - human.position)
+			if distance < bite_threshold:
+				print("Too close to another bite mark, won't spawn a new one.")
+				return true
+	return false
