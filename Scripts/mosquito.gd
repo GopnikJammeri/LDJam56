@@ -10,12 +10,12 @@ var is_on_human: bool = false
 var human = null
 var attached_offset: Vector2 = Vector2.ZERO
 var PlayerInput
+
 func _ready() -> void:
 	screen_size = get_viewport_rect().size
 	fetch_character()
 	PlayerInput = ControllerManager.PlayerMosquito
 	
-
 func _physics_process(delta: float) -> void:
 	if can_move:
 		handle_movement(delta)
@@ -25,8 +25,7 @@ func _physics_process(delta: float) -> void:
 		position = human.position + attached_offset
 	else:
 		move_and_slide()
-		
-	handle_screen_wrapping()
+		handle_screen_wrapping()
 	
 func handle_movement(delta: float) -> void:
 	if PlayerInput.GetXAxis() < 0:
@@ -36,7 +35,6 @@ func handle_movement(delta: float) -> void:
 	
 	var direction = Vector2(cos(rotation), sin(rotation))
 	velocity = direction * speed
-	
 
 func handle_screen_wrapping() -> void:
 	if position.x < 0:
@@ -50,7 +48,7 @@ func handle_screen_wrapping() -> void:
 		position.y = 0
 
 func handle_attack() -> void:
-	if Input.is_action_just_pressed("mosquito_attack"):
+	if PlayerInput.GetActionA():
 		if not is_attached:
 			attach()
 		else:

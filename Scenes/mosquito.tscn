@@ -1,7 +1,7 @@
-[gd_scene load_steps=4 format=3 uid="uid://dasi3suojlia4"]
+[gd_scene load_steps=4 format=3 uid="uid://bosri6tikh45c"]
 
-[ext_resource type="Texture2D" uid="uid://bnnyn7rys0ebn" path="res://Assets/1.svg" id="1_cej10"]
 [ext_resource type="Script" path="res://Scripts/mosquito.gd" id="1_s08aw"]
+[ext_resource type="Texture2D" uid="uid://xskxe203o54n" path="res://Assets/Proba/fly.png" id="2_kn36d"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_eiqwn"]
 
@@ -15,4 +15,4 @@ shape = SubResource("RectangleShape2D_eiqwn")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 scale = Vector2(0.2, 0.2)
-texture = ExtResource("1_cej10")
+texture = ExtResource("2_kn36d")
