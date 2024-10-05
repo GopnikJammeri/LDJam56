@@ -1,4 +1,4 @@
-[gd_scene load_steps=7 format=3 uid="uid://0d3k4m2v2vii"]
+[gd_scene load_steps=8 format=3 uid="uid://0d3k4m2v2vii"]
 
 [ext_resource type="PackedScene" uid="uid://bosri6tikh45c" path="res://Scenes/mosquito.tscn" id="1_aq7s8"]
 [ext_resource type="Script" path="res://Scripts/world.gd" id="1_lhxt3"]
@@ -6,6 +6,7 @@
 [ext_resource type="PackedScene" uid="uid://cijdnabxraonc" path="res://Scenes/Hand.tscn" id="3_ay8sv"]
 [ext_resource type="PackedScene" uid="uid://dhf4aj2g3ogcy" path="res://Scenes/UI_Control_Scene.tscn" id="4_cmb76"]
 [ext_resource type="PackedScene" uid="uid://cpds84pgepn3d" path="res://Scenes/timer_ui.tscn" id="6_wlg0w"]
+[ext_resource type="PackedScene" uid="uid://deha0kmd1tjfw" path="res://Scenes/mosquito_spawn_point.tscn" id="7_ikb4i"]
 
 [node name="World" type="Node2D"]
 script = ExtResource("1_lhxt3")
@@ -41,3 +42,6 @@ offset_right = -4.0
 offset_bottom = -10.0
 grow_horizontal = 1
 grow_vertical = 1
+
+[node name="MosquitoSpawnPoint" parent="." instance=ExtResource("7_ikb4i")]
+position = Vector2(549, 140)
