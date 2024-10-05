@@ -2,7 +2,7 @@ extends Node
 
 signal on_health_change()
 
-var health: int = 100
+var health: float = 100
 
 func GetHealth() -> int:
 	return health
