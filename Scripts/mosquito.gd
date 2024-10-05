@@ -15,12 +15,10 @@ var is_on_human: bool = false
 var is_on_cooldown: bool = false
 var human = null
 var attached_offset: Vector2 = Vector2.ZERO
-var PlayerInput
 
 func _ready() -> void:
 	screen_size = get_viewport_rect().size
 	fetch_character()
-	PlayerInput = ControllerManager.PlayerMosquito
 	
 func _physics_process(delta: float) -> void:
 	if can_move:

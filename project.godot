@@ -17,7 +17,7 @@ config/icon="res://Scripts/icon.svg"
 
 [autoload]
 
-ControllerManager="*res://Scripts/ControllerManager.gd"
+StatsManager="*res://Scripts/StatsManager.gd"
 
 [input]
 
