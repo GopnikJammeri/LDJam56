@@ -28,9 +28,9 @@ func _physics_process(delta: float) -> void:
 		handle_screen_wrapping()
 	
 func handle_movement(delta: float) -> void:
-	if PlayerInput.GetXAxis() < 0:
+	if Input.is_action_pressed("mosquito_move_left"):
 		rotation -= rotation_speed * delta
-	elif PlayerInput.GetXAxis() > 0:
+	elif Input.is_action_pressed("mosquito_move_right"):
 		rotation += rotation_speed * delta
 	
 	var direction = Vector2(cos(rotation), sin(rotation))
@@ -48,7 +48,7 @@ func handle_screen_wrapping() -> void:
 		position.y = 0
 
 func handle_attack() -> void:
-	if PlayerInput.GetActionA():
+	if Input.is_action_pressed("mosquito_attack"):
 		if not is_attached:
 			attach()
 		else:
