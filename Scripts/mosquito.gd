@@ -24,8 +24,7 @@ func _physics_process(delta: float) -> void:
 		position = human.position + attached_offset
 	else:
 		move_and_slide()
-		
-	handle_screen_wrapping()
+		handle_screen_wrapping()
 	
 func handle_movement(delta: float) -> void:
 	if Input.is_action_pressed("ui_left"):
@@ -35,7 +34,6 @@ func handle_movement(delta: float) -> void:
 	
 	var direction = Vector2(cos(rotation), sin(rotation))
 	velocity = direction * speed
-	
 
 func handle_screen_wrapping() -> void:
 	if position.x < 0:
