@@ -2,6 +2,7 @@ extends CharacterBody2D
 
 @export var speed: float = 500.0     # The forward movement speed
 @export var rotation_speed: float = 10.0  # The speed of steering
+@export var damage: int = 3
 
 @onready var cooldown_timer: Timer = $CooldownTimer
 @onready var bite_mark_timer: Timer = $BiteMarkTimer
@@ -31,6 +32,9 @@ func _physics_process(delta: float) -> void:
 	else:
 		move_and_slide()
 		handle_screen_wrapping()
+	
+	if is_attached:
+		StatsManager.ReduceHealth(damage * delta)
 	
 func handle_movement(delta: float) -> void:
 	if Input.is_action_pressed("mosquito_move_left"):
