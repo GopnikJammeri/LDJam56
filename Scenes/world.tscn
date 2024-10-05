@@ -1,10 +1,12 @@
-[gd_scene load_steps=4 format=3 uid="uid://0d3k4m2v2vii"]
+[gd_scene load_steps=5 format=3 uid="uid://0d3k4m2v2vii"]
 
 [ext_resource type="PackedScene" uid="uid://bosri6tikh45c" path="res://Scenes/mosquito.tscn" id="1_aq7s8"]
+[ext_resource type="Script" path="res://Scripts/world.gd" id="1_lhxt3"]
 [ext_resource type="PackedScene" uid="uid://dant37hgbwwmw" path="res://Scenes/human.tscn" id="2_xs0at"]
 [ext_resource type="PackedScene" uid="uid://cijdnabxraonc" path="res://Scenes/Hand.tscn" id="3_ay8sv"]
 
 [node name="World" type="Node2D"]
+script = ExtResource("1_lhxt3")
 
 [node name="Human" parent="." instance=ExtResource("2_xs0at")]
 position = Vector2(529, 483)
@@ -12,5 +14,11 @@ position = Vector2(529, 483)
 [node name="Mosquito" parent="." instance=ExtResource("1_aq7s8")]
 position = Vector2(276, 194)
 
-[node name="Hand" parent="." instance=ExtResource("3_ay8sv")]
+[node name="HandRight" parent="." instance=ExtResource("3_ay8sv")]
 position = Vector2(829, 375)
+move_with_keys = true
+
+[node name="HandLeft" parent="." instance=ExtResource("3_ay8sv")]
+position = Vector2(123, 378)
+move_with_keys = true
+is_active = false
