@@ -18,7 +18,7 @@ config/icon="res://Scripts/icon.svg"
 [autoload]
 
 ControllerManager="*res://Scripts/ControllerManager.gd"
-StatsManager="*res://Scripts/StatsManager.gd"
+StatsManager="*res://Scenes/stats_manager.tscn"
 Globals="*res://Scripts/globals.gd"
 
 [input]
