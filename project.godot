@@ -19,6 +19,7 @@ config/icon="res://Scripts/icon.svg"
 
 ControllerManager="*res://Scripts/ControllerManager.gd"
 StatsManager="*res://Scripts/StatsManager.gd"
+Globals="*res://Scripts/globals.gd"
 
 [input]
 

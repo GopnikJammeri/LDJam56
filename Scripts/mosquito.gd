@@ -15,26 +15,29 @@ var can_move: bool = true
 var is_on_human: bool = false
 var is_on_cooldown: bool = false
 var human = null
+var hand_left = null
+var hand_right = null
 var attached_offset: Vector2 = Vector2.ZERO
 var bite_threshold: float = 20.0
+var attached_to: Globals.MosquitoPlace
+var position_of_human: Vector2 = Vector2.ZERO
 
 func _ready() -> void:
 	screen_size = get_viewport_rect().size
 	fetch_character()
 	
 func _physics_process(delta: float) -> void:
+	handle_human_position() 
 	if can_move:
 		handle_movement(delta)
 	if is_on_human:
 		handle_attack()
 	if is_attached:
-		position = human.position + attached_offset
+		handle_attached_position()
+		StatsManager.ReduceHealth(damage * delta)
 	else:
 		move_and_slide()
 		handle_screen_wrapping()
-	
-	if is_attached:
-		StatsManager.ReduceHealth(damage * delta)
 	
 func handle_movement(delta: float) -> void:
 	if Input.is_action_pressed("mosquito_move_left"):
@@ -65,19 +68,27 @@ func handle_attack() -> void:
 			
 	# Move to detach		
 	var moved = Input.is_action_just_pressed("mosquito_move_left") or Input.is_action_just_pressed("mosquito_move_right")
-	if(is_attached and moved):
+	if(is_attached and moved and not is_on_cooldown):
 		detach()
+	
+func handle_attached_position() -> void:
+	position = position_of_human + attached_offset
 		
 func fetch_character() -> void:
 	var world = get_tree().current_scene
 	var human_local = world.get_node("Human")
-	var hand_right = world.get_node("HandRight")
+	var hand_right_local = world.get_node("HandRight")
+	var hand_left_local = world.get_node("HandLeft")
+	hand_right = hand_right_local
+	hand_left = hand_left_local
 	human = human_local
 	if human:
 		human.connect("mosquito_overlapped_start", set_is_on_human)
 		human.connect("mosquito_overlapped_end", deset_is_on_human)
 		hand_right.connect("mosquito_overlapped_start", set_is_on_human)
 		hand_right.connect("mosquito_overlapped_end", deset_is_on_human)
+		hand_left.connect("mosquito_overlapped_start", set_is_on_human)
+		hand_left.connect("mosquito_overlapped_end", deset_is_on_human)
 	else:
 		assert(human != null, "mosquito.gd : fetch_character : -Human not found in a scene-")
 	
@@ -85,7 +96,7 @@ func attach() -> void:
 	velocity = Vector2.ZERO
 	can_move = false
 	is_attached = true
-	attached_offset = position - human.position
+	attached_offset = position - position_of_human
 	is_on_cooldown = true
 	cooldown_timer.start()
 	bite_mark_timer.start()
@@ -95,21 +106,39 @@ func detach() -> void:
 	is_attached = false
 	bite_mark_timer.stop()
 
-func set_is_on_human():
+func set_is_on_human(side: Globals.MosquitoPlace):
+	
+	if attached_to != Globals.MosquitoPlace.NONE:
+		return
+	
+	print(side)
+	attached_to = side
 	is_on_human = true
 	
-func deset_is_on_human():
+func deset_is_on_human(side: Globals.MosquitoPlace):
+	if not can_move:
+		return
+	
+	attached_to = Globals.MosquitoPlace.NONE
 	is_on_human = false
 
 func _on_bite_mark_timer_timeout() -> void:
 	if is_bite_mark_overlapped():
 		return
-	
-	var bite_mark_position = position - human.position 
+		
+	var bite_mark_position = position - position_of_human
 	var bite_mark = BITE_MARK.instantiate()
 	bite_mark.position = bite_mark_position
 	bite_mark.set_meta("bite_mark", true)
-	human.add_child(bite_mark) 
+	
+	match attached_to:
+		Globals.MosquitoPlace.LEFT:
+			hand_left.add_child(bite_mark)
+		Globals.MosquitoPlace.RIGHT:
+			hand_right.add_child(bite_mark)
+		Globals.MosquitoPlace.FACE:
+			human.add_child(bite_mark) 
+	
 	print("Bite mark spawned!")
 
 func _on_cooldown_timer_timeout() -> void:
@@ -126,4 +155,25 @@ func is_bite_mark_overlapped() -> bool:
 			if distance < bite_threshold:
 				print("Too close to another bite mark, won't spawn a new one.")
 				return true
+	for child in hand_left.get_children():
+		if child.has_meta("bite_mark"):
+			var distance = child.position.distance_to(position - human.position)
+			if distance < bite_threshold:
+				print("Too close to another bite mark, won't spawn a new one.")
+				return true
+	for child in hand_right.get_children():
+		if child.has_meta("bite_mark"):
+			var distance = child.position.distance_to(position - human.position)
+			if distance < bite_threshold:
+				print("Too close to another bite mark, won't spawn a new one.")
+				return true
 	return false
+
+	
+func handle_human_position() -> void:
+	if attached_to == Globals.MosquitoPlace.LEFT:
+		position_of_human = hand_left.position
+	elif attached_to == Globals.MosquitoPlace.RIGHT:
+		position_of_human = hand_right.position
+	elif attached_to == Globals.MosquitoPlace.FACE:
+		position_of_human = human.position
