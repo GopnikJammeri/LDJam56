@@ -11,7 +11,11 @@ var move_vector = Vector2.ZERO
 var is_ready_to_attack = true
 var active: bool = false 
 
-const Mosquito = preload("res://Scenes/mosquito.tscn")
+var move_speed
+@export var move_speed_fast = 300
+@export var move_speed_slow = 30
+@export var move_with_keys = true
+var Mosquito = preload("res://Scenes/mosquito.tscn")
 
 @onready var attack_cooldown = $AttackCooldown
 @onready var collision_cooldown = $CollisionCooldown
@@ -19,6 +23,7 @@ const Mosquito = preload("res://Scenes/mosquito.tscn")
 @onready var reach_area = $CollisionPolygon2D
 
 func _ready():
+	move_speed = move_speed_fast
 	reach_area.top_level = true
 	reach_area.position = position
 	if !move_with_keys:
@@ -48,8 +53,16 @@ func _physics_process(delta):
 		
 		hit_collision.disabled = false
 		collision_cooldown.start()
-		
-		#print("click")
+	
+	if Geometry2D.is_point_in_polygon(reach_area.to_local(position), reach_area.polygon):
+		move_speed = move_speed_fast
+	else:
+		if (position + move_vector).distance_to(reach_area.position) < position.distance_to(reach_area.position):
+			print("fast")
+			move_speed = move_speed_fast
+		else:
+			move_speed = move_speed_slow
+	
 	if Input.is_action_pressed("human_move_left"):
 		direction.x = -1
 	if Input.is_action_pressed("human_move_right"):
@@ -58,9 +71,11 @@ func _physics_process(delta):
 		direction.y = 1
 	if Input.is_action_pressed("human_move_up"):
 		direction.y = -1
+	
 	if(!move_with_keys):
 		move_vector = (pointer_position - position).normalized()
 		position += move_vector * delta * move_speed
+	
 	direction = direction.normalized() * move_speed
 	velocity = direction
 	move_and_slide()
