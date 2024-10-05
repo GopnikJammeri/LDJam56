@@ -6,6 +6,7 @@ extends CharacterBody2D
 
 @onready var cooldown_timer: Timer = $CooldownTimer
 @onready var bite_mark_timer: Timer = $BiteMarkTimer
+@onready var animation_tree: AnimationTree = $MosquitoSprite/AnimationTree
 
 const BITE_MARK = preload("res://Scenes/bite_mark.tscn")
 const TIME_REDUCTION: float = 30.0
@@ -98,6 +99,8 @@ func fetch_character() -> void:
 		assert(human != null, "mosquito.gd : fetch_character : -Human not found in a scene-")
 	
 func attach() -> void:
+	animation_tree["parameters/conditions/succ"] = true
+	animation_tree["parameters/conditions/stopsucc"] = false
 	velocity = Vector2.ZERO
 	can_move = false
 	is_attached = true
@@ -107,6 +110,8 @@ func attach() -> void:
 	bite_mark_timer.start()
 	
 func detach() -> void:
+	animation_tree["parameters/conditions/succ"] = false
+	animation_tree["parameters/conditions/stopsucc"] = true
 	can_move = true
 	is_attached = false
 	bite_mark_timer.stop()

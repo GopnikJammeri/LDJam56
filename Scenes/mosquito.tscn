@@ -22,6 +22,9 @@ script = ExtResource("1_s08aw")
 [node name="MosquitoSprite" parent="." instance=ExtResource("2_82np8")]
 scale = Vector2(0.15, 0.15)
 
+[node name="AnimationTree" parent="MosquitoSprite" index="0"]
+parameters/conditions/stopsucc = false
+
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("RectangleShape2D_eiqwn")
 debug_color = Color(0, 0.6, 0.701961, 0)
@@ -53,5 +56,6 @@ one_shot = true
 [connection signal="timeout" from="CooldownTimer" to="." method="_on_cooldown_timer_timeout"]
 [connection signal="timeout" from="BiteMarkTimer" to="." method="_on_bite_mark_timer_timeout"]
 
+[editable path="MosquitoSprite"]
 [editable path="HitBox"]
 [editable path="HurtBox"]
