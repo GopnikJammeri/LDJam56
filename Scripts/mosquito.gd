@@ -21,10 +21,12 @@ var attached_offset: Vector2 = Vector2.ZERO
 var bite_threshold: float = 20.0
 var attached_to: Globals.MosquitoPlace
 var position_of_human: Vector2 = Vector2.ZERO
+var spawn_point = null
 
 func _ready() -> void:
 	screen_size = get_viewport_rect().size
 	fetch_character()
+	position = spawn_point.position
 	
 func _physics_process(delta: float) -> void:
 	handle_human_position() 
@@ -79,9 +81,11 @@ func fetch_character() -> void:
 	var human_local = world.get_node("Human")
 	var hand_right_local = world.get_node("HandRight")
 	var hand_left_local = world.get_node("HandLeft")
+	spawn_point = world.get_node("MosquitoSpawnPoint")
 	hand_right = hand_right_local
 	hand_left = hand_left_local
 	human = human_local
+	
 	if human:
 		human.connect("mosquito_overlapped_start", set_is_on_human)
 		human.connect("mosquito_overlapped_end", deset_is_on_human)
@@ -147,6 +151,7 @@ func _on_cooldown_timer_timeout() -> void:
 
 func _on_hurt_box_area_entered(area):
 	print("mosquito hit")
+	handle_death()
 
 func is_bite_mark_overlapped() -> bool:
 	for child in human.get_children():
@@ -177,3 +182,10 @@ func handle_human_position() -> void:
 		position_of_human = hand_right.position
 	elif attached_to == Globals.MosquitoPlace.FACE:
 		position_of_human = human.position
+
+func handle_death():
+	cooldown_timer.stop()
+	bite_mark_timer.stop()
+	detach()
+	position = spawn_point.position
+	velocity = Vector2.ZERO
