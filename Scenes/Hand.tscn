@@ -11,7 +11,7 @@ size = Vector2(119, 118)
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_xhrkg"]
 size = Vector2(119.5, 118)
 
-[node name="Hand" type="CharacterBody2D"]
+[node name="Hand" type="CharacterBody2D" groups=["Hands"]]
 script = ExtResource("1_50x2t")
 move_with_keys = false
 
@@ -35,11 +35,11 @@ collision_mask = 8
 position = Vector2(0.5, 0)
 shape = SubResource("RectangleShape2D_t15pu")
 
-[node name="HitBox" parent="." instance=ExtResource("3_w7f20")]
+[node name="HitBox" parent="." groups=["Hands"] instance=ExtResource("3_w7f20")]
 collision_layer = 16
 collision_mask = 16
 
-[node name="CollisionShape2D" parent="HitBox" index="0"]
+[node name="CollisionShape2D" parent="HitBox" index="0" groups=["Hands"]]
 position = Vector2(0.5, 0)
 shape = SubResource("RectangleShape2D_xhrkg")
 disabled = true
