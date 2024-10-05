@@ -12,5 +12,5 @@ position = Vector2(529, 483)
 [node name="Mosquito" parent="." instance=ExtResource("1_aq7s8")]
 position = Vector2(276, 194)
 
-[node name="CharacterBody2D" parent="." instance=ExtResource("3_ay8sv")]
-position = Vector2(882, 327)
+[node name="Hand" parent="." instance=ExtResource("3_ay8sv")]
+position = Vector2(829, 375)

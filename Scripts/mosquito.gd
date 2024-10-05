@@ -102,10 +102,12 @@ func _on_bite_mark_timer_timeout() -> void:
 	human.add_child(bite_mark) 
 	print("Bite mark spawned!")
 
-
 func _on_cooldown_timer_timeout() -> void:
 	print("Cooldown finished")
 	is_on_cooldown = false
+
+func _on_hurt_box_area_entered(area):
+	print("mosquito hit")
 
 func is_bite_mark_overlapped() -> bool:
 	for child in human.get_children():
