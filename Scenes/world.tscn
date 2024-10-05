@@ -16,11 +16,15 @@ position = Vector2(529, 483)
 position = Vector2(276, 194)
 
 [node name="HandRight" parent="." instance=ExtResource("3_ay8sv")]
-position = Vector2(882, 327)
+position = Vector2(866, 395)
 move_with_keys = true
 
 [node name="HandLeft" parent="." instance=ExtResource("3_ay8sv")]
-position = Vector2(154, 341)
+position = Vector2(191, 393)
 move_with_keys = true
 
 [node name="Control" parent="." instance=ExtResource("4_cmb76")]
+offset_left = 6.0
+offset_top = 23.0
+offset_right = 1150.0
+offset_bottom = 674.0

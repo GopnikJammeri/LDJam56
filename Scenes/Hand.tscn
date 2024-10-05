@@ -33,7 +33,7 @@ shape = SubResource("RectangleShape2D_xhrkg")
 disabled = true
 
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="."]
-polygon = PackedVector2Array(-333, -135, -304, 211, -54, 294, 312, 292, 455, 58, 440, -182, 168, -355, -160, -319)
+polygon = PackedVector2Array(-283, -105, -271, 159, -64, 277, 271, 250, 324, 88, 319, -178, 164, -327, -175, -313)
 disabled = true
 
 [connection signal="timeout" from="AttackCooldown" to="." method="_on_attack_cooldown_timeout"]
