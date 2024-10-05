@@ -7,6 +7,8 @@ var screen_size: Vector2 = Vector2.ZERO
 var is_attached: bool = false
 var can_move: bool = true
 var is_on_human: bool = false
+var human = null
+var attached_offset: Vector2 = Vector2.ZERO
 
 func _ready() -> void:
 	screen_size = get_viewport_rect().size
@@ -14,11 +16,15 @@ func _ready() -> void:
 	
 
 func _physics_process(delta: float) -> void:
-	
 	if can_move:
 		handle_movement(delta)
-	handle_attack()
-	move_and_slide()
+	if is_on_human:
+		handle_attack()
+	if is_attached:
+		position = human.position + attached_offset
+	else:
+		move_and_slide()
+		
 	handle_screen_wrapping()
 	
 func handle_movement(delta: float) -> void:
@@ -44,7 +50,6 @@ func handle_screen_wrapping() -> void:
 
 func handle_attack() -> void:
 	if Input.is_action_just_pressed("mosquito_attack"):
-		print("attacl")
 		if not is_attached:
 			attach()
 		else:
@@ -52,13 +57,26 @@ func handle_attack() -> void:
 
 func fetch_character() -> void:
 	var world = get_tree().current_scene
-	var human = world.get_node("Human")
-
+	var human_local = world.get_node("Human")
+	human = human_local
+	if human:
+		human.connect("mosquito_overlapped_start", set_is_on_human)
+		human.connect("mosquito_overlapped_end", deset_is_on_human)
+	else:
+		assert(human != null, "mosquito.gd : fetch_character : -Human not found in a scene-")
+	
 func attach() -> void:
 	velocity = Vector2.ZERO
 	can_move = false
 	is_attached = true
+	attached_offset = position - human.position
 	
 func detach() -> void:
 	can_move = true
 	is_attached = false
+
+func set_is_on_human():
+	is_on_human = true
+	
+func deset_is_on_human():
+	is_on_human = false
