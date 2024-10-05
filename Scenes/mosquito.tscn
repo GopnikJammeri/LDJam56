@@ -1,0 +1,13 @@
+[gd_scene load_steps=3 format=3 uid="uid://bosri6tikh45c"]
+
+[ext_resource type="Texture2D" uid="uid://bnnyn7rys0ebn" path="res://Assets/1.svg" id="1_cej10"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_eiqwn"]
+
+[node name="Mosquito" type="CharacterBody2D"]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_eiqwn")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("1_cej10")
