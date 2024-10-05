@@ -1,0 +1,8 @@
+[gd_scene load_steps=2 format=3 uid="uid://d04b4s6ljve6o"]
+
+[ext_resource type="Texture2D" uid="uid://c6ke1yat57b64" path="res://Assets/Proba/bite_mark.png" id="1_haqh7"]
+
+[node name="BiteMark" type="Node2D"]
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("1_haqh7")

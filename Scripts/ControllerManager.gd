@@ -47,6 +47,8 @@ func _ready() -> void:
 
 func _process(delta: float) -> void:
 	if(PlayerMosquito.GetActionA()):
-		print("A button pressed")
+		#print("A button pressed")
+		pass
 	if(PlayerHuman.GetActionA()):
-		print("Human clicked")
+		pass
+		#print("Human clicked")

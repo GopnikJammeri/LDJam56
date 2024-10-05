@@ -1,4 +1,4 @@
-[gd_scene load_steps=4 format=3 uid="uid://dmn26y7rvuuxg"]
+[gd_scene load_steps=4 format=3 uid="uid://cijdnabxraonc"]
 
 [ext_resource type="Script" path="res://Scripts/hand.gd" id="1_50x2t"]
 [ext_resource type="Texture2D" uid="uid://dfoamq88myf4h" path="res://Assets/Proba/ruka.png" id="1_6052v"]

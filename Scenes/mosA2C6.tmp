@@ -21,8 +21,4 @@ texture = ExtResource("2_kn36d")
 wait_time = 1.5
 one_shot = true
 
-[node name="BiteMarkTimer" type="Timer" parent="."]
-one_shot = true
-
 [connection signal="timeout" from="CooldownTimer" to="." method="_on_timer_timeout"]
-[connection signal="timeout" from="BiteMarkTimer" to="." method="_on_bite_mark_timer_timeout"]
