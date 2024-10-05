@@ -20,6 +20,7 @@ config/icon="res://Scripts/icon.svg"
 ControllerManager="*res://Scripts/ControllerManager.gd"
 StatsManager="*res://Scenes/stats_manager.tscn"
 Globals="*res://Scripts/globals.gd"
+BackgroundMusic="*res://Scenes/background_music.tscn"
 
 [input]
 
