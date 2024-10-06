@@ -39,7 +39,15 @@ func _ready() -> void:
 	fetch_character()
 	position = spawn_point.position
 	
+
 func _physics_process(delta: float) -> void:
+	
+	if abs(rotation) > 1.5 :
+		mosquito_sprite.flip_v = true
+	else:
+		mosquito_sprite.flip_v = false
+
+	
 	handle_human_position() 
 	if can_move:
 		handle_movement(delta)
