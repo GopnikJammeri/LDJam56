@@ -18,11 +18,11 @@ func _input(event: InputEvent) -> void:
 		switch_hand()
 
 func set_active_hand(hand: Hand) -> void:
-	hand_right.set_active(false)
-	hand_left.set_active(false)
+	hand_right.activateHand(false)
+	hand_left.activateHand(false)
 	
 	current_hand = hand
-	current_hand.set_active(true)
+	current_hand.activateHand(true)
 	
 func switch_hand() -> void:
 	if current_hand == hand_left:

@@ -1,4 +1,4 @@
-[gd_scene load_steps=34 format=3 uid="uid://cijdnabxraonc"]
+[gd_scene load_steps=43 format=3 uid="uid://cijdnabxraonc"]
 
 [ext_resource type="Script" path="res://Scripts/hand.gd" id="1_50x2t"]
 [ext_resource type="PackedScene" uid="uid://c5qlwdli75cap" path="res://Scenes/HitBoxHurtBox/hurt_box.tscn" id="3_goagf"]
@@ -126,7 +126,7 @@ tracks/0/keys = {
 
 [sub_resource type="Animation" id="Animation_2kgpd"]
 resource_name = "hand_selected"
-length = 2.0
+length = 1.3
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
@@ -134,7 +134,7 @@ tracks/0/path = NodePath("SpriteHand:frame")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
-"times": PackedFloat32Array(0, 2),
+"times": PackedFloat32Array(0, 1.3),
 "transitions": PackedFloat32Array(1, 1),
 "update": 0,
 "values": [75, 132]
@@ -193,11 +193,25 @@ animation = &"hand_grab_air"
 [sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_0x8mo"]
 animation = &"hand_idle"
 
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_0ojkr"]
+animation = &"hand_plug_ear"
+play_mode = 1
+
 [sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_gy2ks"]
 animation = &"hand_plug_ear"
 
 [sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_uiisu"]
 animation = &"hand_plug_idle"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_idvwe"]
+animation = &"hand_scratch"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_qtxut"]
+animation = &"hand_scratch_back_to_idle"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_yxrfs"]
+animation = &"hand_scratch_back_to_idle"
+play_mode = 1
 
 [sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_ibdx2"]
 animation = &"hand_selected"
@@ -240,13 +254,37 @@ switch_mode = 2
 advance_mode = 2
 
 [sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_4ng42"]
-advance_mode = 2
-
-[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_1kuwu"]
 break_loop_at_end = true
 switch_mode = 2
 advance_mode = 2
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_kqxe3"]
+advance_mode = 2
 advance_condition = &"unplucked"
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_sblms"]
+break_loop_at_end = true
+switch_mode = 2
+advance_mode = 2
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_6ghtb"]
+advance_mode = 2
+advance_condition = &"plucked"
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_olrkl"]
+break_loop_at_end = true
+switch_mode = 2
+advance_mode = 2
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_1m2pe"]
+break_loop_at_end = true
+switch_mode = 2
+advance_mode = 2
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_65eok"]
+break_loop_at_end = true
+switch_mode = 2
+advance_mode = 2
 
 [sub_resource type="AnimationNodeStateMachine" id="AnimationNodeStateMachine_65fg0"]
 states/hand_grab_air/node = SubResource("AnimationNodeAnimation_g3xce")
@@ -254,16 +292,25 @@ states/hand_grab_air/position = Vector2(840, 199)
 states/hand_idle/node = SubResource("AnimationNodeAnimation_0x8mo")
 states/hand_idle/position = Vector2(341, 100)
 states/hand_plug_ear/node = SubResource("AnimationNodeAnimation_gy2ks")
-states/hand_plug_ear/position = Vector2(490, 199)
+states/hand_plug_ear/position = Vector2(494, 241)
+"states/hand_plug_ear 2/node" = SubResource("AnimationNodeAnimation_0ojkr")
+"states/hand_plug_ear 2/position" = Vector2(689, 182.019)
 states/hand_plug_idle/node = SubResource("AnimationNodeAnimation_uiisu")
-states/hand_plug_idle/position = Vector2(685, 199)
+states/hand_plug_idle/position = Vector2(689, 241)
+states/hand_scratch/node = SubResource("AnimationNodeAnimation_idvwe")
+states/hand_scratch/position = Vector2(1051, 224.019)
+states/hand_scratch_back_to_idle/node = SubResource("AnimationNodeAnimation_qtxut")
+states/hand_scratch_back_to_idle/position = Vector2(1036, 164.019)
+states/hand_scratch_transition/node = SubResource("AnimationNodeAnimation_yxrfs")
+states/hand_scratch_transition/position = Vector2(1076, 287.019)
 states/hand_selected/node = SubResource("AnimationNodeAnimation_3f4jx")
 states/hand_selected/position = Vector2(533, 118)
 "states/hand_selected revert/node" = SubResource("AnimationNodeAnimation_ibdx2")
 "states/hand_selected revert/position" = Vector2(533, 46)
 states/hand_selected_idle/node = SubResource("AnimationNodeAnimation_7yucw")
 states/hand_selected_idle/position = Vector2(752, 118)
-transitions = ["Start", "hand_idle", SubResource("AnimationNodeStateMachineTransition_pjwb4"), "hand_idle", "hand_selected", SubResource("AnimationNodeStateMachineTransition_5g8px"), "hand_selected", "hand_selected_idle", SubResource("AnimationNodeStateMachineTransition_bdxh4"), "hand_selected_idle", "hand_selected revert", SubResource("AnimationNodeStateMachineTransition_2c3xc"), "hand_selected revert", "hand_idle", SubResource("AnimationNodeStateMachineTransition_lr3kt"), "hand_grab_air", "hand_selected_idle", SubResource("AnimationNodeStateMachineTransition_g11rb"), "hand_plug_ear", "hand_plug_idle", SubResource("AnimationNodeStateMachineTransition_4ng42"), "hand_plug_idle", "hand_selected_idle", SubResource("AnimationNodeStateMachineTransition_1kuwu")]
+transitions = ["Start", "hand_idle", SubResource("AnimationNodeStateMachineTransition_pjwb4"), "hand_idle", "hand_selected", SubResource("AnimationNodeStateMachineTransition_5g8px"), "hand_selected", "hand_selected_idle", SubResource("AnimationNodeStateMachineTransition_bdxh4"), "hand_selected_idle", "hand_selected revert", SubResource("AnimationNodeStateMachineTransition_2c3xc"), "hand_selected revert", "hand_idle", SubResource("AnimationNodeStateMachineTransition_lr3kt"), "hand_grab_air", "hand_selected_idle", SubResource("AnimationNodeStateMachineTransition_g11rb"), "hand_plug_ear", "hand_plug_idle", SubResource("AnimationNodeStateMachineTransition_4ng42"), "hand_plug_idle", "hand_plug_ear 2", SubResource("AnimationNodeStateMachineTransition_kqxe3"), "hand_plug_ear 2", "hand_selected_idle", SubResource("AnimationNodeStateMachineTransition_sblms"), "hand_selected_idle", "hand_plug_ear", SubResource("AnimationNodeStateMachineTransition_6ghtb"), "hand_scratch_transition", "hand_scratch", SubResource("AnimationNodeStateMachineTransition_olrkl"), "hand_scratch", "hand_scratch_back_to_idle", SubResource("AnimationNodeStateMachineTransition_1m2pe"), "hand_scratch_back_to_idle", "hand_selected_idle", SubResource("AnimationNodeStateMachineTransition_65eok")]
+graph_offset = Vector2(0, 82.0194)
 
 [node name="Hand" type="CharacterBody2D" groups=["Hands"]]
 script = ExtResource("1_50x2t")
@@ -313,6 +360,7 @@ libraries = {
 }
 tree_root = SubResource("AnimationNodeStateMachine_65fg0")
 parameters/conditions/deselectedHand = false
+parameters/conditions/plucked = false
 parameters/conditions/selectedHand = false
 parameters/conditions/unplucked = false
 
@@ -320,6 +368,7 @@ parameters/conditions/unplucked = false
 [connection signal="timeout" from="CollisionCooldown" to="." method="_on_collision_cooldown_timeout"]
 [connection signal="area_entered" from="HurtBox" to="." method="_on_hurt_box_area_entered"]
 [connection signal="area_exited" from="HurtBox" to="." method="_on_hurt_box_area_exited"]
+[connection signal="area_entered" from="HitBox" to="." method="_on_hit_box_area_entered"]
 
 [editable path="HurtBox"]
 [editable path="HitBox"]

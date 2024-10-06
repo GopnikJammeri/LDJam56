@@ -31,6 +31,9 @@ side = 1
 position = Vector2(-45, 81)
 flip_h = true
 
+[node name="AnimationTree" parent="HandRight/SpriteHand" index="0"]
+parameters/conditions/plucked = false
+
 [node name="HandLeft" parent="." instance=ExtResource("3_ay8sv")]
 position = Vector2(191, 393)
 move_with_keys = true

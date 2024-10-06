@@ -101,20 +101,30 @@ func _on_hurt_box_area_entered(area: Area2D) -> void:
 	if area.get_parent().name == "Mosquito":
 		emit_signal("mosquito_overlapped_start", side)
 	
+	if(area.is_in_group("Bite")):
+		animation_state_machine.travel("hand_scratch_transition")
+		print("HAND ON BITE MARK")
+	
 	if( area.is_in_group("Ears")):
 		Globals.ears_plugged[side] = true
 		area.add_to_group("Plucked")
 		area.remove_from_group("Ears")
+		animation_tree["parameters/conditions/unplucked"] = false
+		animation_tree["parameters/conditions/plucked"] = true
+		#animation_state_machine.travel("hand_plug_ear")
 
 func _on_hurt_box_area_exited(area: Area2D) -> void:
 	emit_signal("mosquito_overlapped_end", side)
 	if( area.is_in_group("Plucked")):
+		animation_tree["parameters/conditions/unplucked"] = true
+		animation_tree["parameters/conditions/plucked"] = false
 		Globals.ears_plugged[side] = false
 		area.add_to_group("Ears")
 		area.remove_from_group("Plucked")
+	
 		
-func set_active(state: bool):
+func activateHand(state: bool):
 	active = state
-	print("AAAAAAAAAAAA")
-	animation_tree["parameters/conditions/selectedHand"] = active
-	animation_tree["parameters/conditions/deselectedHand"] = !active
+
+	animation_tree["parameters/conditions/selectedHand"] = state
+	animation_tree["parameters/conditions/deselectedHand"] = !state
