@@ -1,20 +1,25 @@
 extends CharacterBody2D
 
-@export var speed: float = 500.0     # The forward movement speed
+@export var speed: float = 450.0     # The forward movement speed
 @export var rotation_speed: float = 10.0  # The speed of steering
 @export var damage: int = 3
 
 @onready var cooldown_timer: Timer = $CooldownTimer
 @onready var bite_mark_timer: Timer = $BiteMarkTimer
+@onready var respawn_timer: Timer = $RespawnTimer
 @onready var animation_tree: AnimationTree = $MosquitoSprite/AnimationTree
 @onready var mosquito_spawn_point_minigame: Node2D = $"../MinigameLevel/MosquitoSpawnPoint2"
 @onready var main_camera: Camera2D = $"../MainCamera"
 @onready var minigame_camera: Camera2D = $"../MinigameLevel/MinigameCamera"
 @onready var mosquito_sprite = $MosquitoSprite
-
+@onready var move_direction_sprite = $MoveDirectionSprite
+@onready var nodeLeftEar = get_node("/root/World/Human/HitBoxLeft/CollisionLeftEar")
+@onready var nodeRightEar = get_node("/root/World/Human/HitBoxRight/CollisionRightEar")
+@onready var head_pass_trough_timer = $HeadPassTroughTimer
 
 const BITE_MARK = preload("res://Scenes/bite_mark.tscn")
 const MINIGAME_LEVEL = preload("res://Scenes/minigame_level.tscn")
+const BLOOD_PUDDLE = preload("res://Scenes/blood_puddle.tscn")
 const TIME_REDUCTION: float = 30.0
 
 var screen_size: Vector2 = Vector2.ZERO
@@ -32,6 +37,8 @@ var position_of_human: Vector2 = Vector2.ZERO
 var spawn_point = null
 var is_in_minigame: bool = false
 var current_camera: Camera2D
+var position_of_ear
+var rotation_of_ear
 
 
 func _ready() -> void:
@@ -48,7 +55,7 @@ func _physics_process(delta: float) -> void:
 		mosquito_sprite.flip_v = true
 	else:
 		mosquito_sprite.flip_v = false
-
+	
 	
 	handle_human_position() 
 	if can_move:
@@ -70,6 +77,9 @@ func handle_movement(delta: float) -> void:
 	
 	var direction = Vector2(cos(rotation), sin(rotation))
 	velocity = direction * speed
+	
+	move_direction_sprite.global_position = position + direction * 50
+	move_direction_sprite.rotation = deg_to_rad(direction.angle() + 90) 
 
 func handle_screen_wrapping() -> void:
 	
@@ -215,25 +225,32 @@ func handle_human_position() -> void:
 		position_of_human = human.position
 
 
-func _on_hit_box_area_entered(area: Area2D) -> void:
-	print(area.get_parent().name)
-	 
+func _on_hit_box_area_entered(area: Area2D) -> void: 
 	if area.is_in_group("Ears"):
-		var nodeLeftEar = get_node("/root/World/Human/HitBoxLeft/CollisionLeftEar")
-		var nodeRightEar = get_node("/root/World/Human/HitBoxRight/CollisionRightEar")
 		if nodeLeftEar != null and nodeRightEar != null:
+			if !Input.is_action_pressed("ear_enter_mode"):
+				return
+			
 			if Globals.ears_plugged[0] == true or Globals.ears_plugged[1] == true:
 				_spawn_minigame()
 				return
 			
 			#entered left ear
 			if(position.distance_to(nodeLeftEar.get_global_position()) > position.distance_to(nodeRightEar.get_global_position())):
-				position = nodeLeftEar.get_global_position() + Vector2(-40,0)
-				rotation = deg_to_rad(180)
+				position_of_ear = nodeLeftEar.get_global_position() + Vector2(-40,0)
+				rotation_of_ear = deg_to_rad(180)
 			#entered right ear
 			else:
-				position = nodeRightEar.get_global_position() + Vector2(40,0)
-				rotation = deg_to_rad(0)
+				position_of_ear = nodeRightEar.get_global_position() + Vector2(40,0)
+				rotation_of_ear = deg_to_rad(0)
+			
+			position = Vector2(1, 1)
+			velocity = Vector2.ZERO
+			can_move = false
+			mosquito_sprite.visible = false
+			move_direction_sprite.visible = false
+			head_pass_trough_timer.start()
+			
 		else:
 			print("One of the ears collisions is null")	
 	if area.is_in_group("Plucked"):
@@ -244,12 +261,19 @@ func _on_hit_box_area_entered(area: Area2D) -> void:
 func handle_death():
 	cooldown_timer.stop()
 	bite_mark_timer.stop()
+	
+	spawn_blood_puddle()
+	
+	visible = false
 	detach()
+	can_move = false
 	position = spawn_point.position
+	respawn_timer.start()
 	velocity = Vector2.ZERO
 	StatsManager.add_health(10)
 
 func _spawn_minigame() -> void:
+	
 	position = mosquito_spawn_point_minigame.global_position
 	#print(position, mosquito_spawn_point_minigame.global_position)
 	is_in_minigame = true
@@ -263,3 +287,37 @@ func _transition_to_minigame() -> void:
 func set_camera_dimensions() -> void:
 	screen_size = get_viewport_rect().size
 	main_camera.position = Vector2(screen_size.x / 2, screen_size.y / 2)
+
+func _on_respawn_timer_timeout() -> void:
+	can_move = true
+	visible = true
+
+func spawn_blood_puddle() -> void:
+	var blood_puddle = BLOOD_PUDDLE.instantiate()
+	blood_puddle.global_position = global_position  # Set to mosquito's current position
+	get_parent().add_child(blood_puddle)  # Add blood puddle to the parent node
+	
+	
+	match attached_to:
+		Globals.MosquitoPlace.LEFT:
+			hand_left.add_child(blood_puddle)
+		Globals.MosquitoPlace.RIGHT:
+			hand_right.add_child(blood_puddle)
+		Globals.MosquitoPlace.FACE:
+			human.add_child(blood_puddle) 
+	#blood_puddle.global_position = get_global_position()
+
+func _on_head_pass_trough_timer_timeout():
+	if Globals.ears_plugged[0] == true or Globals.ears_plugged[1] == true:
+		move_direction_sprite.visible = true
+		mosquito_sprite.visible = true
+		can_move = true
+		_spawn_minigame()
+		return
+	
+	StatsManager.ReduceHealth(15)
+	move_direction_sprite.visible = true
+	mosquito_sprite.visible = true
+	can_move = true
+	position = position_of_ear
+	rotation = rotation_of_ear

@@ -1,9 +1,10 @@
-[gd_scene load_steps=8 format=3 uid="uid://bosri6tikh45c"]
+[gd_scene load_steps=9 format=3 uid="uid://bosri6tikh45c"]
 
 [ext_resource type="Script" path="res://Scripts/mosquito.gd" id="1_s08aw"]
 [ext_resource type="PackedScene" uid="uid://cwyrudj5qw1e8" path="res://Animations/mosquito_flying.tscn" id="2_82np8"]
 [ext_resource type="PackedScene" uid="uid://c5qlwdli75cap" path="res://Scenes/HitBoxHurtBox/hurt_box.tscn" id="3_5ae6k"]
 [ext_resource type="PackedScene" uid="uid://bx2x4gyv3cq5s" path="res://Scenes/HitBoxHurtBox/hit_box.tscn" id="3_65nvn"]
+[ext_resource type="Texture2D" uid="uid://cqd5dvyf4o5cw" path="res://Assets/Arrow.png" id="5_x7t1j"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_eiqwn"]
 size = Vector2(22, 12)
@@ -48,10 +49,22 @@ one_shot = true
 wait_time = 3.0
 one_shot = true
 
+[node name="RespawnTimer" type="Timer" parent="."]
+[node name="MoveDirectionSprite" type="Sprite2D" parent="."]
+position = Vector2(-1.75, -38.8696)
+scale = Vector2(0.157258, 0.195652)
+texture = ExtResource("5_x7t1j")
+
+[node name="HeadPassTroughTimer" type="Timer" parent="."]
+wait_time = 1.5
+one_shot = true
+
 [connection signal="area_entered" from="HitBox" to="." method="_on_hit_box_area_entered"]
 [connection signal="area_entered" from="HurtBox" to="." method="_on_hurt_box_area_entered"]
 [connection signal="timeout" from="CooldownTimer" to="." method="_on_cooldown_timer_timeout"]
 [connection signal="timeout" from="BiteMarkTimer" to="." method="_on_bite_mark_timer_timeout"]
+[connection signal="timeout" from="RespawnTimer" to="." method="_on_respawn_timer_timeout"]
+[connection signal="timeout" from="HeadPassTroughTimer" to="." method="_on_head_pass_trough_timer_timeout"]
 
 [editable path="MosquitoSprite"]
 [editable path="HitBox"]

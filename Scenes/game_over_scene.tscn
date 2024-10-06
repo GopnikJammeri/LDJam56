@@ -51,10 +51,11 @@ text = "PLAYER X WON"
 
 [node name="Button" type="Button" parent="."]
 layout_mode = 0
-offset_left = 402.0
-offset_top = 478.0
-offset_right = 779.0
-offset_bottom = 553.0
+offset_left = 401.0
+offset_top = 490.0
+offset_right = 778.0
+offset_bottom = 581.0
+theme_override_font_sizes/font_size = 30
 text = "MAIN MENU"
 
 [connection signal="pressed" from="Button" to="." method="_on_button_pressed"]

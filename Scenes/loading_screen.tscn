@@ -1,6 +1,7 @@
-[gd_scene load_steps=22 format=3 uid="uid://k3bfycxf2ur0"]
+[gd_scene load_steps=23 format=3 uid="uid://k3bfycxf2ur0"]
 
 [ext_resource type="Script" path="res://Scripts/loading_screen.gd" id="1_gndi4"]
+[ext_resource type="Texture2D" uid="uid://xgcgphnl3g6p" path="res://Assets/BG.png" id="2_548e2"]
 [ext_resource type="Texture2D" uid="uid://xtipvotab3tl" path="res://Assets/Mosque_Fly_Loop.png" id="2_symd3"]
 
 [sub_resource type="Curve2D" id="Curve2D_rqx61"]
@@ -139,6 +140,11 @@ animations = [{
 [node name="LoadingScreen" type="Node2D"]
 script = ExtResource("1_gndi4")
 
+[node name="BackGround" type="Sprite2D" parent="."]
+position = Vector2(575, 325)
+scale = Vector2(0.6, 0.6)
+texture = ExtResource("2_548e2")
+
 [node name="LoadingDotsTimer" type="Timer" parent="."]
 wait_time = 0.5
 autostart = true
@@ -160,8 +166,8 @@ scale = Vector2(1.5, 1.5)
 curve = SubResource("Curve2D_rqx61")
 
 [node name="PathFollow2D" type="PathFollow2D" parent="Path2D"]
-position = Vector2(-44.8419, 9.34048)
-rotation = -0.445691
+position = Vector2(-44.8415, 9.3403)
+rotation = -0.445686
 progress = 586.862
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="Path2D/PathFollow2D"]
