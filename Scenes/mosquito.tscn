@@ -50,6 +50,7 @@ wait_time = 3.0
 one_shot = true
 
 [node name="RespawnTimer" type="Timer" parent="."]
+
 [node name="MoveDirectionSprite" type="Sprite2D" parent="."]
 position = Vector2(-1.75, -38.8696)
 scale = Vector2(0.157258, 0.195652)
