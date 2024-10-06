@@ -14,9 +14,8 @@ script = ExtResource("1_fuj0x")
 [node name="Label" type="Label" parent="."]
 layout_mode = 0
 offset_left = 535.0
-offset_top = 65.0
 offset_right = 627.0
-offset_bottom = 107.0
+offset_bottom = 42.0
 theme_override_font_sizes/font_size = 30
 text = "vreme
 "
