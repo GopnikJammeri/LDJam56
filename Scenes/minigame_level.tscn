@@ -8,8 +8,6 @@
 [node name="MinigameLevel" type="Node2D"]
 script = ExtResource("1_ttycs")
 
-[node name="Mosquito" parent="." instance=ExtResource("1_fmh0w")]
-
 [node name="MosquitoSpawnPoint" parent="." instance=ExtResource("2_2he60")]
 position = Vector2(549, 140)
 
@@ -42,3 +40,8 @@ rotation = 3.14159
 [node name="BrainTeleporter8" parent="Teleporters" instance=ExtResource("4_pu86d")]
 position = Vector2(132, 84)
 rotation = 3.14159
+
+[node name="MosquitoSpawnPoint2" parent="." instance=ExtResource("2_2he60")]
+position = Vector2(268, 338)
+
+[node name="Mosquito" parent="." instance=ExtResource("1_fmh0w")]
