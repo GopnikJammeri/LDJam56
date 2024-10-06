@@ -1,8 +1,11 @@
 extends CharacterBody2D
 
-@export var speed: float = 450.0     # The forward movement speed
-@export var rotation_speed: float = 10.0  # The speed of steering
+@export var speed_in_world: float = 450.0     # The forward movement speed
+@export var speed_in_minigame: float = 300.0     # The forward movement speed
+@export var rotation_speed_in_world: float = 10.0  # The speed of steering
+@export var rotation_speed_in_minigame: float = 7.0  # The speed of steering
 @export var damage: int = 3
+
 
 @onready var cooldown_timer: Timer = $CooldownTimer
 @onready var bite_mark_timer: Timer = $BiteMarkTimer
@@ -22,6 +25,8 @@ const MINIGAME_LEVEL = preload("res://Scenes/minigame_level.tscn")
 const BLOOD_PUDDLE = preload("res://Scenes/blood_puddle.tscn")
 const TIME_REDUCTION: float = 30.0
 
+var speed: float = 450
+var rotation_speed: float = 10.0
 var screen_size: Vector2 = Vector2.ZERO
 var is_attached: bool = false
 var can_move: bool = true
@@ -273,14 +278,15 @@ func handle_death():
 	StatsManager.add_health(10)
 
 func _spawn_minigame() -> void:
-	
 	position = mosquito_spawn_point_minigame.global_position
 	#print(position, mosquito_spawn_point_minigame.global_position)
 	is_in_minigame = true
 	current_camera = minigame_camera
 	minigame_camera.make_current()
 	Globals.can_human_move = false
-	
+	speed = speed_in_minigame
+	rotation_speed = rotation_speed_in_minigame
+
 func _transition_to_minigame() -> void:
 	get_tree().change_scene_to_packed(MINIGAME_LEVEL)
 
@@ -297,15 +303,6 @@ func spawn_blood_puddle() -> void:
 	blood_puddle.global_position = global_position  # Set to mosquito's current position
 	get_parent().add_child(blood_puddle)  # Add blood puddle to the parent node
 	
-	
-	match attached_to:
-		Globals.MosquitoPlace.LEFT:
-			hand_left.add_child(blood_puddle)
-		Globals.MosquitoPlace.RIGHT:
-			hand_right.add_child(blood_puddle)
-		Globals.MosquitoPlace.FACE:
-			human.add_child(blood_puddle) 
-	#blood_puddle.global_position = get_global_position()
 
 func _on_head_pass_trough_timer_timeout():
 	if Globals.ears_plugged[0] == true or Globals.ears_plugged[1] == true:

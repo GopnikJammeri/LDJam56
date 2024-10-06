@@ -76,7 +76,7 @@ position = Vector2(579, 355)
 scale = Vector2(1.5, 1.5)
 
 [node name="HandRight" parent="." instance=ExtResource("3_ay8sv")]
-position = Vector2(854, 335)
+position = Vector2(861, 403)
 move_with_keys = true
 side = 1
 
@@ -103,7 +103,7 @@ position = Vector2(-42.495, -10)
 position = Vector2(0, 0)
 
 [node name="HandLeft" parent="." instance=ExtResource("3_ay8sv")]
-position = Vector2(270, 333)
+position = Vector2(239, 408)
 move_with_keys = true
 
 [node name="Mosquito" parent="." instance=ExtResource("1_aq7s8")]
