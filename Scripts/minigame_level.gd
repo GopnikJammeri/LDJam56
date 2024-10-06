@@ -76,6 +76,8 @@ func handle_special_portal() -> void:
 		mosquito.position = get_node("../MosquitoSpawnPoint").position
 		mosquito.current_camera = main_camera
 		mosquito.position = $"../MosquitoSpawnPoint".position
+		mosquito.speed = mosquito.speed_in_world
+		mosquito.rotation_speed = mosquito.rotation_speed_in_world
 		#print( $"../MosquitoSpawnPoint".position)
 	else:
 		pass
