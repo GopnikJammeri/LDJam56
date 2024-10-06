@@ -16,4 +16,4 @@ func _on_hurt_box_area_entered(area: Area2D) -> void:
 		scratches_left -= 1
 		if(scratches_left <= 0):
 			queue_free()
-		print("Mark scratches left: ",scratches_left)
+		#print("Mark scratches left: ",scratches_left)

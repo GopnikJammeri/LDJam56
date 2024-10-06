@@ -172,15 +172,15 @@ func _on_bite_mark_timer_timeout() -> void:
 		Globals.MosquitoPlace.FACE:
 			human.add_child(bite_mark) 
 	bite_mark.global_position = get_global_position()
-	print("Bite mark spawned!")
+	#print("Bite mark spawned!")
 
 func _on_cooldown_timer_timeout() -> void:
-	print("Cooldown finished")
+	#print("Cooldown finished")
 	is_on_cooldown = false
 
 func _on_hurt_box_area_entered(area: Area2D):
 	if(area.is_in_group("Hands")):
-		print("mosquito hit")
+		#print("mosquito hit")
 		handle_death()
 
 func is_bite_mark_overlapped() -> bool:
@@ -188,19 +188,19 @@ func is_bite_mark_overlapped() -> bool:
 		if child.has_meta("bite_mark"):
 			var distance = child.position.distance_to(position - human.position)
 			if distance < bite_threshold:
-				print("Too close to another bite mark, won't spawn a new one.")
+				#print("Too close to another bite mark, won't spawn a new one.")
 				return true
 	for child in hand_left.get_children():
 		if child.has_meta("bite_mark"):
 			var distance = child.position.distance_to(position - human.position)
 			if distance < bite_threshold:
-				print("Too close to another bite mark, won't spawn a new one.")
+				#print("Too close to another bite mark, won't spawn a new one.")
 				return true
 	for child in hand_right.get_children():
 		if child.has_meta("bite_mark"):
 			var distance = child.position.distance_to(position - human.position)
 			if distance < bite_threshold:
-				print("Too close to another bite mark, won't spawn a new one.")
+				#print("Too close to another bite mark, won't spawn a new one.")
 				return true
 	return false
 
@@ -215,15 +215,17 @@ func handle_human_position() -> void:
 
 
 func _on_hit_box_area_entered(area: Area2D) -> void:
+	print(area.get_parent().name)
+	 
 	if area.is_in_group("Ears"):
-		print("COLLIDED WITH EAR")
+		#print("COLLIDED WITH EAR")
 		var nodeLeftEar = get_node("/root/World/Human/HitBox/CollisionLeftEar")
 		var nodeRightEar = get_node("/root/World/Human/HitBox/CollisionRightEar")
 		if nodeLeftEar != null and nodeRightEar != null:
 			var random_value = randi() % 100
 			
 			if random_value < 15:
-				print("Entering minigame!")
+				#print("Entering minigame!")
 				_spawn_minigame()
 				return
 			else:
@@ -234,7 +236,7 @@ func _on_hit_box_area_entered(area: Area2D) -> void:
 				else:
 					position = nodeRightEar.get_global_position()+Vector2(40,0)
 					rotation = deg_to_rad(0)
-				
+
 func handle_death():
 	cooldown_timer.stop()
 	bite_mark_timer.stop()
@@ -245,7 +247,7 @@ func handle_death():
 
 func _spawn_minigame() -> void:
 	position = mosquito_spawn_point_minigame.global_position
-	print(position, mosquito_spawn_point_minigame.global_position)
+	#print(position, mosquito_spawn_point_minigame.global_position)
 	is_in_minigame = true
 	current_camera = minigame_camera
 	minigame_camera.make_current()
