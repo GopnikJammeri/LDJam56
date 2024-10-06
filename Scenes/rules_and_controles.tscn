@@ -50,10 +50,9 @@ offset_right = 1163.0
 offset_bottom = 295.0
 text = "Goal is to fill your body with blood before the time runs out
 
-A - Rotate clockwise
-D - Rotate anti clockwise
-S - Attach to skin and start sucking / Detach from skin
-W - Hold to enter the ear
+A / left stick left - Rotate clockwise
+D / left stick right - Rotate anti clockwise
+S / right action / Sony - circle / XBox - B - Attach to skin and start sucking / Detach from skin / Enter the ear
  
 Pro tips
 if you stay on skin for long enough bite mark will appear, that will deal damage over time.
@@ -76,9 +75,9 @@ offset_right = 1164.0
 offset_bottom = 634.0
 text = "Goal is to prevent mosquito from bothering you and sucking your blood 
 
-<,>,^,v - Control hand
-M - Switch hands
-Space - Attack / Scratch
+<,>,^,v / left stick left, right, up, down - Control hand
+M / Shoulder buttons - Switch hands
+Space / right action / Sony - circle / XBox - B - Attack / Scratch
 
 Pro tips
 Be careful, hands have limited reach area, you will not be able to move very fast if you exit it.
