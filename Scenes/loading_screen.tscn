@@ -1,7 +1,13 @@
-[gd_scene load_steps=21 format=3 uid="uid://bwyu7ng2p6k60"]
+[gd_scene load_steps=22 format=3 uid="uid://k3bfycxf2ur0"]
 
 [ext_resource type="Script" path="res://Scripts/loading_screen.gd" id="1_gndi4"]
 [ext_resource type="Texture2D" uid="uid://xtipvotab3tl" path="res://Assets/Mosque_Fly_Loop.png" id="2_symd3"]
+
+[sub_resource type="Curve2D" id="Curve2D_rqx61"]
+_data = {
+"points": PackedVector2Array(0, 0, 100, 0, 0, 0, 0, 0, 0, 0, 100, 100, 100, 0, 0, 0, 0, 200, 0, 100, 0, 10, -100, 100, -100, 0, 0, 0, 0, 0)
+}
+point_count = 5
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_k3060"]
 atlas = ExtResource("2_symd3")
@@ -133,8 +139,35 @@ animations = [{
 [node name="LoadingScreen" type="Node2D"]
 script = ExtResource("1_gndi4")
 
-[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
-position = Vector2(570, 305)
+[node name="LoadingDotsTimer" type="Timer" parent="."]
+wait_time = 0.5
+autostart = true
+
+[node name="Label" type="Label" parent="."]
+anchors_preset = -1
+anchor_right = 0.5
+offset_left = 546.0
+offset_top = 279.0
+offset_right = 832.0
+offset_bottom = 323.0
+grow_horizontal = 2
+theme_override_font_sizes/font_size = 31
+text = "Loading"
+
+[node name="Path2D" type="Path2D" parent="."]
+position = Vector2(609, 150)
+scale = Vector2(1.5, 1.5)
+curve = SubResource("Curve2D_rqx61")
+
+[node name="PathFollow2D" type="PathFollow2D" parent="Path2D"]
+position = Vector2(-44.8419, 9.34048)
+rotation = -0.445691
+progress = 586.862
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="Path2D/PathFollow2D"]
+scale = Vector2(0.5, 0.436)
 sprite_frames = SubResource("SpriteFrames_t5y66")
 autoplay = "default"
 frame_progress = 0.103573
+
+[connection signal="timeout" from="LoadingDotsTimer" to="." method="_on_loading_dots_timer_timeout"]
