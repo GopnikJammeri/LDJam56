@@ -1,0 +1,89 @@
+[gd_scene load_steps=3 format=3 uid="uid://cew03hm8uixbq"]
+
+[ext_resource type="Texture2D" uid="uid://xgcgphnl3g6p" path="res://Assets/BG.png" id="1_mx2xv"]
+[ext_resource type="Script" path="res://Scripts/rules_and_controles.gd" id="1_y8dhq"]
+
+[node name="RulesAndControles" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_y8dhq")
+
+[node name="BackGround" type="Sprite2D" parent="."]
+position = Vector2(575, 325)
+scale = Vector2(0.6, 0.6)
+texture = ExtResource("1_mx2xv")
+
+[node name="Button" type="Button" parent="."]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = 343.0
+offset_top = 231.0
+offset_right = 540.0
+offset_bottom = 297.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_font_sizes/font_size = 30
+text = "BACK"
+
+[node name="Label" type="Label" parent="."]
+layout_mode = 0
+offset_left = 10.0
+offset_top = 1.0
+offset_right = 1162.0
+offset_bottom = 36.0
+theme_override_font_sizes/font_size = 25
+text = "MOSQUITO"
+
+[node name="Label2" type="Label" parent="."]
+layout_mode = 0
+offset_left = 11.0
+offset_top = 38.0
+offset_right = 1163.0
+offset_bottom = 295.0
+text = "Goal is to fill your body with blood before the time runs out
+
+A - Rotate clockwise
+D - Rotate anti clockwise
+S - Attach to skin and start sucking / Detach from skin
+W - Hold to enter the ear
+ 
+Pro tips
+if you stay on skin for long enough bite mark will appear, that will deal damage over time.
+You can enter humans ear to deal a lot of damage, but be careful you can get trapped inside if the other ear is blocked."
+
+[node name="Label3" type="Label" parent="."]
+layout_mode = 0
+offset_left = 12.0
+offset_top = 314.0
+offset_right = 1164.0
+offset_bottom = 349.0
+theme_override_font_sizes/font_size = 25
+text = "HUMAN"
+
+[node name="Label4" type="Label" parent="."]
+layout_mode = 0
+offset_left = 12.0
+offset_top = 351.0
+offset_right = 1164.0
+offset_bottom = 634.0
+text = "Goal is to prevent mosquito from bothering you and sucking your blood 
+
+<,>,^,v - Control hand
+M - Switch hands
+Space - Attack / Scratch
+
+Pro tips
+Be careful, hands have limited reach area, you will not be able to move very fast if you exit it.
+You can block your ear by placing hand over it, that will disable mosquito from entering it.
+You can trap mosquito in your head by blocking one ear while the mosquito is already inside your head.
+You can remove bite mark by scratching it a few times."
+
+[connection signal="pressed" from="Button" to="." method="_on_button_pressed"]
