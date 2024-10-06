@@ -1,6 +1,5 @@
-[gd_scene load_steps=5 format=3 uid="uid://uguh5k3gfscv"]
+[gd_scene load_steps=4 format=3 uid="uid://uguh5k3gfscv"]
 
-[ext_resource type="PackedScene" uid="uid://bosri6tikh45c" path="res://Scenes/mosquito.tscn" id="1_fmh0w"]
 [ext_resource type="Script" path="res://Scripts/minigame_level.gd" id="1_ttycs"]
 [ext_resource type="PackedScene" uid="uid://deha0kmd1tjfw" path="res://Scenes/mosquito_spawn_point.tscn" id="2_2he60"]
 [ext_resource type="PackedScene" uid="uid://c6bdxy2a8dunh" path="res://Scenes/brain_teleporter.tscn" id="4_pu86d"]
@@ -44,4 +43,4 @@ rotation = 3.14159
 [node name="MosquitoSpawnPoint2" parent="." instance=ExtResource("2_2he60")]
 position = Vector2(268, 338)
 
-[node name="Mosquito" parent="." instance=ExtResource("1_fmh0w")]
+[node name="MinigameCamera" type="Camera2D" parent="."]

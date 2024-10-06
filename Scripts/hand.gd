@@ -38,7 +38,6 @@ func _ready():
 	animation_tree["parameters/conditions/selectedHand"] = active
 	
 
-
 func _input(event):
 	if move_with_keys:
 		return
@@ -53,10 +52,12 @@ func _physics_process(delta):
 	
 	if not active:
 		return
+	if not Globals.can_human_move:
+		return
 	
 	var direction = Vector2()
 	if Input.is_action_just_pressed("left_click") && is_ready_to_attack:
-		print("SLAP")
+		#print("SLAP")
 		is_ready_to_attack = false
 		attack_cooldown.start()
 		
@@ -90,27 +91,26 @@ func _physics_process(delta):
 	velocity = direction
 	move_and_slide()
 
-
 func _on_attack_cooldown_timeout():
 	is_ready_to_attack = true
 
 func _on_collision_cooldown_timeout():
 	hit_collision.disabled = true
 
-
 func _on_hurt_box_area_entered(area: Area2D) -> void:
-	print("ENTERED ", side)
-	emit_signal("mosquito_overlapped_start", side)
+	if area.get_parent().name == "Mosquito":
+		emit_signal("mosquito_overlapped_start", side)
+	
 	if( area.is_in_group("Ears")):
-		print("Ear plucked")
+		Globals.ears_plugged[side] = true
 		area.add_to_group("Plucked")
 		area.remove_from_group("Ears")
 
-
 func _on_hurt_box_area_exited(area: Area2D) -> void:
 	emit_signal("mosquito_overlapped_end", side)
+	
 	if( area.is_in_group("Plucked")):
-		print("Ear unplucked")
+		Globals.ears_plugged[side] = false
 		area.add_to_group("Ears")
 		area.remove_from_group("Plucked")
 		

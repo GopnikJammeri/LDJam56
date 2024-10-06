@@ -1,8 +1,9 @@
-[gd_scene load_steps=9 format=3 uid="uid://0d3k4m2v2vii"]
+[gd_scene load_steps=10 format=3 uid="uid://0d3k4m2v2vii"]
 
 [ext_resource type="PackedScene" uid="uid://bosri6tikh45c" path="res://Scenes/mosquito.tscn" id="1_aq7s8"]
 [ext_resource type="Script" path="res://Scripts/world.gd" id="1_lhxt3"]
 [ext_resource type="PackedScene" uid="uid://dant37hgbwwmw" path="res://Scenes/human.tscn" id="2_xs0at"]
+[ext_resource type="Texture2D" uid="uid://xgcgphnl3g6p" path="res://Assets/BG.png" id="2_yo6e2"]
 [ext_resource type="PackedScene" uid="uid://cijdnabxraonc" path="res://Scenes/Hand.tscn" id="3_ay8sv"]
 [ext_resource type="PackedScene" uid="uid://uguh5k3gfscv" path="res://Scenes/minigame_level.tscn" id="3_ebbhr"]
 [ext_resource type="PackedScene" uid="uid://dhf4aj2g3ogcy" path="res://Scenes/UI_Control_Scene.tscn" id="4_cmb76"]
@@ -11,6 +12,11 @@
 
 [node name="World" type="Node2D"]
 script = ExtResource("1_lhxt3")
+
+[node name="BackGround" type="Sprite2D" parent="."]
+position = Vector2(575, 325)
+scale = Vector2(0.6, 0.6)
+texture = ExtResource("2_yo6e2")
 
 [node name="Human" parent="." instance=ExtResource("2_xs0at")]
 position = Vector2(529, 350)
@@ -57,6 +63,9 @@ position = Vector2(549, 140)
 [node name="MinigameLevel" parent="." instance=ExtResource("3_ebbhr")]
 position = Vector2(1819, 35)
 
+[node name="MainCamera" type="Camera2D" parent="."]
+
 [editable path="HandRight"]
 [editable path="HandRight/HurtBox"]
 [editable path="HandRight/HitBox"]
+[editable path="MinigameLevel"]

@@ -1,6 +1,7 @@
-[gd_scene load_steps=2 format=3 uid="uid://c7ocxj3w06ua2"]
+[gd_scene load_steps=3 format=3 uid="uid://c7ocxj3w06ua2"]
 
 [ext_resource type="Script" path="res://Scripts/main_menu.gd" id="1_eywhe"]
+[ext_resource type="Texture2D" uid="uid://xgcgphnl3g6p" path="res://Assets/BG.png" id="2_d5iaa"]
 
 [node name="MainMenu" type="Control"]
 layout_mode = 3
@@ -10,6 +11,11 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_eywhe")
+
+[node name="BackGround" type="Sprite2D" parent="."]
+position = Vector2(575, 325)
+scale = Vector2(0.6, 0.6)
+texture = ExtResource("2_d5iaa")
 
 [node name="MarginContainer" type="MarginContainer" parent="."]
 layout_mode = 1

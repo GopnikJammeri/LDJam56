@@ -1,0 +1,173 @@
+[gd_scene load_steps=22 format=3 uid="uid://k3bfycxf2ur0"]
+
+[ext_resource type="Script" path="res://Scripts/loading_screen.gd" id="1_gndi4"]
+[ext_resource type="Texture2D" uid="uid://xtipvotab3tl" path="res://Assets/Mosque_Fly_Loop.png" id="2_symd3"]
+
+[sub_resource type="Curve2D" id="Curve2D_rqx61"]
+_data = {
+"points": PackedVector2Array(0, 0, 100, 0, 0, 0, 0, 0, 0, 0, 100, 100, 100, 0, 0, 0, 0, 200, 0, 100, 0, 10, -100, 100, -100, 0, 0, 0, 0, 0)
+}
+point_count = 5
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_k3060"]
+atlas = ExtResource("2_symd3")
+region = Rect2(0, 0, 256, 256)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_tqy1k"]
+atlas = ExtResource("2_symd3")
+region = Rect2(256, 0, 256, 256)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_tv0w5"]
+atlas = ExtResource("2_symd3")
+region = Rect2(512, 0, 256, 256)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_0af2x"]
+atlas = ExtResource("2_symd3")
+region = Rect2(768, 0, 256, 256)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_dlb8b"]
+atlas = ExtResource("2_symd3")
+region = Rect2(1024, 0, 256, 256)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ree8t"]
+atlas = ExtResource("2_symd3")
+region = Rect2(0, 256, 256, 256)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_hd6p1"]
+atlas = ExtResource("2_symd3")
+region = Rect2(256, 256, 256, 256)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_vaeku"]
+atlas = ExtResource("2_symd3")
+region = Rect2(512, 256, 256, 256)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_aguql"]
+atlas = ExtResource("2_symd3")
+region = Rect2(768, 256, 256, 256)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_301bg"]
+atlas = ExtResource("2_symd3")
+region = Rect2(1024, 256, 256, 256)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_wg8dg"]
+atlas = ExtResource("2_symd3")
+region = Rect2(0, 512, 256, 256)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_06d76"]
+atlas = ExtResource("2_symd3")
+region = Rect2(256, 512, 256, 256)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_eomik"]
+atlas = ExtResource("2_symd3")
+region = Rect2(512, 512, 256, 256)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_asftv"]
+atlas = ExtResource("2_symd3")
+region = Rect2(768, 512, 256, 256)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_jddj6"]
+atlas = ExtResource("2_symd3")
+region = Rect2(1024, 512, 256, 256)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_468o0"]
+atlas = ExtResource("2_symd3")
+region = Rect2(0, 768, 256, 256)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_07hqi"]
+atlas = ExtResource("2_symd3")
+region = Rect2(256, 768, 256, 256)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_t5y66"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_k3060")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_tqy1k")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_tv0w5")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_0af2x")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_dlb8b")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ree8t")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_hd6p1")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_vaeku")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_aguql")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_301bg")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_wg8dg")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_06d76")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_eomik")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_asftv")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_jddj6")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_468o0")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_07hqi")
+}],
+"loop": true,
+"name": &"default",
+"speed": 15.0
+}]
+
+[node name="LoadingScreen" type="Node2D"]
+script = ExtResource("1_gndi4")
+
+[node name="LoadingDotsTimer" type="Timer" parent="."]
+wait_time = 0.5
+autostart = true
+
+[node name="Label" type="Label" parent="."]
+anchors_preset = -1
+anchor_right = 0.5
+offset_left = 546.0
+offset_top = 279.0
+offset_right = 832.0
+offset_bottom = 323.0
+grow_horizontal = 2
+theme_override_font_sizes/font_size = 31
+text = "Loading"
+
+[node name="Path2D" type="Path2D" parent="."]
+position = Vector2(609, 150)
+scale = Vector2(1.5, 1.5)
+curve = SubResource("Curve2D_rqx61")
+
+[node name="PathFollow2D" type="PathFollow2D" parent="Path2D"]
+position = Vector2(-44.8419, 9.34048)
+rotation = -0.445691
+progress = 586.862
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="Path2D/PathFollow2D"]
+scale = Vector2(0.5, 0.436)
+sprite_frames = SubResource("SpriteFrames_t5y66")
+autoplay = "default"
+frame_progress = 0.103573
+
+[connection signal="timeout" from="LoadingDotsTimer" to="." method="_on_loading_dots_timer_timeout"]
