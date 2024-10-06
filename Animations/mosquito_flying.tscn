@@ -175,6 +175,7 @@ advance_mode = 2
 
 [sub_resource type="AnimationNodeStateMachine" id="AnimationNodeStateMachine_45n87"]
 reset_ends = true
+states/End/position = Vector2(939, 100)
 states/Start/position = Vector2(278, 100)
 states/mosquito_moving/node = SubResource("AnimationNodeAnimation_x2ydf")
 states/mosquito_moving/position = Vector2(506, 100)

@@ -7,6 +7,7 @@ func _ready() -> void:
 		player_text.text = "Mosquito won"
 	else:
 		player_text.text = "Human won"
+	StatsManager.reset_stats()
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.

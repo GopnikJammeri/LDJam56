@@ -11,6 +11,7 @@
 [ext_resource type="PackedScene" uid="uid://deha0kmd1tjfw" path="res://Scenes/mosquito_spawn_point.tscn" id="7_ikb4i"]
 
 [node name="World" type="Node2D"]
+position = Vector2(0, 2)
 script = ExtResource("1_lhxt3")
 
 [node name="BackGround" type="Sprite2D" parent="."]
@@ -19,20 +20,20 @@ scale = Vector2(0.6, 0.6)
 texture = ExtResource("2_yo6e2")
 
 [node name="Human" parent="." instance=ExtResource("2_xs0at")]
-position = Vector2(529, 350)
+position = Vector2(579, 355)
 scale = Vector2(1.5, 1.5)
 
 [node name="HandRight" parent="." instance=ExtResource("3_ay8sv")]
-position = Vector2(866, 395)
+position = Vector2(854, 335)
 move_with_keys = true
 side = 1
 
 [node name="SpriteHand" parent="HandRight" index="5"]
-position = Vector2(31, 53)
+position = Vector2(-45, 81)
 flip_h = true
 
 [node name="HandLeft" parent="." instance=ExtResource("3_ay8sv")]
-position = Vector2(191, 393)
+position = Vector2(270, 333)
 move_with_keys = true
 
 [node name="Mosquito" parent="." instance=ExtResource("1_aq7s8")]
