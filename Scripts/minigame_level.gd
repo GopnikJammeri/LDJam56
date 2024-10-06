@@ -37,10 +37,10 @@ func _pair_portals() -> void:
 		portal_pairs[portal_b.index] = portal_a
 		
 	special_portal = indices[0]  # Or any other logic to choose a portal
-	print("Special portal is: ", special_portal)
+	#print("Special portal is: ", special_portal)
 
 func _handle_teleportation(index: int) -> void:
-	print(index)
+	#print(index)
 	
 	if index == special_portal:
 		handle_special_portal()
@@ -69,15 +69,17 @@ func handle_special_portal() -> void:
 	if main_camera:
 		main_camera.make_current()  # Set the main camera as the active camera
 	else:
-		print("Error: Main camera not found")
+		pass
+		#print("Error: Main camera not found")
 	
 	if mosquito:
 		mosquito.position = get_node("../MosquitoSpawnPoint").position
 		mosquito.current_camera = main_camera
 		mosquito.position = $"../MosquitoSpawnPoint".position
-		print( $"../MosquitoSpawnPoint".position)
+		#print( $"../MosquitoSpawnPoint".position)
 	else:
-		print("Error: Mosquito node not found")
+		pass
+		#print("Error: Mosquito node not found")
 
 func set_camera_dimensions() -> void:
 	screen_size = get_viewport_rect().size

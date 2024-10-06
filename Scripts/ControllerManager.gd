@@ -26,7 +26,7 @@ var PlayerMosquito: BaseController;
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	var connectedJoycons =  Input.get_connected_joypads().size()
-	print("Connected joycons %d",connectedJoycons)
+	#print("Connected joycons %d",connectedJoycons)
 	if( connectedJoycons == 1 ):
 		print("Mosquito using joystick")
 		PlayerMosquito = JoyController.new()

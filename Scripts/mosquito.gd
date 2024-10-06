@@ -10,6 +10,7 @@ extends CharacterBody2D
 @onready var mosquito_spawn_point_minigame: Node2D = $"../MinigameLevel/MosquitoSpawnPoint2"
 @onready var main_camera: Camera2D = $"../MainCamera"
 @onready var minigame_camera: Camera2D = $"../MinigameLevel/MinigameCamera"
+@onready var mosquito_sprite = $MosquitoSprite
 
 
 const BITE_MARK = preload("res://Scenes/bite_mark.tscn")
@@ -40,8 +41,15 @@ func _ready() -> void:
 	fetch_character()
 	position = spawn_point.position
 	
-	
+
 func _physics_process(delta: float) -> void:
+	
+	if abs(rotation) > 1.5 :
+		mosquito_sprite.flip_v = true
+	else:
+		mosquito_sprite.flip_v = false
+
+	
 	handle_human_position() 
 	if can_move:
 		handle_movement(delta)
@@ -165,15 +173,15 @@ func _on_bite_mark_timer_timeout() -> void:
 		Globals.MosquitoPlace.FACE:
 			human.add_child(bite_mark) 
 	bite_mark.global_position = get_global_position()
-	print("Bite mark spawned!")
+	#print("Bite mark spawned!")
 
 func _on_cooldown_timer_timeout() -> void:
-	print("Cooldown finished")
+	#print("Cooldown finished")
 	is_on_cooldown = false
 
 func _on_hurt_box_area_entered(area: Area2D):
 	if(area.is_in_group("Hands")):
-		print("mosquito hit")
+		#print("mosquito hit")
 		handle_death()
 
 func is_bite_mark_overlapped() -> bool:
@@ -181,19 +189,19 @@ func is_bite_mark_overlapped() -> bool:
 		if child.has_meta("bite_mark"):
 			var distance = child.position.distance_to(position - human.position)
 			if distance < bite_threshold:
-				print("Too close to another bite mark, won't spawn a new one.")
+				#print("Too close to another bite mark, won't spawn a new one.")
 				return true
 	for child in hand_left.get_children():
 		if child.has_meta("bite_mark"):
 			var distance = child.position.distance_to(position - human.position)
 			if distance < bite_threshold:
-				print("Too close to another bite mark, won't spawn a new one.")
+				#print("Too close to another bite mark, won't spawn a new one.")
 				return true
 	for child in hand_right.get_children():
 		if child.has_meta("bite_mark"):
 			var distance = child.position.distance_to(position - human.position)
 			if distance < bite_threshold:
-				print("Too close to another bite mark, won't spawn a new one.")
+				#print("Too close to another bite mark, won't spawn a new one.")
 				return true
 	return false
 
@@ -208,8 +216,9 @@ func handle_human_position() -> void:
 
 
 func _on_hit_box_area_entered(area: Area2D) -> void:
+	print(area.get_parent().name)
+	 
 	if area.is_in_group("Ears"):
-		print("COLLIDED WITH EAR")
 		var nodeLeftEar = get_node("/root/World/Human/HitBoxLeft/CollisionLeftEar")
 		var nodeRightEar = get_node("/root/World/Human/HitBoxRight/CollisionRightEar")
 		if nodeLeftEar != null and nodeRightEar != null:
@@ -242,7 +251,7 @@ func handle_death():
 
 func _spawn_minigame() -> void:
 	position = mosquito_spawn_point_minigame.global_position
-	print(position, mosquito_spawn_point_minigame.global_position)
+	#print(position, mosquito_spawn_point_minigame.global_position)
 	is_in_minigame = true
 	current_camera = minigame_camera
 	minigame_camera.make_current()
