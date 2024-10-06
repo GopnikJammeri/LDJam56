@@ -297,15 +297,6 @@ func spawn_blood_puddle() -> void:
 	blood_puddle.global_position = global_position  # Set to mosquito's current position
 	get_parent().add_child(blood_puddle)  # Add blood puddle to the parent node
 	
-	
-	match attached_to:
-		Globals.MosquitoPlace.LEFT:
-			hand_left.add_child(blood_puddle)
-		Globals.MosquitoPlace.RIGHT:
-			hand_right.add_child(blood_puddle)
-		Globals.MosquitoPlace.FACE:
-			human.add_child(blood_puddle) 
-	#blood_puddle.global_position = get_global_position()
 
 func _on_head_pass_trough_timer_timeout():
 	if Globals.ears_plugged[0] == true or Globals.ears_plugged[1] == true:
