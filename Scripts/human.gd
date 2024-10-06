@@ -10,6 +10,6 @@ func _on_hurt_box_area_entered(area: Area2D):
 		emit_signal("mosquito_overlapped_start", Globals.MosquitoPlace.FACE)
 	
 
-func _on_hurt_box_area_exited(area):
+func _on_hurt_box_area_exited(area: Area2D):
 	if area.get_parent().name == "Mosquito":
 		emit_signal("mosquito_overlapped_end", Globals.MosquitoPlace.FACE)

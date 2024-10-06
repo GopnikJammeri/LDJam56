@@ -34,7 +34,6 @@ func _ready():
 	#print(active)
 	
 
-
 func _input(event):
 	if move_with_keys:
 		return
@@ -87,13 +86,11 @@ func _physics_process(delta):
 	velocity = direction
 	move_and_slide()
 
-
 func _on_attack_cooldown_timeout():
 	is_ready_to_attack = true
 
 func _on_collision_cooldown_timeout():
 	hit_collision.disabled = true
-
 
 func _on_hurt_box_area_entered(area: Area2D) -> void:
 	if area.get_parent().name == "Mosquito":
@@ -103,7 +100,6 @@ func _on_hurt_box_area_entered(area: Area2D) -> void:
 		Globals.ears_plugged[side] = true
 		area.add_to_group("Plucked")
 		area.remove_from_group("Ears")
-
 
 func _on_hurt_box_area_exited(area: Area2D) -> void:
 	emit_signal("mosquito_overlapped_end", side)
