@@ -28,7 +28,7 @@ position = Vector2(854, 335)
 move_with_keys = true
 side = 1
 
-[node name="SpriteHand" parent="HandRight" index="5"]
+[node name="SpriteHand" parent="HandRight" index="1"]
 position = Vector2(-45, 81)
 flip_h = true
 
