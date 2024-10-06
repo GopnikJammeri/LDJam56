@@ -18,6 +18,7 @@ func ReduceHealth(damage:float) -> void:
 
 func add_health(value: float) -> void:
 	health = clamp(health + value, 0, 100) 
+	emit_signal("on_health_change")
 
 func reset_stats() -> void:
 	health = 100
