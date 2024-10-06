@@ -1,7 +1,7 @@
-[gd_scene load_steps=6 format=3 uid="uid://b3ucb3433g1m0"]
+[gd_scene load_steps=7 format=3 uid="uid://b3ucb3433g1m0"]
 
-[ext_resource type="Texture2D" uid="uid://bcwpva7625sdr" path="res://Assets/Proba/blood_puddle.png" id="1_21jjj"]
 [ext_resource type="Script" path="res://Scripts/blood_puddle.gd" id="1_bfsr4"]
+[ext_resource type="Texture2D" uid="uid://b6sh08wgmg1c4" path="res://Assets/Splat.png" id="2_xkplc"]
 
 [sub_resource type="Animation" id="Animation_4y5jh"]
 resource_name = "dissapear"
@@ -32,11 +32,39 @@ tracks/0/keys = {
 "update": 0,
 "values": [Color(1, 1, 1, 1)]
 }
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".:scale")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(0.1, 0.1)]
+}
+
+[sub_resource type="Animation" id="Animation_ucv1y"]
+resource_name = "scale]"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.966667),
+"transitions": PackedFloat32Array(1, 0.101532),
+"update": 0,
+"values": [Vector2(0.1, 0.1), Vector2(0.15, 0.15)]
+}
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_xmpre"]
 _data = {
 "RESET": SubResource("Animation_27pu3"),
-"dissapear": SubResource("Animation_4y5jh")
+"dissapear": SubResource("Animation_4y5jh"),
+"scale": SubResource("Animation_ucv1y")
 }
 
 [node name="BloodPuddle" type="Node2D"]
@@ -44,14 +72,17 @@ position = Vector2(-1, 0)
 script = ExtResource("1_bfsr4")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
-texture = ExtResource("1_21jjj")
+scale = Vector2(0.1, 0.1)
+texture = ExtResource("2_xkplc")
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="Sprite2D"]
 libraries = {
 "": SubResource("AnimationLibrary_xmpre")
 }
+autoplay = "scale"
 
 [node name="DespawnTimer" type="Timer" parent="."]
+wait_time = 0.1
 one_shot = true
 
 [connection signal="animation_finished" from="Sprite2D/AnimationPlayer" to="." method="_on_animation_player_animation_finished"]

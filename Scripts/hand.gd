@@ -111,7 +111,8 @@ func _on_hurt_box_area_entered(area: Area2D) -> void:
 	
 
 func _on_hurt_box_area_exited(area: Area2D) -> void:
-	emit_signal("mosquito_overlapped_end", side)
+	if area.get_parent().name == "Mosquito":
+		emit_signal("mosquito_overlapped_end", side)
 	if(area.is_in_group("Bite")):
 		is_scratching = false
 		print("HAND ON BITE MARK")
