@@ -1,7 +1,6 @@
-[gd_scene load_steps=8 format=3 uid="uid://cijdnabxraonc"]
+[gd_scene load_steps=7 format=3 uid="uid://cijdnabxraonc"]
 
 [ext_resource type="Script" path="res://Scripts/hand.gd" id="1_50x2t"]
-[ext_resource type="Texture2D" uid="uid://dfoamq88myf4h" path="res://Assets/Proba/ruka.png" id="1_6052v"]
 [ext_resource type="PackedScene" uid="uid://c5qlwdli75cap" path="res://Scenes/HitBoxHurtBox/hurt_box.tscn" id="3_goagf"]
 [ext_resource type="PackedScene" uid="uid://bx2x4gyv3cq5s" path="res://Scenes/HitBoxHurtBox/hit_box.tscn" id="3_w7f20"]
 [ext_resource type="Texture2D" uid="uid://cliqdjd3m7jss" path="res://Assets/Hands.png" id="5_q8ox7"]
@@ -15,10 +14,6 @@ size = Vector2(80.125, 80)
 [node name="Hand" type="CharacterBody2D" groups=["Hands"]]
 script = ExtResource("1_50x2t")
 move_with_keys = false
-
-[node name="Sprite2D" type="Sprite2D" parent="."]
-scale = Vector2(0.155088, 0.131529)
-texture = ExtResource("1_6052v")
 
 [node name="AttackCooldown" type="Timer" parent="."]
 wait_time = 0.5
