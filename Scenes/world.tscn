@@ -129,7 +129,7 @@ grow_horizontal = 1
 grow_vertical = 1
 
 [node name="MosquitoSpawnPoint" parent="." instance=ExtResource("7_ikb4i")]
-position = Vector2(549, 140)
+position = Vector2(36, 101)
 
 [node name="MainCamera" type="Camera2D" parent="."]
 
