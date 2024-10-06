@@ -57,6 +57,9 @@ position = Vector2(549, 140)
 [node name="MinigameLevel" parent="." instance=ExtResource("3_ebbhr")]
 position = Vector2(1819, 35)
 
+[node name="MainCamera" type="Camera2D" parent="."]
+
 [editable path="HandRight"]
 [editable path="HandRight/HurtBox"]
 [editable path="HandRight/HitBox"]
+[editable path="MinigameLevel"]

@@ -7,6 +7,10 @@ extends CharacterBody2D
 @onready var cooldown_timer: Timer = $CooldownTimer
 @onready var bite_mark_timer: Timer = $BiteMarkTimer
 @onready var animation_tree: AnimationTree = $MosquitoSprite/AnimationTree
+@onready var mosquito_spawn_point_minigame: Node2D = $"../MinigameLevel/MosquitoSpawnPoint2"
+@onready var main_camera: Camera2D = $"../MainCamera"
+@onready var minigame_camera: Camera2D = $"../MinigameLevel/MinigameCamera"
+
 
 const BITE_MARK = preload("res://Scenes/bite_mark.tscn")
 const MINIGAME_LEVEL = preload("res://Scenes/minigame_level.tscn")
@@ -25,9 +29,13 @@ var bite_threshold: float = 20.0
 var attached_to: Globals.MosquitoPlace = Globals.MosquitoPlace.NONE
 var position_of_human: Vector2 = Vector2.ZERO
 var spawn_point = null
+var is_in_minigame: bool = false
+var current_camera: Camera2D
 
 func _ready() -> void:
 	screen_size = get_viewport_rect().size
+	current_camera = main_camera
+	set_camera_dimensions()
 	fetch_character()
 	position = spawn_point.position
 	
@@ -54,15 +62,23 @@ func handle_movement(delta: float) -> void:
 	velocity = direction * speed
 
 func handle_screen_wrapping() -> void:
-	if position.x < 0:
-		position.x = screen_size.x
-	elif position.x > screen_size.x:
-		position.x = 0
 	
-	if position.y < 0:
-		position.y = screen_size.y
-	elif position.y > screen_size.y:
-		position.y = 0
+	var viewport_size = current_camera.get_viewport_rect().size
+
+	var left_edge = current_camera.global_position.x - viewport_size.x / 2
+	var right_edge = current_camera.global_position.x + viewport_size.x / 2
+	var top_edge = current_camera.global_position.y - viewport_size.y / 2
+	var bottom_edge = current_camera.global_position.y + viewport_size.y / 2
+
+	if position.x < left_edge:
+		position.x = right_edge
+	elif position.x > right_edge:
+		position.x = left_edge
+
+	if position.y < top_edge:
+		position.y = bottom_edge
+	elif position.y > bottom_edge:
+		position.y = top_edge
 
 func handle_attack() -> void:
 	if Input.is_action_just_pressed("mosquito_attack"):
@@ -121,8 +137,6 @@ func detach() -> void:
 func set_is_on_human(side: Globals.MosquitoPlace):
 	if attached_to != Globals.MosquitoPlace.NONE:
 		return
-	
-	print(side)
 	attached_to = side
 	is_on_human = true
 	
@@ -194,7 +208,6 @@ func handle_human_position() -> void:
 func _on_hit_box_area_entered(area: Area2D) -> void:
 	if area.is_in_group("Ears"):
 		print("COLLIDED WITH EAR")
-		print(area)
 		var nodeLeftEar = get_node("/root/World/Human/HitBox/CollisionLeftEar")
 		var nodeRightEar = get_node("/root/World/Human/HitBox/CollisionRightEar")
 		if nodeLeftEar != null and nodeRightEar != null:
@@ -222,10 +235,15 @@ func handle_death():
 	StatsManager.reduce_time(TIME_REDUCTION)
 
 func _spawn_minigame() -> void:
-	get_tree().paused = true
-	var world = get_tree().current_scene
-	get_tree().change_scene_to_packed(MINIGAME_LEVEL)
-	return
-
+	position = mosquito_spawn_point_minigame.global_position
+	print(position, mosquito_spawn_point_minigame.global_position)
+	is_in_minigame = true
+	current_camera = minigame_camera
+	minigame_camera.make_current()
+	
 func _transition_to_minigame() -> void:
 	get_tree().change_scene_to_packed(MINIGAME_LEVEL)
+
+func set_camera_dimensions() -> void:
+	screen_size = get_viewport_rect().size
+	main_camera.position = Vector2(screen_size.x / 2, screen_size.y / 2)
