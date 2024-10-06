@@ -13,12 +13,16 @@ func ReduceHealth(damage:float) -> void:
 	
 	if health <= 0:
 		get_tree().change_scene_to_file(game_over_scene)
-		#get_tree().set_deferred("paused", true)
 	
 	emit_signal("on_health_change")
 
+func reset_stats() -> void:
+	health = 100
+	emit_signal("on_health_change")
+	timer.start()
+
 func _on_timer_timeout():
-	get_tree().set_deferred("paused", true)
+	get_tree().change_scene_to_file(game_over_scene)
 
 func reduce_time(time_to_reduce: float):
 	if timer.time_left > time_to_reduce:
