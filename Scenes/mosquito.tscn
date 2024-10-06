@@ -22,9 +22,6 @@ script = ExtResource("1_s08aw")
 [node name="MosquitoSprite" parent="." instance=ExtResource("2_82np8")]
 scale = Vector2(0.15, 0.15)
 
-[node name="AnimationTree" parent="MosquitoSprite" index="0"]
-parameters/conditions/stopsucc = false
-
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("RectangleShape2D_eiqwn")
 debug_color = Color(0, 0.6, 0.701961, 0)

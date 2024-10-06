@@ -199,8 +199,10 @@ func _on_hit_box_area_entered(area: Area2D) -> void:
 		if nodeLeftEar != null and nodeRightEar != null:
 			if(position.distance_to(nodeLeftEar.get_global_position()) > position.distance_to(nodeRightEar.get_global_position())):
 				position = nodeLeftEar.get_global_position()+Vector2(-40,0)
+				rotation = deg_to_rad(180)
 			else:
 				position = nodeRightEar.get_global_position()+Vector2(40,0)
+				rotation = deg_to_rad(0)
 				
 func handle_death():
 	cooldown_timer.stop()
