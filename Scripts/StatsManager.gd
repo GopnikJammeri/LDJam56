@@ -31,6 +31,14 @@ func _on_timer_timeout():
 	timer.start()
 	timer.paused = true
 
+func _input(event: InputEvent) -> void:
+	# Check if the "F" key is pressed
+	if event is InputEventKey and event.pressed and event.keycode == KEY_F:
+		var fullscreen = DisplayServer.window_get_mode()
+		if(!fullscreen == DisplayServer.WINDOW_MODE_FULLSCREEN):
+			DisplayServer.window_set_mode(DisplayServer.WINDOW_MODE_FULLSCREEN) 
+		else:
+			DisplayServer.window_set_mode(DisplayServer.WINDOW_MODE_WINDOWED) 
 #func reduce_time(time_to_reduce: float):
 	#if timer.time_left > time_to_reduce:
 		#var new_time_left = timer.time_left - time_to_reduce
