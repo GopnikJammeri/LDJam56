@@ -64,6 +64,7 @@ func _handle_teleportation(index: int) -> void:
 func handle_special_portal() -> void:
 	var main_camera = get_node("../MainCamera")
 	var mosquito = get_node("../Mosquito")
+	Globals.can_human_move = true
 	
 	if main_camera:
 		main_camera.make_current()  # Set the main camera as the active camera

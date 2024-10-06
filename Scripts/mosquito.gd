@@ -32,12 +32,14 @@ var spawn_point = null
 var is_in_minigame: bool = false
 var current_camera: Camera2D
 
+
 func _ready() -> void:
 	screen_size = get_viewport_rect().size
 	current_camera = main_camera
 	set_camera_dimensions()
 	fetch_character()
 	position = spawn_point.position
+	
 	
 func _physics_process(delta: float) -> void:
 	handle_human_position() 
@@ -208,24 +210,28 @@ func handle_human_position() -> void:
 func _on_hit_box_area_entered(area: Area2D) -> void:
 	if area.is_in_group("Ears"):
 		print("COLLIDED WITH EAR")
-		var nodeLeftEar = get_node("/root/World/Human/HitBox/CollisionLeftEar")
-		var nodeRightEar = get_node("/root/World/Human/HitBox/CollisionRightEar")
+		var nodeLeftEar = get_node("/root/World/Human/HitBoxLeft/CollisionLeftEar")
+		var nodeRightEar = get_node("/root/World/Human/HitBoxRight/CollisionRightEar")
 		if nodeLeftEar != null and nodeRightEar != null:
-			var random_value = randi() % 100
-			
-			if random_value < 15:
-				print("Entering minigame!")
+			if Globals.ears_plugged[0] == true or Globals.ears_plugged[1] == true:
 				_spawn_minigame()
 				return
+			
+			#entered left ear
+			if(position.distance_to(nodeLeftEar.get_global_position()) > position.distance_to(nodeRightEar.get_global_position())):
+				position = nodeLeftEar.get_global_position() + Vector2(-40,0)
+				rotation = deg_to_rad(180)
+			#entered right ear
 			else:
-				# Otherwise, teleport the mosquito to the opposite ear
-				if(position.distance_to(nodeLeftEar.get_global_position()) > position.distance_to(nodeRightEar.get_global_position())):
-					position = nodeLeftEar.get_global_position()+Vector2(-40,0)
-					rotation = deg_to_rad(180)
-				else:
-					position = nodeRightEar.get_global_position()+Vector2(40,0)
-					rotation = deg_to_rad(0)
-				
+				position = nodeRightEar.get_global_position() + Vector2(40,0)
+				rotation = deg_to_rad(0)
+		else:
+			print("One of the ears collisions is null")	
+	if area.is_in_group("Plucked"):
+		print("Entered the plucked")
+		if (Globals.ears_plugged[0] or Globals.ears_plugged[1]) and not (Globals.ears_plugged[0] and Globals.ears_plugged[1]):
+			print(Globals.ears_plugged)
+		
 func handle_death():
 	cooldown_timer.stop()
 	bite_mark_timer.stop()
@@ -240,6 +246,7 @@ func _spawn_minigame() -> void:
 	is_in_minigame = true
 	current_camera = minigame_camera
 	minigame_camera.make_current()
+	Globals.can_human_move = false
 	
 func _transition_to_minigame() -> void:
 	get_tree().change_scene_to_packed(MINIGAME_LEVEL)
