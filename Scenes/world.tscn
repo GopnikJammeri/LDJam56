@@ -42,18 +42,14 @@ position = Vector2(1819, 35)
 position = Vector2(136, -109)
 shape = SubResource("CapsuleShape2D_12wlg")
 
-[node name="Spawner" parent="MinigameLevel/Teleporters/BrainTeleporter" index="2"]
+[node name="Spawner" parent="MinigameLevel/Teleporters/BrainTeleporter" index="1"]
 position = Vector2(184, -147)
-
-[node name="Sprite2D" parent="MinigameLevel/Teleporters/BrainTeleporter2" index="0"]
-position = Vector2(-111, 83)
 
 [node name="CollisionShape2D" parent="MinigameLevel/Teleporters/BrainTeleporter2/Area2D" index="0"]
 position = Vector2(59, -46)
-rotation = 1.37881
 shape = SubResource("CapsuleShape2D_d475w")
 
-[node name="Spawner" parent="MinigameLevel/Teleporters/BrainTeleporter2" index="2"]
+[node name="Spawner" parent="MinigameLevel/Teleporters/BrainTeleporter2" index="1"]
 position = Vector2(47, -90)
 
 [node name="BrainTeleporter3" parent="MinigameLevel/Teleporters" index="2"]
@@ -64,7 +60,7 @@ position = Vector2(4, -144)
 rotation = -1.47829
 shape = SubResource("CapsuleShape2D_ccg6o")
 
-[node name="Spawner" parent="MinigameLevel/Teleporters/BrainTeleporter3" index="2"]
+[node name="Spawner" parent="MinigameLevel/Teleporters/BrainTeleporter3" index="1"]
 position = Vector2(9, -191)
 
 [node name="CollisionShape2D" parent="MinigameLevel/Teleporters/BrainTeleporter4/Area2D" index="0"]
@@ -72,7 +68,7 @@ position = Vector2(-114, -108)
 rotation = -1.05592
 shape = SubResource("CapsuleShape2D_0qtni")
 
-[node name="Spawner" parent="MinigameLevel/Teleporters/BrainTeleporter4" index="2"]
+[node name="Spawner" parent="MinigameLevel/Teleporters/BrainTeleporter4" index="1"]
 position = Vector2(-190, -154)
 
 [node name="Human" parent="." instance=ExtResource("2_xs0at")]
@@ -88,8 +84,6 @@ side = 1
 position = Vector2(-45, 81)
 flip_h = true
 
-[node name="AnimationTree" parent="HandRight/SpriteHand" index="0"]
-parameters/conditions/plucked = false
 [node name="HurtBox" parent="HandRight" index="4"]
 position = Vector2(-42.495, -10)
 

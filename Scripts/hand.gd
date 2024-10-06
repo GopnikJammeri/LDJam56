@@ -12,6 +12,7 @@ var move_vector = Vector2.ZERO
 var is_ready_to_attack = true
 var active: bool = false 
 var move_speed
+var is_scratching = false
 
 @export var move_speed_fast = 300
 @export var move_speed_slow = 30
@@ -63,7 +64,10 @@ func _physics_process(delta):
 		
 		hit_collision.disabled = false
 		collision_cooldown.start()
-		animation_state_machine.travel("hand_grab_air")
+		if(is_scratching):
+			animation_state_machine.travel("hand_scratch_transition")
+		else:
+			animation_state_machine.travel("hand_grab_air")
 	
 	if Geometry2D.is_point_in_polygon(reach_area.to_local(position), reach_area.polygon):
 		move_speed = move_speed_fast
@@ -102,7 +106,7 @@ func _on_hurt_box_area_entered(area: Area2D) -> void:
 		emit_signal("mosquito_overlapped_start", side)
 	
 	if(area.is_in_group("Bite")):
-		animation_state_machine.travel("hand_scratch_transition")
+		is_scratching = true
 		print("HAND ON BITE MARK")
 	
 	if( area.is_in_group("Ears")):
@@ -121,6 +125,9 @@ func _on_hurt_box_area_exited(area: Area2D) -> void:
 		Globals.ears_plugged[side] = false
 		area.add_to_group("Ears")
 		area.remove_from_group("Plucked")
+	if(area.is_in_group("Bite")):
+		is_scratching = false
+		print("HAND ON BITE MARK")
 	
 		
 func activateHand(state: bool):
