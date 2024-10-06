@@ -10,6 +10,7 @@ extends CharacterBody2D
 @onready var mosquito_spawn_point_minigame: Node2D = $"../MinigameLevel/MosquitoSpawnPoint2"
 @onready var main_camera: Camera2D = $"../MainCamera"
 @onready var minigame_camera: Camera2D = $"../MinigameLevel/MinigameCamera"
+@onready var mosquito_sprite = $MosquitoSprite
 
 
 const BITE_MARK = preload("res://Scenes/bite_mark.tscn")
