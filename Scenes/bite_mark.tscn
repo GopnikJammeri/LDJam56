@@ -1,7 +1,7 @@
 [gd_scene load_steps=5 format=3 uid="uid://d04b4s6ljve6o"]
 
-[ext_resource type="Texture2D" uid="uid://c6ke1yat57b64" path="res://Assets/Proba/bite_mark.png" id="1_haqh7"]
 [ext_resource type="Script" path="res://Scripts/bite_mark.gd" id="1_xbfw1"]
+[ext_resource type="Texture2D" uid="uid://bgagf5cm5rjwl" path="res://Assets/Bite.png" id="2_30nc7"]
 [ext_resource type="PackedScene" uid="uid://c5qlwdli75cap" path="res://Scenes/HitBoxHurtBox/hurt_box.tscn" id="3_nyq58"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_dyue0"]
@@ -10,7 +10,9 @@
 script = ExtResource("1_xbfw1")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
-texture = ExtResource("1_haqh7")
+position = Vector2(1, 0)
+scale = Vector2(0.15, 0.15)
+texture = ExtResource("2_30nc7")
 
 [node name="HurtBox" parent="." instance=ExtResource("3_nyq58")]
 collision_layer = 16
