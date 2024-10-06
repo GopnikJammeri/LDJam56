@@ -232,7 +232,7 @@ func handle_death():
 	detach()
 	position = spawn_point.position
 	velocity = Vector2.ZERO
-	StatsManager.reduce_time(TIME_REDUCTION)
+	StatsManager.add_health(10)
 
 func _spawn_minigame() -> void:
 	position = mosquito_spawn_point_minigame.global_position

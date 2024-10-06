@@ -11,6 +11,7 @@ var screen_size: Vector2 = Vector2.ZERO
 func _ready() -> void:
 	set_active_hand(hand_right)
 	set_camera_dimensions()
+	StatsManager.reset_stats()
 
 func _input(event: InputEvent) -> void:
 	if event.is_action_pressed("switch_hand"):
