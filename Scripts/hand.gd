@@ -24,6 +24,8 @@ const Mosquito = preload("res://Scenes/mosquito.tscn")
 @onready var collision_cooldown = $CollisionCooldown
 @onready var hit_collision = $HitBox/CollisionShape2D
 @onready var reach_area = $CollisionPolygon2D
+@onready var animation_tree: AnimationTree = $SpriteHand/AnimationTree
+@onready var animation_state_machine: AnimationNodeStateMachinePlayback = animation_tree.get("parameters/playback")
 
 func _ready():
 	move_speed = move_speed_fast
@@ -32,6 +34,8 @@ func _ready():
 	if !move_with_keys:
 		Input.set_mouse_mode(Input.MOUSE_MODE_HIDDEN)
 	print(active)
+	animation_tree.active = true
+	animation_tree["parameters/conditions/selectedHand"] = active
 	
 
 
@@ -58,6 +62,7 @@ func _physics_process(delta):
 		
 		hit_collision.disabled = false
 		collision_cooldown.start()
+		animation_state_machine.travel("hand_grab_air")
 	
 	if Geometry2D.is_point_in_polygon(reach_area.to_local(position), reach_area.polygon):
 		move_speed = move_speed_fast
@@ -108,3 +113,9 @@ func _on_hurt_box_area_exited(area: Area2D) -> void:
 		print("Ear unplucked")
 		area.add_to_group("Ears")
 		area.remove_from_group("Plucked")
+		
+func set_active(state: bool):
+	active = state
+	print("AAAAAAAAAAAA")
+	animation_tree["parameters/conditions/selectedHand"] = active
+	animation_tree["parameters/conditions/deselectedHand"] = !active
