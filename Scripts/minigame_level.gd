@@ -36,8 +36,7 @@ func _pair_portals() -> void:
 		portal_pairs[portal_a.index] = portal_b
 		portal_pairs[portal_b.index] = portal_a
 		
-	special_portal = indices[0]  # Or any other logic to choose a portal
-	#print("Special portal is: ", special_portal)
+	special_portal = indices[0]
 
 func _handle_teleportation(index: int) -> void:
 	#print(index)
@@ -62,6 +61,7 @@ func _handle_teleportation(index: int) -> void:
 	
 
 func handle_special_portal() -> void:
+	_pair_portals()
 	var main_camera = get_node("../MainCamera")
 	var mosquito = get_node("../Mosquito")
 	Globals.can_human_move = true

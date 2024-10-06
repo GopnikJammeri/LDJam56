@@ -96,7 +96,8 @@ func _on_collision_cooldown_timeout():
 
 
 func _on_hurt_box_area_entered(area: Area2D) -> void:
-	emit_signal("mosquito_overlapped_start", side)
+	if area.get_parent().name == "Mosquito":
+		emit_signal("mosquito_overlapped_start", side)
 	
 	if( area.is_in_group("Ears")):
 		Globals.ears_plugged[side] = true
