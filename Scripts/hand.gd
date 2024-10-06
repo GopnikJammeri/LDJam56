@@ -108,7 +108,6 @@ func _on_hurt_box_area_entered(area: Area2D) -> void:
 
 func _on_hurt_box_area_exited(area: Area2D) -> void:
 	emit_signal("mosquito_overlapped_end", side)
-	
 	if( area.is_in_group("Plucked")):
 		Globals.ears_plugged[side] = false
 		area.add_to_group("Ears")

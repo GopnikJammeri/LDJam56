@@ -295,7 +295,7 @@ shape = SubResource("RectangleShape2D_xhrkg")
 disabled = true
 
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="."]
-position = Vector2(-520, 165)
+position = Vector2(-65, 152)
 polygon = PackedVector2Array(-283, -105, -271, 159, -64, 277, 271, 250, 324, 88, 319, -178, 164, -327, -175, -313)
 disabled = true
 
