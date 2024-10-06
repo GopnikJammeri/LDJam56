@@ -31,16 +31,16 @@ position = Vector2(0, 10)
 shape = SubResource("CapsuleShape2D_kj2lm")
 
 [node name="HitBoxRight" parent="." groups=["Ears"] instance=ExtResource("4_wa1go")]
-collision_layer = 8
-collision_mask = 8
+collision_layer = 72
+collision_mask = 72
 
 [node name="CollisionRightEar" type="CollisionShape2D" parent="HitBoxRight" groups=["Ears"]]
 position = Vector2(90, 0)
 shape = SubResource("RectangleShape2D_1q5j8")
 
 [node name="HitBoxLeft" parent="." groups=["Ears"] instance=ExtResource("4_wa1go")]
-collision_layer = 8
-collision_mask = 8
+collision_layer = 72
+collision_mask = 72
 
 [node name="CollisionLeftEar" type="CollisionShape2D" parent="HitBoxLeft" groups=["Ears"]]
 position = Vector2(-90, 0)
