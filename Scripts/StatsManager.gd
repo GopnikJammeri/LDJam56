@@ -4,7 +4,7 @@ signal on_health_change()
 
 var health: float = 100
 @onready var timer = $Timer
-
+var game_over_scene = "res://Scenes/game_over_scene.tscn"
 func GetHealth() -> int:
 	return health
 
@@ -12,7 +12,8 @@ func ReduceHealth(damage:float) -> void:
 	health -= damage
 	
 	if health <= 0:
-		get_tree().set_deferred("paused", true)
+		get_tree().change_scene_to_file(game_over_scene)
+		#get_tree().set_deferred("paused", true)
 	
 	emit_signal("on_health_change")
 
