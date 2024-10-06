@@ -28,6 +28,8 @@ const Mosquito = preload("res://Scenes/mosquito.tscn")
 @onready var animation_tree: AnimationTree = $SpriteHand/AnimationTree
 @onready var animation_state_machine: AnimationNodeStateMachinePlayback = animation_tree.get("parameters/playback")
 
+var original_hand_pos
+
 func _ready():
 	move_speed = move_speed_fast
 	reach_area.top_level = true
@@ -37,6 +39,7 @@ func _ready():
 	print(active)
 	animation_tree.active = true
 	animation_tree["parameters/conditions/selectedHand"] = active
+	original_hand_pos = position
 	
 
 func _input(event):
@@ -52,6 +55,7 @@ func _input(event):
 func _physics_process(delta):
 	
 	if not active:
+		position = position.lerp(original_hand_pos,delta/5)
 		return
 	if not Globals.can_human_move:
 		return

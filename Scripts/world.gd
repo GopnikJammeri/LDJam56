@@ -16,6 +16,13 @@ func _ready() -> void:
 func _input(event: InputEvent) -> void:
 	if event.is_action_pressed("switch_hand"):
 		switch_hand()
+	 # Check if the "F" key is pressed
+	if event is InputEventKey and event.pressed and event.keycode == KEY_F:
+		var fullscreen = DisplayServer.window_get_mode()
+		if(!fullscreen == DisplayServer.WINDOW_MODE_FULLSCREEN):
+			DisplayServer.window_set_mode(DisplayServer.WINDOW_MODE_FULLSCREEN) 
+		else:
+			DisplayServer.window_set_mode(DisplayServer.WINDOW_MODE_WINDOWED) 
 
 func set_active_hand(hand: Hand) -> void:
 	hand_right.activateHand(false)
