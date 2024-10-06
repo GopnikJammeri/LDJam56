@@ -109,22 +109,9 @@ func _on_hurt_box_area_entered(area: Area2D) -> void:
 		is_scratching = true
 		print("HAND ON BITE MARK")
 	
-	if( area.is_in_group("Ears")):
-		Globals.ears_plugged[side] = true
-		area.add_to_group("Plucked")
-		area.remove_from_group("Ears")
-		animation_tree["parameters/conditions/unplucked"] = false
-		animation_tree["parameters/conditions/plucked"] = true
-		#animation_state_machine.travel("hand_plug_ear")
 
 func _on_hurt_box_area_exited(area: Area2D) -> void:
 	emit_signal("mosquito_overlapped_end", side)
-	if( area.is_in_group("Plucked")):
-		animation_tree["parameters/conditions/unplucked"] = true
-		animation_tree["parameters/conditions/plucked"] = false
-		Globals.ears_plugged[side] = false
-		area.add_to_group("Ears")
-		area.remove_from_group("Plucked")
 	if(area.is_in_group("Bite")):
 		is_scratching = false
 		print("HAND ON BITE MARK")
@@ -135,3 +122,22 @@ func activateHand(state: bool):
 
 	animation_tree["parameters/conditions/selectedHand"] = state
 	animation_tree["parameters/conditions/deselectedHand"] = !state
+
+# Used for ears
+func _on_hurt_box_2_area_entered(area: Area2D) -> void:
+	if( area.is_in_group("Ears")):
+		Globals.ears_plugged[side] = true
+		area.add_to_group("Plucked")
+		area.remove_from_group("Ears")
+		animation_tree["parameters/conditions/unplucked"] = false
+		animation_tree["parameters/conditions/plucked"] = true
+		#animation_state_machine.travel("hand_plug_ear")
+
+
+func _on_hurt_box_2_area_exited(area: Area2D) -> void:
+	if( area.is_in_group("Plucked")):
+		animation_tree["parameters/conditions/unplucked"] = true
+		animation_tree["parameters/conditions/plucked"] = false
+		Globals.ears_plugged[side] = false
+		area.add_to_group("Ears")
+		area.remove_from_group("Plucked")

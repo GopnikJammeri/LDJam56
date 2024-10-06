@@ -80,17 +80,23 @@ position = Vector2(861, 403)
 move_with_keys = true
 side = 1
 
-[node name="SpriteHand" parent="HandRight" index="1"]
+[node name="Stick" parent="HandRight" index="0"]
+position = Vector2(-16, 1089)
+
+[node name="SpriteHand" parent="HandRight" index="2"]
 position = Vector2(-45, 81)
 flip_h = true
 
-[node name="HurtBox" parent="HandRight" index="4"]
+[node name="HurtBox" parent="HandRight" index="5"]
 position = Vector2(-42.495, -10)
 
 [node name="CollisionShape2D" parent="HandRight/HurtBox" index="0"]
 position = Vector2(0, 0)
 
-[node name="HitBox" parent="HandRight" index="5"]
+[node name="CollisionShape2D2" parent="HandRight/HurtBox2" index="1"]
+position = Vector2(-109, -8)
+
+[node name="HitBox" parent="HandRight" index="7"]
 position = Vector2(-42.495, -10)
 
 [node name="CollisionShape2D" parent="HandRight/HitBox" index="0"]
@@ -106,10 +112,10 @@ scale = Vector2(1.3, 1.3)
 collision_mask = 5
 
 [node name="Control" parent="." instance=ExtResource("4_cmb76")]
-offset_left = 6.0
-offset_top = 23.0
-offset_right = 1150.0
-offset_bottom = 674.0
+offset_left = 31.0
+offset_top = 31.0
+offset_right = 1175.0
+offset_bottom = 682.0
 
 [node name="TimerUI" parent="." instance=ExtResource("6_wlg0w")]
 anchors_preset = 0
