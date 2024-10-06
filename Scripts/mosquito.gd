@@ -233,7 +233,7 @@ func handle_human_position() -> void:
 func _on_hit_box_area_entered(area: Area2D) -> void: 
 	if area.is_in_group("Ears"):
 		if nodeLeftEar != null and nodeRightEar != null:
-			if !Input.is_action_pressed("ear_enter_mode"):
+			if !Input.is_action_pressed("mosquito_attack"):
 				return
 			
 			if Globals.ears_plugged[0] == true or Globals.ears_plugged[1] == true:
