@@ -5,12 +5,6 @@
 [ext_resource type="PackedScene" uid="uid://bx2x4gyv3cq5s" path="res://Scenes/HitBoxHurtBox/hit_box.tscn" id="3_w7f20"]
 [ext_resource type="Texture2D" uid="uid://c1etynhlubibu" path="res://Assets/handsSmaller.png" id="4_uta0q"]
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_t15pu"]
-size = Vector2(70, 96)
-
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_xhrkg"]
-size = Vector2(67, 94)
-
 [sub_resource type="Animation" id="Animation_s1kx5"]
 length = 0.001
 tracks/0/type = "value"
@@ -265,34 +259,17 @@ states/hand_selected_idle/node = SubResource("AnimationNodeAnimation_7yucw")
 states/hand_selected_idle/position = Vector2(752, 118)
 transitions = ["Start", "hand_idle", SubResource("AnimationNodeStateMachineTransition_pjwb4"), "hand_idle", "hand_selected", SubResource("AnimationNodeStateMachineTransition_5g8px"), "hand_selected", "hand_selected_idle", SubResource("AnimationNodeStateMachineTransition_bdxh4"), "hand_selected_idle", "hand_selected revert", SubResource("AnimationNodeStateMachineTransition_2c3xc"), "hand_selected revert", "hand_idle", SubResource("AnimationNodeStateMachineTransition_lr3kt"), "hand_grab_air", "hand_selected_idle", SubResource("AnimationNodeStateMachineTransition_g11rb"), "hand_plug_ear", "hand_plug_idle", SubResource("AnimationNodeStateMachineTransition_4ng42"), "hand_plug_idle", "hand_selected_idle", SubResource("AnimationNodeStateMachineTransition_1kuwu")]
 
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_tfwrm"]
+radius = 44.0
+height = 144.0
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_bwp2f"]
+radius = 44.0
+height = 144.0
+
 [node name="Hand" type="CharacterBody2D" groups=["Hands"]]
 script = ExtResource("1_50x2t")
 move_with_keys = false
-
-[node name="AttackCooldown" type="Timer" parent="."]
-wait_time = 0.5
-one_shot = true
-
-[node name="CollisionCooldown" type="Timer" parent="."]
-wait_time = 0.05
-one_shot = true
-
-[node name="HurtBox" parent="." instance=ExtResource("3_goagf")]
-collision_layer = 8
-collision_mask = 8
-
-[node name="CollisionShape2D" parent="HurtBox" index="0"]
-position = Vector2(-46, 7)
-shape = SubResource("RectangleShape2D_t15pu")
-
-[node name="HitBox" parent="." groups=["Hands"] instance=ExtResource("3_w7f20")]
-collision_layer = 16
-collision_mask = 16
-
-[node name="CollisionShape2D" parent="HitBox" index="0" groups=["Hands"]]
-position = Vector2(-44.5, 7)
-shape = SubResource("RectangleShape2D_xhrkg")
-disabled = true
 
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="."]
 position = Vector2(-5, 53)
@@ -315,6 +292,31 @@ tree_root = SubResource("AnimationNodeStateMachine_65fg0")
 parameters/conditions/deselectedHand = false
 parameters/conditions/selectedHand = false
 parameters/conditions/unplucked = false
+
+[node name="AttackCooldown" type="Timer" parent="."]
+wait_time = 0.5
+one_shot = true
+
+[node name="CollisionCooldown" type="Timer" parent="."]
+wait_time = 0.05
+one_shot = true
+
+[node name="HurtBox" parent="." instance=ExtResource("3_goagf")]
+collision_layer = 8
+collision_mask = 8
+
+[node name="CollisionShape2D" parent="HurtBox" index="0"]
+position = Vector2(0, -12)
+shape = SubResource("CapsuleShape2D_tfwrm")
+
+[node name="HitBox" parent="." groups=["Hands"] instance=ExtResource("3_w7f20")]
+collision_layer = 16
+collision_mask = 16
+
+[node name="CollisionShape2D" parent="HitBox" index="0" groups=["Hands"]]
+position = Vector2(0, -12)
+shape = SubResource("CapsuleShape2D_bwp2f")
+disabled = true
 
 [connection signal="timeout" from="AttackCooldown" to="." method="_on_attack_cooldown_timeout"]
 [connection signal="timeout" from="CollisionCooldown" to="." method="_on_collision_cooldown_timeout"]
