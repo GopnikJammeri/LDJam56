@@ -115,6 +115,5 @@ func _on_hurt_box_area_exited(area: Area2D) -> void:
 		
 func set_active(state: bool):
 	active = state
-	print("AAAAAAAAAAAA")
 	animation_tree["parameters/conditions/selectedHand"] = active
 	animation_tree["parameters/conditions/deselectedHand"] = !active

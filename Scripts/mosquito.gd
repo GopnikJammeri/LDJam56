@@ -6,6 +6,7 @@ extends CharacterBody2D
 
 @onready var cooldown_timer: Timer = $CooldownTimer
 @onready var bite_mark_timer: Timer = $BiteMarkTimer
+@onready var respawn_timer: Timer = $RespawnTimer
 @onready var animation_tree: AnimationTree = $MosquitoSprite/AnimationTree
 @onready var mosquito_spawn_point_minigame: Node2D = $"../MinigameLevel/MosquitoSpawnPoint2"
 @onready var main_camera: Camera2D = $"../MainCamera"
@@ -15,6 +16,7 @@ extends CharacterBody2D
 
 const BITE_MARK = preload("res://Scenes/bite_mark.tscn")
 const MINIGAME_LEVEL = preload("res://Scenes/minigame_level.tscn")
+const BLOOD_PUDDLE = preload("res://Scenes/blood_puddle.tscn")
 const TIME_REDUCTION: float = 30.0
 
 var screen_size: Vector2 = Vector2.ZERO
@@ -244,12 +246,19 @@ func _on_hit_box_area_entered(area: Area2D) -> void:
 func handle_death():
 	cooldown_timer.stop()
 	bite_mark_timer.stop()
+	
+	spawn_blood_puddle()
+	
+	visible = false
 	detach()
+	can_move = false
 	position = spawn_point.position
+	respawn_timer.start()
 	velocity = Vector2.ZERO
 	StatsManager.add_health(10)
 
 func _spawn_minigame() -> void:
+	
 	position = mosquito_spawn_point_minigame.global_position
 	#print(position, mosquito_spawn_point_minigame.global_position)
 	is_in_minigame = true
@@ -263,3 +272,22 @@ func _transition_to_minigame() -> void:
 func set_camera_dimensions() -> void:
 	screen_size = get_viewport_rect().size
 	main_camera.position = Vector2(screen_size.x / 2, screen_size.y / 2)
+
+func _on_respawn_timer_timeout() -> void:
+	can_move = true
+	visible = true
+
+func spawn_blood_puddle() -> void:
+	var blood_puddle = BLOOD_PUDDLE.instantiate()
+	blood_puddle.global_position = global_position  # Set to mosquito's current position
+	get_parent().add_child(blood_puddle)  # Add blood puddle to the parent node
+	
+	
+	match attached_to:
+		Globals.MosquitoPlace.LEFT:
+			hand_left.add_child(blood_puddle)
+		Globals.MosquitoPlace.RIGHT:
+			hand_right.add_child(blood_puddle)
+		Globals.MosquitoPlace.FACE:
+			human.add_child(blood_puddle) 
+	#blood_puddle.global_position = get_global_position()

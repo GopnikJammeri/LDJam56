@@ -1,0 +1,16 @@
+[gd_scene load_steps=3 format=3 uid="uid://b3ucb3433g1m0"]
+
+[ext_resource type="Texture2D" uid="uid://bcwpva7625sdr" path="res://Assets/Proba/blood_puddle.png" id="1_21jjj"]
+[ext_resource type="Script" path="res://Scripts/blood_puddle.gd" id="1_bfsr4"]
+
+[node name="BloodPuddle" type="Node2D"]
+script = ExtResource("1_bfsr4")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("1_21jjj")
+
+[node name="DespawnTimer" type="Timer" parent="."]
+wait_time = 30.0
+one_shot = true
+
+[connection signal="timeout" from="DespawnTimer" to="." method="_on_despawn_timer_timeout"]

@@ -1,46 +1,171 @@
-[gd_scene load_steps=4 format=3 uid="uid://uguh5k3gfscv"]
+[gd_scene load_steps=15 format=3 uid="uid://uguh5k3gfscv"]
 
 [ext_resource type="Script" path="res://Scripts/minigame_level.gd" id="1_ttycs"]
+[ext_resource type="Texture2D" uid="uid://c3nxjombijs6j" path="res://Assets/headInsideV2.png" id="2_1gkf4"]
 [ext_resource type="PackedScene" uid="uid://deha0kmd1tjfw" path="res://Scenes/mosquito_spawn_point.tscn" id="2_2he60"]
+[ext_resource type="Texture2D" uid="uid://xgcgphnl3g6p" path="res://Assets/BG.png" id="2_scmn6"]
+[ext_resource type="PackedScene" uid="uid://cpds84pgepn3d" path="res://Scenes/timer_ui.tscn" id="4_bd7ss"]
 [ext_resource type="PackedScene" uid="uid://c6bdxy2a8dunh" path="res://Scenes/brain_teleporter.tscn" id="4_pu86d"]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_twhmp"]
+radius = 29.0
+height = 80.0
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_meln6"]
+radius = 21.759
+height = 96.0892
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_dg2sp"]
+radius = 22.5498
+height = 86.7097
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_x0hkp"]
+radius = 30.2331
+height = 90.9017
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_k2yin"]
+radius = 29.9311
+height = 87.6342
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_r3hak"]
+radius = 23.7624
+height = 77.766
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_1iykn"]
+radius = 20.6078
+height = 67.8715
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_361rl"]
+radius = 30.0
 
 [node name="MinigameLevel" type="Node2D"]
 script = ExtResource("1_ttycs")
 
+[node name="BackGround" type="Sprite2D" parent="."]
+position = Vector2(575, 325)
+scale = Vector2(0.6, 0.6)
+texture = ExtResource("2_scmn6")
+
+[node name="BackGroundBrain" type="Sprite2D" parent="."]
+position = Vector2(575, 325)
+texture = ExtResource("2_1gkf4")
+
 [node name="MosquitoSpawnPoint" parent="." instance=ExtResource("2_2he60")]
-position = Vector2(549, 140)
+position = Vector2(568, 343)
 
 [node name="Teleporters" type="Node2D" parent="."]
 
 [node name="BrainTeleporter" parent="Teleporters" instance=ExtResource("4_pu86d")]
 position = Vector2(125, 568)
 
+[node name="CollisionShape2D" parent="Teleporters/BrainTeleporter/Area2D" index="0"]
+position = Vector2(140, -110)
+shape = SubResource("CapsuleShape2D_twhmp")
+
+[node name="Spawner" parent="Teleporters/BrainTeleporter" index="1"]
+position = Vector2(198, -127)
+
 [node name="BrainTeleporter2" parent="Teleporters" instance=ExtResource("4_pu86d")]
 position = Vector2(412, 567)
+
+[node name="Area2D" parent="Teleporters/BrainTeleporter2" index="0"]
+position = Vector2(22, 6)
+
+[node name="CollisionShape2D" parent="Teleporters/BrainTeleporter2/Area2D" index="0"]
+position = Vector2(39, -49)
+rotation = 1.37881
+shape = SubResource("CapsuleShape2D_meln6")
+
+[node name="Spawner" parent="Teleporters/BrainTeleporter2" index="1"]
+position = Vector2(44, -95)
 
 [node name="BrainTeleporter3" parent="Teleporters" instance=ExtResource("4_pu86d")]
 position = Vector2(680, 566)
 
+[node name="CollisionShape2D" parent="Teleporters/BrainTeleporter3/Area2D" index="0"]
+position = Vector2(-7, -46)
+rotation = 1.76278
+shape = SubResource("CapsuleShape2D_dg2sp")
+
 [node name="BrainTeleporter4" parent="Teleporters" instance=ExtResource("4_pu86d")]
 position = Vector2(1005, 566)
+
+[node name="CollisionShape2D" parent="Teleporters/BrainTeleporter4/Area2D" index="0"]
+position = Vector2(-125, -111)
+rotation = -1.07338
+shape = SubResource("CapsuleShape2D_x0hkp")
+
+[node name="Spawner" parent="Teleporters/BrainTeleporter4" index="1"]
+position = Vector2(-197, -164)
 
 [node name="BrainTeleporter5" parent="Teleporters" instance=ExtResource("4_pu86d")]
 position = Vector2(1011, 87)
 rotation = 3.14159
 
+[node name="CollisionShape2D" parent="Teleporters/BrainTeleporter5/Area2D" index="0"]
+position = Vector2(153, -143)
+rotation = 2.06822
+shape = SubResource("CapsuleShape2D_k2yin")
+
+[node name="Spawner" parent="Teleporters/BrainTeleporter5" index="1"]
+position = Vector2(186, -194)
+
 [node name="BrainTeleporter6" parent="Teleporters" instance=ExtResource("4_pu86d")]
-position = Vector2(707, 86)
+position = Vector2(779, -25)
 rotation = 3.14159
+
+[node name="CollisionShape2D" parent="Teleporters/BrainTeleporter6/Area2D" index="0"]
+position = Vector2(104, -148)
+rotation = 1.80118
+shape = SubResource("CapsuleShape2D_r3hak")
+
+[node name="Spawner" parent="Teleporters/BrainTeleporter6" index="1"]
+position = Vector2(122.001, -203)
 
 [node name="BrainTeleporter7" parent="Teleporters" instance=ExtResource("4_pu86d")]
 position = Vector2(417, 84)
 rotation = 3.14159
 
+[node name="CollisionShape2D" parent="Teleporters/BrainTeleporter7/Area2D" index="0"]
+position = Vector2(-67.9999, -40.0002)
+rotation = 4.98466
+shape = SubResource("CapsuleShape2D_1iykn")
+
+[node name="Spawner" parent="Teleporters/BrainTeleporter7" index="1"]
+position = Vector2(-51.9998, -86.0001)
+
 [node name="BrainTeleporter8" parent="Teleporters" instance=ExtResource("4_pu86d")]
 position = Vector2(132, 84)
 rotation = 3.14159
+
+[node name="CollisionShape2D" parent="Teleporters/BrainTeleporter8/Area2D" index="0"]
+position = Vector2(-161, -145)
+shape = SubResource("CircleShape2D_361rl")
+
+[node name="Spawner" parent="Teleporters/BrainTeleporter8" index="1"]
+position = Vector2(-205, -176.001)
 
 [node name="MosquitoSpawnPoint2" parent="." instance=ExtResource("2_2he60")]
 position = Vector2(268, 338)
 
 [node name="MinigameCamera" type="Camera2D" parent="."]
+
+[node name="TimerUI" parent="." instance=ExtResource("4_bd7ss")]
+anchors_preset = 0
+anchor_right = 0.0
+anchor_bottom = 0.0
+offset_left = -4.0
+offset_top = -10.0
+offset_right = -4.0
+offset_bottom = -10.0
+grow_horizontal = 1
+grow_vertical = 1
+
+[editable path="Teleporters/BrainTeleporter"]
+[editable path="Teleporters/BrainTeleporter2"]
+[editable path="Teleporters/BrainTeleporter3"]
+[editable path="Teleporters/BrainTeleporter4"]
+[editable path="Teleporters/BrainTeleporter5"]
+[editable path="Teleporters/BrainTeleporter6"]
+[editable path="Teleporters/BrainTeleporter7"]
+[editable path="Teleporters/BrainTeleporter8"]
