@@ -3,6 +3,7 @@ extends Control
 @onready var player_text: Label = $PlayerWonText
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
+	Input.mouse_mode = Input.MOUSE_MODE_VISIBLE 
 	if(StatsManager.GetHealth() <= 0):
 		player_text.text = "Mosquito won"
 	else:
