@@ -1,9 +1,10 @@
-[gd_scene load_steps=7 format=3 uid="uid://cijdnabxraonc"]
+[gd_scene load_steps=8 format=3 uid="uid://cijdnabxraonc"]
 
 [ext_resource type="Script" path="res://Scripts/hand.gd" id="1_50x2t"]
 [ext_resource type="Texture2D" uid="uid://dfoamq88myf4h" path="res://Assets/Proba/ruka.png" id="1_6052v"]
 [ext_resource type="PackedScene" uid="uid://c5qlwdli75cap" path="res://Scenes/HitBoxHurtBox/hurt_box.tscn" id="3_goagf"]
 [ext_resource type="PackedScene" uid="uid://bx2x4gyv3cq5s" path="res://Scenes/HitBoxHurtBox/hit_box.tscn" id="3_w7f20"]
+[ext_resource type="Texture2D" uid="uid://cliqdjd3m7jss" path="res://Assets/Hands.png" id="5_q8ox7"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_t15pu"]
 size = Vector2(77, 81)
@@ -47,6 +48,13 @@ disabled = true
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="."]
 polygon = PackedVector2Array(-283, -105, -271, 159, -64, 277, 271, 250, 324, 88, 319, -178, 164, -327, -175, -313)
 disabled = true
+
+[node name="SpriteHand" type="Sprite2D" parent="."]
+position = Vector2(-40, 74)
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("5_q8ox7")
+hframes = 20
+vframes = 17
 
 [connection signal="timeout" from="AttackCooldown" to="." method="_on_attack_cooldown_timeout"]
 [connection signal="timeout" from="CollisionCooldown" to="." method="_on_collision_cooldown_timeout"]

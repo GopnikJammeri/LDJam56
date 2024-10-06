@@ -20,6 +20,10 @@ position = Vector2(866, 395)
 move_with_keys = true
 side = 1
 
+[node name="SpriteHand" parent="HandRight" index="6"]
+position = Vector2(31, 53)
+flip_h = true
+
 [node name="HandLeft" parent="." instance=ExtResource("3_ay8sv")]
 position = Vector2(191, 393)
 move_with_keys = true
@@ -48,3 +52,7 @@ grow_vertical = 1
 
 [node name="MosquitoSpawnPoint" parent="." instance=ExtResource("7_ikb4i")]
 position = Vector2(549, 140)
+
+[editable path="HandRight"]
+[editable path="HandRight/HurtBox"]
+[editable path="HandRight/HitBox"]
