@@ -15,7 +15,7 @@ var move_speed
 var is_scratching = false
 
 @export var move_speed_fast = 300
-@export var move_speed_slow = 30
+@export var move_speed_slow = 50
 @export var move_with_keys: bool = true
 @export var is_active: bool = true
 @export var side: Globals.MosquitoPlace

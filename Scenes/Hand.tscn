@@ -328,7 +328,7 @@ position = Vector2(-24, 1086)
 texture = ExtResource("2_agg5w")
 
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="."]
-polygon = PackedVector2Array(-225, -177, -228, 157, -163, 249, 222, 242, 286, 157, 280, -184, 209, -274, -178, -266)
+polygon = PackedVector2Array(-247, -202, -250, 181, -163, 249, 221, 247, 299, 171, 299, -202, 209, -274, -156, -269)
 disabled = true
 
 [node name="SpriteHand" type="Sprite2D" parent="."]
