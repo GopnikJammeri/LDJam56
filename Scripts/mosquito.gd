@@ -19,6 +19,9 @@ extends CharacterBody2D
 @onready var nodeLeftEar = get_node("/root/World/Human/HitBoxLeft/CollisionLeftEar")
 @onready var nodeRightEar = get_node("/root/World/Human/HitBoxRight/CollisionRightEar")
 @onready var head_pass_trough_timer = $HeadPassTroughTimer
+@onready var ear_out = $EarOut
+@onready var ear_in = $EarIn
+@onready var mosq_death = $MosqDeath
 
 const BITE_MARK = preload("res://Scenes/bite_mark.tscn")
 const MINIGAME_LEVEL = preload("res://Scenes/minigame_level.tscn")
@@ -236,6 +239,8 @@ func _on_hit_box_area_entered(area: Area2D) -> void:
 			if !Input.is_action_pressed("mosquito_attack"):
 				return
 			
+			ear_in.play()
+			
 			if Globals.ears_plugged[0] == true or Globals.ears_plugged[1] == true:
 				_spawn_minigame()
 				return
@@ -249,13 +254,13 @@ func _on_hit_box_area_entered(area: Area2D) -> void:
 				position_of_ear = nodeRightEar.get_global_position() + Vector2(40,0)
 				rotation_of_ear = deg_to_rad(0)
 			
+			
 			position = Vector2(1, 1)
 			velocity = Vector2.ZERO
 			can_move = false
 			mosquito_sprite.visible = false
 			move_direction_sprite.visible = false
 			head_pass_trough_timer.start()
-			
 		else:
 			print("One of the ears collisions is null")	
 	if area.is_in_group("Plucked"):
@@ -268,7 +273,7 @@ func handle_death():
 	bite_mark_timer.stop()
 	
 	spawn_blood_puddle()
-	
+	mosq_death.play()
 	visible = false
 	detach()
 	can_move = false
@@ -312,6 +317,7 @@ func _on_head_pass_trough_timer_timeout():
 		_spawn_minigame()
 		return
 	
+	ear_out.play()
 	StatsManager.ReduceHealth(15)
 	move_direction_sprite.visible = true
 	mosquito_sprite.visible = true
