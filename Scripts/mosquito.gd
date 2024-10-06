@@ -8,6 +8,7 @@ extends CharacterBody2D
 @onready var bite_mark_timer: Timer = $BiteMarkTimer
 
 const BITE_MARK = preload("res://Scenes/bite_mark.tscn")
+const MINIGAME_LEVEL = preload("res://Scenes/minigame_level.tscn")
 const TIME_REDUCTION: float = 30.0
 
 var screen_size: Vector2 = Vector2.ZERO
@@ -192,10 +193,18 @@ func _on_hit_box_area_entered(area: Area2D) -> void:
 		var nodeLeftEar = get_node("/root/World/Human/HitBox/CollisionLeftEar")
 		var nodeRightEar = get_node("/root/World/Human/HitBox/CollisionRightEar")
 		if nodeLeftEar != null and nodeRightEar != null:
-			if(position.distance_to(nodeLeftEar.get_global_position()) > position.distance_to(nodeRightEar.get_global_position())):
-				position = nodeLeftEar.get_global_position()+Vector2(-40,0)
+			var random_value = randi() % 100
+			
+			if random_value < 15:
+				print("Entering minigame!")
+				_spawn_minigame()
+				return
 			else:
-				position = nodeRightEar.get_global_position()+Vector2(40,0)
+				# Otherwise, teleport the mosquito to the opposite ear
+				if position.distance_to(nodeLeftEar.global_position) > position.distance_to(nodeRightEar.global_position):
+					position = nodeLeftEar.global_position + Vector2(-40, 0)
+				else:
+					position = nodeRightEar.global_position + Vector2(40, 0)
 				
 func handle_death():
 	cooldown_timer.stop()
@@ -204,3 +213,12 @@ func handle_death():
 	position = spawn_point.position
 	velocity = Vector2.ZERO
 	StatsManager.reduce_time(TIME_REDUCTION)
+
+func _spawn_minigame() -> void:
+	get_tree().paused = true
+	var world = get_tree().current_scene
+	get_tree().change_scene_to_packed(MINIGAME_LEVEL)
+	return
+
+func _transition_to_minigame() -> void:
+	get_tree().change_scene_to_packed(MINIGAME_LEVEL)
