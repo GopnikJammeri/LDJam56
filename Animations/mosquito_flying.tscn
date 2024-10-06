@@ -1,6 +1,47 @@
-[gd_scene load_steps=8 format=3 uid="uid://cwyrudj5qw1e8"]
+[gd_scene load_steps=17 format=3 uid="uid://cwyrudj5qw1e8"]
 
 [ext_resource type="Texture2D" uid="uid://xtipvotab3tl" path="res://Assets/Mosque_Fly_Loop.png" id="1_nv73u"]
+[ext_resource type="Texture2D" uid="uid://br8c1r57jwcrj" path="res://Assets/Mosque_Succ.png" id="2_qhewn"]
+[ext_resource type="Texture2D" uid="uid://cnehwdbjr1pnk" path="res://Assets/Mosque_Prep_to_Succ.png" id="3_5sbva"]
+
+[sub_resource type="Animation" id="Animation_danaq"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [1]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".:texture")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [ExtResource("1_nv73u")]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath(".:hframes")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [5]
+}
 
 [sub_resource type="Animation" id="Animation_tdclc"]
 resource_name = "mosquito_moving"
@@ -18,9 +59,23 @@ tracks/0/keys = {
 "update": 0,
 "values": [1, 16]
 }
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".:texture")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [ExtResource("1_nv73u")]
+}
 
-[sub_resource type="Animation" id="Animation_danaq"]
-length = 0.001
+[sub_resource type="Animation" id="Animation_ohnho"]
+resource_name = "mosquito_succ"
+length = 1.5
+loop_mode = 1
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
@@ -28,22 +83,94 @@ tracks/0/path = NodePath(".:frame")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
+"times": PackedFloat32Array(-0.0333333, 1.35),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [1, 19]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".:texture")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 1,
-"values": [1]
+"values": [ExtResource("2_qhewn")]
+}
+
+[sub_resource type="Animation" id="Animation_5d74y"]
+resource_name = "mosquito_succ_preperation"
+length = 1.5
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 1.4),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [1, 12]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".:texture")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [ExtResource("3_5sbva")]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath(".:hframes")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 1.5),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [4, 5]
 }
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_m8xt2"]
 _data = {
 "RESET": SubResource("Animation_danaq"),
-"mosquito_moving": SubResource("Animation_tdclc")
+"mosquito_moving": SubResource("Animation_tdclc"),
+"mosquito_succ": SubResource("Animation_ohnho"),
+"mosquito_succ_preperation": SubResource("Animation_5d74y")
 }
 
 [sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_x2ydf"]
 animation = &"mosquito_moving"
 
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_66qcu"]
+animation = &"mosquito_succ"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_4m1ol"]
+animation = &"mosquito_succ_preperation"
+
 [sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_bwcm0"]
+advance_mode = 2
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_ou3t4"]
+advance_mode = 2
+advance_condition = &"stopsucc"
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_pvftp"]
+advance_mode = 2
+advance_condition = &"succ"
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_ayn3q"]
+switch_mode = 2
 advance_mode = 2
 
 [sub_resource type="AnimationNodeStateMachine" id="AnimationNodeStateMachine_45n87"]
@@ -51,7 +178,11 @@ reset_ends = true
 states/Start/position = Vector2(278, 100)
 states/mosquito_moving/node = SubResource("AnimationNodeAnimation_x2ydf")
 states/mosquito_moving/position = Vector2(506, 100)
-transitions = ["Start", "mosquito_moving", SubResource("AnimationNodeStateMachineTransition_bwcm0")]
+states/mosquito_succ/node = SubResource("AnimationNodeAnimation_66qcu")
+states/mosquito_succ/position = Vector2(686, 161)
+states/mosquito_succ_preperation/node = SubResource("AnimationNodeAnimation_4m1ol")
+states/mosquito_succ_preperation/position = Vector2(756, 95)
+transitions = ["Start", "mosquito_moving", SubResource("AnimationNodeStateMachineTransition_bwcm0"), "mosquito_succ", "mosquito_moving", SubResource("AnimationNodeStateMachineTransition_ou3t4"), "mosquito_moving", "mosquito_succ_preperation", SubResource("AnimationNodeStateMachineTransition_pvftp"), "mosquito_succ_preperation", "mosquito_succ", SubResource("AnimationNodeStateMachineTransition_ayn3q")]
 
 [node name="MosquitoSprite" type="Sprite2D"]
 texture_filter = 1
@@ -65,3 +196,5 @@ libraries = {
 "": SubResource("AnimationLibrary_m8xt2")
 }
 tree_root = SubResource("AnimationNodeStateMachine_45n87")
+parameters/conditions/stopsucc = false
+parameters/conditions/succ = false

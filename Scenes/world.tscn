@@ -26,6 +26,8 @@ move_with_keys = true
 
 [node name="Mosquito" parent="." instance=ExtResource("1_aq7s8")]
 position = Vector2(276, 194)
+scale = Vector2(1.3, 1.3)
+collision_mask = 5
 
 [node name="Control" parent="." instance=ExtResource("4_cmb76")]
 offset_left = 6.0

@@ -22,6 +22,10 @@ StatsManager="*res://Scenes/stats_manager.tscn"
 Globals="*res://Scripts/globals.gd"
 BackgroundMusic="*res://Scenes/background_music.tscn"
 
+[display]
+
+window/stretch/mode="viewport"
+
 [input]
 
 mosquito_attack={

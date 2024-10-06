@@ -6,6 +6,7 @@ extends CharacterBody2D
 
 @onready var cooldown_timer: Timer = $CooldownTimer
 @onready var bite_mark_timer: Timer = $BiteMarkTimer
+@onready var animation_tree: AnimationTree = $MosquitoSprite/AnimationTree
 
 const BITE_MARK = preload("res://Scenes/bite_mark.tscn")
 const MINIGAME_LEVEL = preload("res://Scenes/minigame_level.tscn")
@@ -100,6 +101,8 @@ func fetch_character() -> void:
 		pass
 		
 func attach() -> void:
+	animation_tree["parameters/conditions/succ"] = true
+	animation_tree["parameters/conditions/stopsucc"] = false
 	velocity = Vector2.ZERO
 	can_move = false
 	is_attached = true
@@ -109,6 +112,8 @@ func attach() -> void:
 	bite_mark_timer.start()
 	
 func detach() -> void:
+	animation_tree["parameters/conditions/succ"] = false
+	animation_tree["parameters/conditions/stopsucc"] = true
 	can_move = true
 	is_attached = false
 	bite_mark_timer.stop()
@@ -201,10 +206,12 @@ func _on_hit_box_area_entered(area: Area2D) -> void:
 				return
 			else:
 				# Otherwise, teleport the mosquito to the opposite ear
-				if position.distance_to(nodeLeftEar.global_position) > position.distance_to(nodeRightEar.global_position):
-					position = nodeLeftEar.global_position + Vector2(-40, 0)
+				if(position.distance_to(nodeLeftEar.get_global_position()) > position.distance_to(nodeRightEar.get_global_position())):
+					position = nodeLeftEar.get_global_position()+Vector2(-40,0)
+					rotation = deg_to_rad(180)
 				else:
-					position = nodeRightEar.global_position + Vector2(40, 0)
+					position = nodeRightEar.get_global_position()+Vector2(40,0)
+					rotation = deg_to_rad(0)
 				
 func handle_death():
 	cooldown_timer.stop()

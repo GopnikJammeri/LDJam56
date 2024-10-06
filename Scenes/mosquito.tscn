@@ -53,5 +53,6 @@ one_shot = true
 [connection signal="timeout" from="CooldownTimer" to="." method="_on_cooldown_timer_timeout"]
 [connection signal="timeout" from="BiteMarkTimer" to="." method="_on_bite_mark_timer_timeout"]
 
+[editable path="MosquitoSprite"]
 [editable path="HitBox"]
 [editable path="HurtBox"]
