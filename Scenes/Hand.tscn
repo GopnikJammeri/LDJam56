@@ -1,10 +1,13 @@
-[gd_scene load_steps=45 format=3 uid="uid://cijdnabxraonc"]
+[gd_scene load_steps=48 format=3 uid="uid://cijdnabxraonc"]
 
 [ext_resource type="Script" path="res://Scripts/hand.gd" id="1_50x2t"]
 [ext_resource type="Texture2D" uid="uid://cuht8i8gdmclg" path="res://Assets/Stick.png" id="2_agg5w"]
 [ext_resource type="PackedScene" uid="uid://c5qlwdli75cap" path="res://Scenes/HitBoxHurtBox/hurt_box.tscn" id="3_goagf"]
 [ext_resource type="PackedScene" uid="uid://bx2x4gyv3cq5s" path="res://Scenes/HitBoxHurtBox/hit_box.tscn" id="3_w7f20"]
+[ext_resource type="AudioStream" uid="uid://70ne6w5hyt6i" path="res://Assets/Sounds/HandSwipe.wav" id="4_r6sg4"]
 [ext_resource type="Texture2D" uid="uid://c1etynhlubibu" path="res://Assets/handsSmaller.png" id="4_uta0q"]
+[ext_resource type="AudioStream" uid="uid://b6tvf2t64sltl" path="res://Assets/Sounds/HandSlap.wav" id="5_einvv"]
+[ext_resource type="AudioStream" uid="uid://00msgip87gc3" path="res://Assets/Sounds/Scratch.wav" id="6_lbvia"]
 
 [sub_resource type="Animation" id="Animation_s1kx5"]
 length = 0.001
@@ -23,7 +26,6 @@ tracks/0/keys = {
 
 [sub_resource type="Animation" id="Animation_7ts6j"]
 resource_name = "hand_grab_air"
-length = 1.5
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
@@ -31,11 +33,30 @@ tracks/0/path = NodePath("SpriteHand:frame")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
-"times": PackedFloat32Array(0, 1.5),
+"times": PackedFloat32Array(0, 1),
 "transitions": PackedFloat32Array(1, 1),
 "update": 0,
 "values": [171, 195]
 }
+tracks/1/type = "audio"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("AudioStreamPlayer2D")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"clips": [{
+"end_offset": 0.0,
+"start_offset": 0.0,
+"stream": ExtResource("4_r6sg4")
+}, {
+"end_offset": 0.0,
+"start_offset": 0.0,
+"stream": ExtResource("5_einvv")
+}],
+"times": PackedFloat32Array(0.0333333, 0.2)
+}
+tracks/1/use_blend = true
 
 [sub_resource type="Animation" id="Animation_jayhr"]
 resource_name = "hand_idle"
@@ -103,6 +124,25 @@ tracks/0/keys = {
 "update": 0,
 "values": [243, 249]
 }
+tracks/1/type = "audio"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("AudioStreamPlayer2D")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"clips": [{
+"end_offset": 0.0,
+"start_offset": 0.0,
+"stream": ExtResource("6_lbvia")
+}, {
+"end_offset": 0.0,
+"start_offset": 0.0,
+"stream": ExtResource("6_lbvia")
+}],
+"times": PackedFloat32Array(0.0333333, 0.433333)
+}
+tracks/1/use_blend = false
 
 [sub_resource type="Animation" id="Animation_lhm17"]
 resource_name = "hand_scratch_back_to_idle"
@@ -303,7 +343,7 @@ states/hand_selected/position = Vector2(533, 118)
 states/hand_selected_idle/node = SubResource("AnimationNodeAnimation_7yucw")
 states/hand_selected_idle/position = Vector2(752, 118)
 transitions = ["Start", "hand_idle", SubResource("AnimationNodeStateMachineTransition_pjwb4"), "hand_idle", "hand_selected", SubResource("AnimationNodeStateMachineTransition_5g8px"), "hand_selected", "hand_selected_idle", SubResource("AnimationNodeStateMachineTransition_bdxh4"), "hand_selected_idle", "hand_selected revert", SubResource("AnimationNodeStateMachineTransition_2c3xc"), "hand_selected revert", "hand_idle", SubResource("AnimationNodeStateMachineTransition_lr3kt"), "hand_grab_air", "hand_selected_idle", SubResource("AnimationNodeStateMachineTransition_g11rb"), "hand_plug_ear", "hand_plug_idle", SubResource("AnimationNodeStateMachineTransition_4ng42"), "hand_plug_idle", "hand_plug_ear 2", SubResource("AnimationNodeStateMachineTransition_kqxe3"), "hand_plug_ear 2", "hand_selected_idle", SubResource("AnimationNodeStateMachineTransition_sblms"), "hand_selected_idle", "hand_plug_ear", SubResource("AnimationNodeStateMachineTransition_6ghtb"), "hand_scratch_transition", "hand_scratch", SubResource("AnimationNodeStateMachineTransition_olrkl"), "hand_scratch", "hand_scratch_back_to_idle", SubResource("AnimationNodeStateMachineTransition_1m2pe"), "hand_scratch_back_to_idle", "hand_selected_idle", SubResource("AnimationNodeStateMachineTransition_65eok")]
-graph_offset = Vector2(0, -19.538)
+graph_offset = Vector2(0, 51.5522)
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_tfwrm"]
 radius = 44.0
@@ -378,6 +418,9 @@ collision_mask = 16
 position = Vector2(0, -12)
 shape = SubResource("CapsuleShape2D_bwp2f")
 disabled = true
+
+[node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="."]
+volume_db = 15.0
 
 [connection signal="timeout" from="AttackCooldown" to="." method="_on_attack_cooldown_timeout"]
 [connection signal="timeout" from="CollisionCooldown" to="." method="_on_collision_cooldown_timeout"]
