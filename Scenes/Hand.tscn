@@ -223,8 +223,6 @@ animation = &"hand_selected_idle"
 advance_mode = 2
 
 [sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_5g8px"]
-break_loop_at_end = true
-switch_mode = 2
 advance_mode = 2
 advance_condition = &"selectedHand"
 
@@ -234,7 +232,6 @@ switch_mode = 2
 advance_mode = 2
 
 [sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_2c3xc"]
-break_loop_at_end = true
 switch_mode = 2
 advance_mode = 2
 advance_condition = &"deselectedHand"
@@ -306,7 +303,7 @@ states/hand_selected/position = Vector2(533, 118)
 states/hand_selected_idle/node = SubResource("AnimationNodeAnimation_7yucw")
 states/hand_selected_idle/position = Vector2(752, 118)
 transitions = ["Start", "hand_idle", SubResource("AnimationNodeStateMachineTransition_pjwb4"), "hand_idle", "hand_selected", SubResource("AnimationNodeStateMachineTransition_5g8px"), "hand_selected", "hand_selected_idle", SubResource("AnimationNodeStateMachineTransition_bdxh4"), "hand_selected_idle", "hand_selected revert", SubResource("AnimationNodeStateMachineTransition_2c3xc"), "hand_selected revert", "hand_idle", SubResource("AnimationNodeStateMachineTransition_lr3kt"), "hand_grab_air", "hand_selected_idle", SubResource("AnimationNodeStateMachineTransition_g11rb"), "hand_plug_ear", "hand_plug_idle", SubResource("AnimationNodeStateMachineTransition_4ng42"), "hand_plug_idle", "hand_plug_ear 2", SubResource("AnimationNodeStateMachineTransition_kqxe3"), "hand_plug_ear 2", "hand_selected_idle", SubResource("AnimationNodeStateMachineTransition_sblms"), "hand_selected_idle", "hand_plug_ear", SubResource("AnimationNodeStateMachineTransition_6ghtb"), "hand_scratch_transition", "hand_scratch", SubResource("AnimationNodeStateMachineTransition_olrkl"), "hand_scratch", "hand_scratch_back_to_idle", SubResource("AnimationNodeStateMachineTransition_1m2pe"), "hand_scratch_back_to_idle", "hand_selected_idle", SubResource("AnimationNodeStateMachineTransition_65eok")]
-graph_offset = Vector2(0, 82.0194)
+graph_offset = Vector2(0, -19.538)
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_tfwrm"]
 radius = 44.0
