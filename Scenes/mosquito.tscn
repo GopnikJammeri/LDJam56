@@ -1,4 +1,4 @@
-[gd_scene load_steps=12 format=3 uid="uid://bosri6tikh45c"]
+[gd_scene load_steps=15 format=3 uid="uid://bosri6tikh45c"]
 
 [ext_resource type="Script" path="res://Scripts/mosquito.gd" id="1_s08aw"]
 [ext_resource type="PackedScene" uid="uid://cwyrudj5qw1e8" path="res://Animations/mosquito_flying.tscn" id="2_82np8"]
@@ -8,6 +8,9 @@
 [ext_resource type="AudioStream" uid="uid://3qov36fvefq2" path="res://Assets/Sounds/EarIn.wav" id="6_7dr1c"]
 [ext_resource type="AudioStream" uid="uid://dye07am7wmuul" path="res://Assets/Sounds/EarOut.wav" id="7_y1jxw"]
 [ext_resource type="AudioStream" uid="uid://wgut5wygrjyk" path="res://Assets/Sounds/MosquitoDeath.wav" id="8_tkavx"]
+[ext_resource type="AudioStream" uid="uid://dx2c0vcj34qyw" path="res://Assets/Sounds/MosquitoFlying.wav" id="9_0fk70"]
+[ext_resource type="AudioStream" uid="uid://d3fo7qd2ubi7j" path="res://Assets/Sounds/MosquitoFlyingInsideHead.wav" id="10_wtd7j"]
+[ext_resource type="AudioStream" uid="uid://ckkx76n8cafko" path="res://Assets/Sounds/MosquitoFlyingOutsideHead.wav" id="11_ttbk4"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_eiqwn"]
 size = Vector2(22, 12)
@@ -66,12 +69,27 @@ one_shot = true
 
 [node name="EarIn" type="AudioStreamPlayer2D" parent="."]
 stream = ExtResource("6_7dr1c")
+volume_db = 10.0
 
 [node name="EarOut" type="AudioStreamPlayer2D" parent="."]
 stream = ExtResource("7_y1jxw")
+volume_db = 10.0
 
 [node name="MosqDeath" type="AudioStreamPlayer2D" parent="."]
 stream = ExtResource("8_tkavx")
+volume_db = 10.0
+
+[node name="MosqFlying" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("9_0fk70")
+volume_db = 20.0
+
+[node name="MosqInsideHeadFlying" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("10_wtd7j")
+volume_db = 22.0
+
+[node name="MosqOutsideHeadFlying" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("11_ttbk4")
+volume_db = 20.0
 
 [connection signal="area_entered" from="HitBox" to="." method="_on_hit_box_area_entered"]
 [connection signal="area_entered" from="HurtBox" to="." method="_on_hurt_box_area_entered"]

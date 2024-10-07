@@ -78,6 +78,8 @@ func handle_special_portal() -> void:
 		mosquito.position = $"../MosquitoSpawnPoint".position
 		mosquito.speed = mosquito.speed_in_world
 		mosquito.rotation_speed = mosquito.rotation_speed_in_world
+		mosquito.mosq_inside_head_flying.stop()
+		mosquito.mosq_flying.play()
 		#print( $"../MosquitoSpawnPoint".position)
 	else:
 		pass

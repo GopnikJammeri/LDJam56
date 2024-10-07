@@ -420,7 +420,7 @@ shape = SubResource("CapsuleShape2D_bwp2f")
 disabled = true
 
 [node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="."]
-volume_db = 15.0
+volume_db = 24.0
 
 [connection signal="timeout" from="AttackCooldown" to="." method="_on_attack_cooldown_timeout"]
 [connection signal="timeout" from="CollisionCooldown" to="." method="_on_collision_cooldown_timeout"]

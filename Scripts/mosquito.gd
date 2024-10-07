@@ -22,6 +22,9 @@ extends CharacterBody2D
 @onready var ear_out = $EarOut
 @onready var ear_in = $EarIn
 @onready var mosq_death = $MosqDeath
+@onready var mosq_flying = $MosqFlying
+@onready var mosq_inside_head_flying = $MosqInsideHeadFlying
+@onready var mosq_outside_head_flying = $MosqOutsideHeadFlying
 
 const BITE_MARK = preload("res://Scenes/bite_mark.tscn")
 const MINIGAME_LEVEL = preload("res://Scenes/minigame_level.tscn")
@@ -49,8 +52,14 @@ var current_camera: Camera2D
 var position_of_ear
 var rotation_of_ear
 
-
 func _ready() -> void:
+	
+	if mosq_inside_head_flying.playing:
+		mosq_inside_head_flying.stop()
+	if mosq_outside_head_flying.playing:
+		mosq_outside_head_flying.stop()
+	
+	mosq_flying.play()
 	screen_size = get_viewport_rect().size
 	current_camera = main_camera
 	set_camera_dimensions()
@@ -233,7 +242,7 @@ func handle_human_position() -> void:
 	elif attached_to == Globals.MosquitoPlace.FACE:
 		position_of_human = human.position
 
-	
+
 func _on_hit_box_area_entered(area: Area2D) -> void: 
 	if area.is_in_group("Ears"):
 		if nodeLeftEar != null and nodeRightEar != null:
@@ -255,7 +264,8 @@ func _on_hit_box_area_entered(area: Area2D) -> void:
 				position_of_ear = nodeRightEar.get_global_position() + Vector2(40,0)
 				rotation_of_ear = deg_to_rad(0)
 			
-			
+			mosq_flying.stop()
+			mosq_outside_head_flying.play()
 			position = Vector2(1, 1)
 			velocity = Vector2.ZERO
 			can_move = false
@@ -284,6 +294,9 @@ func handle_death():
 	StatsManager.add_health(10)
 
 func _spawn_minigame() -> void:
+	mosq_flying.stop()
+	mosq_outside_head_flying.stop()
+	mosq_inside_head_flying.play()
 	position = mosquito_spawn_point_minigame.global_position
 	#print(position, mosquito_spawn_point_minigame.global_position)
 	is_in_minigame = true
@@ -321,6 +334,8 @@ func _on_head_pass_trough_timer_timeout():
 		return
 	
 	ear_out.play()
+	mosq_flying.play()
+	mosq_outside_head_flying.stop()
 	StatsManager.ReduceHealth(15)
 	move_direction_sprite.visible = true
 	mosquito_sprite.visible = true
