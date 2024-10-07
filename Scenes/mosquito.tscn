@@ -1,10 +1,13 @@
-[gd_scene load_steps=9 format=3 uid="uid://bosri6tikh45c"]
+[gd_scene load_steps=12 format=3 uid="uid://bosri6tikh45c"]
 
 [ext_resource type="Script" path="res://Scripts/mosquito.gd" id="1_s08aw"]
 [ext_resource type="PackedScene" uid="uid://cwyrudj5qw1e8" path="res://Animations/mosquito_flying.tscn" id="2_82np8"]
 [ext_resource type="PackedScene" uid="uid://c5qlwdli75cap" path="res://Scenes/HitBoxHurtBox/hurt_box.tscn" id="3_5ae6k"]
 [ext_resource type="PackedScene" uid="uid://bx2x4gyv3cq5s" path="res://Scenes/HitBoxHurtBox/hit_box.tscn" id="3_65nvn"]
 [ext_resource type="Texture2D" uid="uid://cqd5dvyf4o5cw" path="res://Assets/Arrow.png" id="5_x7t1j"]
+[ext_resource type="AudioStream" uid="uid://3qov36fvefq2" path="res://Assets/Sounds/EarIn.wav" id="6_7dr1c"]
+[ext_resource type="AudioStream" uid="uid://dye07am7wmuul" path="res://Assets/Sounds/EarOut.wav" id="7_y1jxw"]
+[ext_resource type="AudioStream" uid="uid://wgut5wygrjyk" path="res://Assets/Sounds/MosquitoDeath.wav" id="8_tkavx"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_eiqwn"]
 size = Vector2(22, 12)
@@ -60,6 +63,15 @@ texture = ExtResource("5_x7t1j")
 [node name="HeadPassTroughTimer" type="Timer" parent="."]
 wait_time = 1.5
 one_shot = true
+
+[node name="EarIn" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("6_7dr1c")
+
+[node name="EarOut" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("7_y1jxw")
+
+[node name="MosqDeath" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("8_tkavx")
 
 [connection signal="area_entered" from="HitBox" to="." method="_on_hit_box_area_entered"]
 [connection signal="area_entered" from="HurtBox" to="." method="_on_hurt_box_area_entered"]
