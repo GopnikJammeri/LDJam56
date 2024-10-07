@@ -3,12 +3,12 @@
 importer="wav"
 type="AudioStreamWAV"
 uid="uid://dx2c0vcj34qyw"
-path="res://.godot/imported/MosquitoFlying_04.wav-5a38e1e0988c9ed5932e955f2380a76d.sample"
+path="res://.godot/imported/MosquitoFlying.wav-dc55f6ceea9bd659eb43399f14fd857d.sample"
 
 [deps]
 
-source_file="res://Assets/Sounds/MosquitoFlying_04.wav"
-dest_files=["res://.godot/imported/MosquitoFlying_04.wav-5a38e1e0988c9ed5932e955f2380a76d.sample"]
+source_file="res://Assets/Sounds/MosquitoFlying.wav"
+dest_files=["res://.godot/imported/MosquitoFlying.wav-dc55f6ceea9bd659eb43399f14fd857d.sample"]
 
 [params]
 
