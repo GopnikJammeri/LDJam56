@@ -23,6 +23,7 @@ extends CharacterBody2D
 const BITE_MARK = preload("res://Scenes/bite_mark.tscn")
 const MINIGAME_LEVEL = preload("res://Scenes/minigame_level.tscn")
 const BLOOD_PUDDLE = preload("res://Scenes/blood_puddle.tscn")
+const MOSQUITO = preload("res://Scenes/mosquito.tscn")
 const TIME_REDUCTION: float = 30.0
 
 var speed: float = 450
@@ -229,7 +230,7 @@ func handle_human_position() -> void:
 	elif attached_to == Globals.MosquitoPlace.FACE:
 		position_of_human = human.position
 
-
+	
 func _on_hit_box_area_entered(area: Area2D) -> void: 
 	if area.is_in_group("Ears"):
 		if nodeLeftEar != null and nodeRightEar != null:
@@ -265,12 +266,12 @@ func _on_hit_box_area_entered(area: Area2D) -> void:
 		
 func handle_death():
 	cooldown_timer.stop()
-	bite_mark_timer.stop()
-	
+	attached_to = Globals.MosquitoPlace.NONE
 	spawn_blood_puddle()
 	
 	visible = false
-	detach()
+	if is_attached:
+		detach()
 	can_move = false
 	position = spawn_point.position
 	respawn_timer.start()
@@ -296,7 +297,9 @@ func set_camera_dimensions() -> void:
 
 func _on_respawn_timer_timeout() -> void:
 	can_move = true
+	is_on_human = false
 	visible = true
+
 
 func spawn_blood_puddle() -> void:
 	var blood_puddle = BLOOD_PUDDLE.instantiate()
