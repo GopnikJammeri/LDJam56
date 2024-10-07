@@ -3,12 +3,12 @@
 importer="wav"
 type="AudioStreamWAV"
 uid="uid://d3fo7qd2ubi7j"
-path="res://.godot/imported/MosquitoFlyingInsideHead_04.wav-2e945a45f2983b59df22a7a1c9ff1764.sample"
+path="res://.godot/imported/MosquitoFlyingInsideHead.wav-c1edf8f1f24a0c8040ada7bd00d85eb3.sample"
 
 [deps]
 
-source_file="res://Assets/Sounds/MosquitoFlyingInsideHead_04.wav"
-dest_files=["res://.godot/imported/MosquitoFlyingInsideHead_04.wav-2e945a45f2983b59df22a7a1c9ff1764.sample"]
+source_file="res://Assets/Sounds/MosquitoFlyingInsideHead.wav"
+dest_files=["res://.godot/imported/MosquitoFlyingInsideHead.wav-c1edf8f1f24a0c8040ada7bd00d85eb3.sample"]
 
 [params]
 

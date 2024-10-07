@@ -3,12 +3,12 @@
 importer="wav"
 type="AudioStreamWAV"
 uid="uid://70ne6w5hyt6i"
-path="res://.godot/imported/HandSwipeLayer2_01.wav-8337bb2b5d8ad699782cb04d6f866ff1.sample"
+path="res://.godot/imported/HandSwipe.wav-9da9e9eee592070e4c3f9da34f581977.sample"
 
 [deps]
 
-source_file="res://Assets/Sounds/HandSwipeLayer2_01.wav"
-dest_files=["res://.godot/imported/HandSwipeLayer2_01.wav-8337bb2b5d8ad699782cb04d6f866ff1.sample"]
+source_file="res://Assets/Sounds/HandSwipe.wav"
+dest_files=["res://.godot/imported/HandSwipe.wav-9da9e9eee592070e4c3f9da34f581977.sample"]
 
 [params]
 
